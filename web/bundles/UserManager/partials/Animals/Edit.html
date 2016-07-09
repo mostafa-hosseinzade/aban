@@ -1,0 +1,94 @@
+<form ng-submit="EditAnimale()" ng-show="EditAnimaleShow" name="EditAnimaleForm" novalidate="true">
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-12">
+            <div class="col-lg-6 test pull-left col-md-6 col-sm-12 col-xs-12">
+                <!--<img ng-src="{{ShowItem.photo}}" class="pull-left img img-rounded">-->
+                <!--<input type="file" ng-model="Photo" class="form-control">-->
+
+                <inputfileanimale></inputfileanimale>
+                <div></div>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>نام * </label>
+                <input type="text" ng-model="AddItem.name" required name="name" ng-class="{ErrorInput:EditAnimaleForm.name.$invalid}"  class="form-control">
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+
+                <label>  تاریخ تولد</label>
+                <input type="text" ng-model="AddItem.age" id="EditAge"  class="form-control EditAge">
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> وزن</label>
+                <input type="text" ng-model="AddItem.weight"   class="form-control">
+
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> قد</label>
+                <input type="text" ng-model="AddItem.stature"  class="form-control">
+
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>کد میکروچیپ </label>
+                <input type="text" ng-model="AddItem.microChip"  class="form-control">
+
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>رنگ </label>
+                <input type="text" ng-model="AddItem.color"  class="form-control">
+
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>کد پرونده *</label>
+                <input type="text" ng-model="AddItem.codeParvande" required name="Code" ng-class="{ErrorInput:EditAnimaleForm.Code.$invalid}"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>گونه  </label>
+                <input type="text" ng-model="AddItem.goneh"   name="Goneh"  class="form-control">
+
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>نژاد *</label>
+                <input type="text" ng-model="AddItem.nezhad" required name="Nezhad" ng-class="{ErrorInput:EditAnimaleForm.Nezhad.$invalid}" class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> دسته بندی *</label>
+                <select ng-model="AddItem.animalsTypeId" required name="Category" ng-class="{ErrorInput:EditAnimaleForm.Category.$invalid}" class="form-control">
+                    <option value="{{category.id}}" ng-repeat="category in categoryAll" ng-selected="AddItem.animalsTypeId == category.id" title="{{animalsType.describtion}}">{{category.animalsType}}</option>
+                </select>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> وضعیت</label>
+                <select ng-model="AddItem.active" class="form-control">
+                    <option value="true" ng-selected="AddItem.active == 1">فعال</option>
+                    <option value="false" ng-selected="AddItem.active == 0">غیر فعال</option>
+                </select>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> جنسیت *</label>
+                <select ng-model="AddItem.sex" required name="sex" ng-class="{ErrorInput:EditAnimaleForm.sex.$invalid}" class="form-control">
+                    <option value="true" ng-selected="AddItem.sex == 1">نر</option>
+                    <option value="false" ng-selected="AddItem.sex == 0">ماده </option>
+                </select>
+            </div>
+
+          
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success pull-left" ng-disabled="EditAnimaleForm.name.$invalid || EditAnimaleForm.Nezhad.$invalid || EditAnimaleForm.Code.$invalid || EditAnimaleForm.sex.$invalid || EditAnimaleForm.Category.$invalid" type="submit">ارسال</button>
+            <button class="btn btn-danger pull-left Close" data-dismiss="modal" aria-label="Close">انصراف</button>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+</form>
+
+<script>
+    $(document).ready(function() {
+        $("#datehistoryedit").datepicker();
+        $(".EditAge").datepicker();
+    });
+</script>

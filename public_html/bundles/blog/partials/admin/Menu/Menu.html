@@ -1,0 +1,443 @@
+<h3 class="page">منوهای سایت
+    <button  type="button" class="btn btn-info btn-sm pull-left" id="modalAdd" data-toggle="modal" data-target="#AddModal">
+        درج اطلاعات جدید
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+</h3>
+<table class="table table-bordered table-striped table-hover" ng-click="text = false">
+    <thead>
+        <tr>
+            <th>{{titleTitle}}</th>
+            <th>{{orderListTitle}}</th>
+            <th>
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortAscTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortDesc('createdAt')" class="glyphicon glyphicon-arrow-up"></span>
+                {{createdAtTitle}}
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortDescTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortAsc('createdAt')" class="glyphicon glyphicon-arrow-down"></span>
+            </th>
+            <th>
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortAscTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortDesc('updatedAt')" class="glyphicon glyphicon-arrow-up"></span>
+                {{updatedAtTitle}}
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortDescTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortAsc('updatedAt')" class="glyphicon glyphicon-arrow-down"></span>
+            </th>
+            <th>
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortAscTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortDesc('id')" class="glyphicon glyphicon-arrow-up"></span>
+                {{idTitle}}
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortDescTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortAsc('id')" class="glyphicon glyphicon-arrow-down"></span>
+            </th>
+            <th>{{activeTitle}}</th>
+            <th>{{parentTitle}}</th>
+            <th>{{pageTitle}}</th>
+            <th>{{actionTitle}}</th>
+        </tr>
+    </thead>
+    <tbody >
+        <!--   Content Page          -->
+        <tr ng-repeat="entity in content" id="{{entity.id}}" >
+            <td class="td" id="{{ entity.id}}title"  value="{{entity.title}}" >
+                <span id="{{entity.id}}title_TP">{{ entity.title | cut:true:25:' ...'}}</span>
+                <textarea  name="title" class="{{ entity.id}}title form-control TextAreaContent" style="display: none">{{entity.title}}</textarea>
+            </td>
+
+            <td class="td" id="{{ entity.id}}order_list" value="{{entity.order_list}}" >
+                <p id="{{entity.id}}order_list_OP">{{ entity.order_list}}</p>
+                <textarea name="order_list" class="{{ entity.id}}order_list form-control TextAreaContent" style="display: none">{{ entity.order_list}}</textarea>
+            </td>
+
+            <td>{{ entity.created_at}}</td>
+
+            <td>{{ entity.updated_at}}</td>
+
+            <td><span ng-model="id">{{ entity.id}}</span></td>
+            <td ng-click="active = !active">
+                <span ng-show='!active'>
+                    <span style='color: green' ng-show='entity.active'>فعال</span>
+                    <span style='color: red' ng-hide='entity.active'>غیر فعال</span>
+                </span>
+
+                <select class="form-control TextAreaContent" name="active" id="{{entity.id}}active" ng-show="active" >
+                    <option value="true" ng-selected="entity.active == true" ng-click='active= !active' style="color:green">فعال</option>
+                    <option value="0" ng-selected="entity.active == false" ng-click='active= !active' style="color:red">غیر فعال</option> 
+                </select>
+            </td>
+            <td class="td" id="{{ entity.id}}ParentEdit" value="{{ entity.parent.title}}" ><span ng-model="ctg">{{ entity.parent.title}}</span>
+                <input type="hidden" id="{{entity.id}}ParentEditId" value="{{entity.parent.id}}">
+                <!--<textarea name="order_list" class="{{ entity.id}}ParentEdit form-control TextAreaContent" style="display: none">{{ entity.parent.title}}</textarea>-->
+            </td>
+            <td class="td" id="{{ entity.id}}pageEdit" value="{{ entity.page.title}}" ><span ng-model="ctg">{{ entity.page.title}}</span>
+                <input type="hidden" id="{{entity.id}}pageEditId" value="{{entity.page.id}}">
+                <!--<textarea name="order_list" class="{{ entity.id}}pageEdit form-control TextAreaContent" style="display: none">{{ entity.page.title}}</textarea>-->
+            </td>
+            <td>
+                <span style="cursor: pointer" onclick="Edit('{{entity.id}}','{{entity.title}}','{{entity.parent.id}}','{{entity.page.id}}','{{ entity.order_list}}','{{entity.active}}')" data-placement="bottom" title="{{editBtnTitle}}" id="BtnEdit" class="badge badge-success btnEditTitleTooltip "><span class="glyphicon glyphicon-edit"></span></span>
+                <span style="cursor: pointer" data-toggle="tooltip" data-placement="bottom" title="{{showBtnTitle}}" onclick="Show('{{entity.id}}','{{entity.title}}','{{entity.parent.id}}','{{entity.page.content| nl2br}}','{{ entity.order_list}}')" class="badge badge-info btnShowTitleTooltip"><span class="glyphicon glyphicon-ok"></span></span>
+                <span style="cursor: pointer" data-toggle="tooltip" data-placement="bottom" title="{{deleteBtnTitle}}" onclick="Delete('{{ entity.id}}')" class="badge badge-error btnDeleteTitleTooltip"><span class="glyphicon glyphicon-remove"></span></span>
+
+            </td>
+
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>{{titleTitle}}</th>
+            <th>{{orderListTitle}}</th>
+            <th>
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortAscTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortDesc('createdAt')" class="glyphicon glyphicon-arrow-up"></span>
+                {{createdAtTitle}}
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortDescTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortAsc('createdAt')" class="glyphicon glyphicon-arrow-down"></span>
+            </th>
+            <th>
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortAscTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortDesc('updatedAt')" class="glyphicon glyphicon-arrow-up"></span>
+                {{updatedAtTitle}}
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortDescTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortAsc('updatedAt')" class="glyphicon glyphicon-arrow-down"></span>
+            </th>
+            <th>
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortAscTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortDesc('id')" class="glyphicon glyphicon-arrow-up"></span>
+                {{idTitle}}
+                <span data-toggle="tooltip" data-placement="bottom" title="{{sortDescTitle}}" style="cursor: pointer" ng-show="true" ng-click="sortAsc('id')" class="glyphicon glyphicon-arrow-down"></span>
+            </th>
+            <th>{{activeTitle}}</th>
+            <th>{{parentTitle}}</th>
+            <th>{{pageTitle}}</th>
+            <th>{{actionTitle}}</th>
+        </tr>
+    </tfoot>
+</table>
+
+<!-- Paginate  -->
+<nav style="text-align: center">
+    <ul class="pagination">
+        <li>
+            <a style="cursor: pointer;" id="paginatePreview" aria-label="Previous" ng-click="pagePreview()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="paginate active" id="active"><a style="cursor: pointer;" ng-click="paginate(1)">1</a></li>
+        <li ng-repeat="result in Allpaginate" class="paginate" ng-hide="result == CountPaginate"><a style="cursor: pointer;" ng-click="paginate(result + 1)">{{result + 1}}</a></li>
+        <li>
+            <a style="cursor: pointer;" id="paginateNext" aria-label="Next" ng-click="pageNext()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<!-- Menu Add -->
+<div class="modal fade" ng-controller="menuAdd" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">فرم درج اطلاعات</h4>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="SubmitAdd()">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> عنوان : </label>
+                        <input type="text" name="title" ng-model="title"  class="form-control" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> مرتب سازی بر اساس : </label>
+                        <input type="text" id="Addorder_list" name="order_list" ng-model="order_list" class="form-control" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> فعال : </label>
+                        <select class="form-control" ng-model="active" name="AddActive" id="EditActive" testChange>
+                            <option value="true">فعال</option>
+                            <option value="false" >غیر فعال</option> 
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> انتخاب صفحه : </label>
+                        <select id="Addctg" name="ctg" ng-model="page" class="form-control">
+                            <option ng-repeat="pageValue in pageAll" value="{{pageValue.id}}">
+                                {{pageValue.title}}
+                            </option>
+                        </select>
+                    </div>                    
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> زیر شاخه : </label>
+                        <select id="Addctg" name="parent" ng-model="parentmenu" class="form-control">
+                            <option ng-repeat="menuValue in menuAll" value="{{menuValue.id}}">
+                                {{menuValue.title}}
+                            </option>
+                        </select>
+                    </div>   
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">انصراف</button>
+                        <button type="reset" class="btn btn-danger">خالی کردن فیلدها</button>
+                        <button type="submit" class="btn btn-primary">ذخیره اطلاعات</button>
+                    </div>
+                </form>  
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Add Menu  -->
+
+<!-- Edit Blog Menu -->
+<button type="button" class="btn btn-primary hidden" id="EditBtnModal" data-toggle="modal" data-target="#EditModal">
+    ویرایش انتخاب شده
+</button>
+<!-- Content -->
+<div class="modal fade" ng-controller="menuEdit" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">ویرایش اطلاعات</h4>
+            </div>
+            <div class="modal-body">
+                <form name="EditForm" ng-submit="SubmitEdit()">
+                    <input type="text" ng-show="false" name="EditId" id="EditId" ng-model="EditId" testChange>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> عنوان : </label>
+                        <input type="text" id="EditTitle" name="title" ng-model="title" class="form-control" testChange>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> مرتب سازی بر اساس : </label>
+                        <input type="text" id="Editorder_list" name="order_list" ng-model="order_list" class="form-control" testChange >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> فعال : </label>
+                        <select class="form-control" ng-model="active" name="EditActive" id="EditActive" testChange>
+                            <option value="true" ng-selected="active" >فعال</option>
+                            <option value="false" ng-selected="active">غیر فعال</option> 
+                        </select>
+                    </div>
+
+                    <input type="text" ng-show="false" id="EditmenuId" ng-model="EditmenuId"    testChange >
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> زیرشاخه : </label>
+                        <select id="EditMenu" name="EditMenu" ng-model="EditMenu" class="form-control" >
+                            <option ng-repeat="menuValue in menuAll" value="{{menuValue.id}}">
+                                {{menuValue.title}}
+                            </option>
+                        </select>
+                    </div> 
+
+                    <input type="text" ng-show="false" id="EditpageId" ng-model="EditpageId"    testChange >
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> انتخاب صفحه جدید‌:</label>
+                        <select id="EditPage" name="EditPage" ng-model="EditPage" class="form-control">
+                            <option ng-repeat="pageValue in pageAll" value="{{pageValue.id}}">
+                                {{pageValue.title}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group showPage" style="display: none">
+                        <label for="message-text" class="control-label"> محتوا : </label>
+                        <textarea class="form-control" id="ShowPageTextArea" name="contentValue" ng-model="contentValue" ></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">انصراف</button>
+                        <button type="submit" class="btn btn-primary SubmitEditForm">ذخیره اطلاعات</button>
+                    </div>
+                </form>  
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Edit Menu  -->
+
+<!-- Delete Blog Menu -->
+<button type="button" class="btn btn-primary hidden" id="DeleteBtnModal" data-toggle="modal" data-target="#DeleteModal">
+    حذف انتخاب شده ها
+</button>
+<!-- Content -->
+<div class="modal fade" ng-controller="menuDelete" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">ویرایش اطلاعات</h4>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="SubmitDelete()">
+                    <input type="hidden" name="DeleteId" id="DeleteId" ng-model="DeleteId">
+                    <p>
+                        آیا از حذف اطلاعات مطمءن هستید؟
+                    </p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="CloseDeleteBtn" data-dismiss="modal">انصراف</button>
+                        <button type="submit" class="btn btn-danger">حذف اطلاعات</button>
+                    </div>
+                </form>  
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Delete Menu  -->
+
+<script type="text/javascript">
+                                    //Show Tooltip
+                                    $(function () {
+                                    $('[data-toggle="tooltip"]').tooltip()
+                                    })
+                                    $(document).on('mouseenter', '.btnEditTitleTooltip', function() {
+                            $('.btnEditTitleTooltip').tooltip();
+                            });
+                                    $(document).on('mouseenter', '.btnShowTitleTooltip', function() {
+                            $('.btnShowTitleTooltip').tooltip();
+                            });
+                                    $(document).on('mouseenter', '.btnDeleteTitleTooltip', function() {
+                            $('.btnDeleteTitleTooltip').tooltip();
+                            });
+                                    //Show Modal Add Menu
+                                    $(document).on('click', '#modalAdd', function() {
+                            try{
+                            CKEDITOR.replace('AddContentTextArea', {language: 'fa'});
+                            } catch (error){
+                            console.log('ckEditor Already Exist');
+                            }
+
+                            });
+                                    //Show TextArea Edit Page
+                                    $(document).on('click', '.td', function() {
+                            var id = $(this).attr('id');
+                                    var value = $(this).attr('value');
+                                    $('.' + id).css({'display': 'block',
+                                    'position': 'absolute',
+                                    'z-index': '9999999',
+                                    'top': '0', 'right': '0',
+                                    'height': $(this).css('height'), 'width': $(this).css('width')});
+                            });
+                                    //Hidden Textarea Edit
+                                    $(document).on('dblclick', 'body', function() {
+                            $('.TextAreaContent').css({'display': 'none'});
+                            });
+                                    //Function Edit Info With Show Modal
+                                            function Edit(id, title, parent, page, order_list, active){
+                                            var id2, title2, order_list2, parent2, page2, active2;
+                                                    parent2 = $('#EditmenuId');
+                                                    parent2.val(parent);
+                                                    parent2.trigger('input');
+                                                    page2 = $('#EditpageId');
+                                                    page2.val(page);
+                                                    page2.trigger('input');
+                                                    id2 = $('#EditId');
+                                                    id2.val(id);
+                                                    id2.trigger("input");
+                                                    active2 = $('#EditActive');
+                                                    active2.val(active);
+                                                    active2.trigger('select');
+                                                    title2 = $('#EditTitle');
+                                                    title2.val(title);
+                                                    title2.trigger("input");
+                                                    order_list2 = $('#Editorder_list');
+                                                    order_list2.val(order_list);
+                                                    order_list2.trigger('input');
+                                                    $('.showPage').css('display', 'none');
+                                                    $('#EditBtnModal').click();
+                                            }
+
+                                    //Function Edit Not Show Modal
+                                    function EditNotShow(id, title, parent, page, order_list, active){
+                                    var id2, title2, order_list2, parent2, page2, active2;
+                                            parent2 = $('#EditmenuId');
+                                            parent2.val(parent);
+                                            parent2.trigger('input');
+                                            page2 = $('#EditpageId');
+                                            page2.val(page);
+                                            page2.trigger('input');
+                                            id2 = $('#EditId');
+                                            id2.val(id);
+                                            id2.trigger("input");
+                                            active2 = $('#EditActive');
+                                            active2.val(active);
+                                            active2.trigger('select');
+                                            title2 = $('#EditTitle');
+                                            title2.val(title);
+                                            title2.trigger("input");
+                                            order_list2 = $('#Editorder_list');
+                                            order_list2.val(order_list);
+                                            order_list2.trigger('input');
+                                            $('.showPage').css('display', 'none');
+                                    }
+
+                                    //delete Menu Show Modal
+                                    function Delete(id){
+                                    $('#DeleteId').val(id);
+                                            $('#DeleteBtnModal').click();
+                                    }
+
+                                    //If Change value Textarea active this function
+                                    $(document).on('change', 'tr', function() {
+                                    change($(this).attr('id'));
+                                    });
+                                            //function insert Value to Database
+                                                    function change(id){
+                                                    var page, title, order_list, parent, active;
+                                                            var tr = $('#' + id);
+                                                            page = $('#' + id + 'pageEditId').val();
+                                                            title = $('.' + id + 'title').val();
+                                                            order_list = $('.' + id + 'order_list').val();
+                                                            parent = $('#' + id + 'ParentEditId').val();
+                                                            $('.TextAreaContent').css({'display': 'none'});
+                                                            active = $('#' + id + 'active').val();
+                                                            EditNotShow(id, title, parent, page, order_list, active);
+                                                            $('.SubmitEditForm').click();
+                                                    }
+
+
+                                            /// Show ///
+                                            function Show(id, title, parent, page, order_list){
+                                            var id2, title2, order_list2, parent2, page2, content2;
+                                                    page2 = $('#ShowPageTextArea');
+                                                    page2.val(page);
+                                                    page2.trigger('textArea');
+                                                    try{
+                                                    CKEDITOR.inline('ShowPageTextArea');
+                                                    } catch (error){
+                                            CKEDITOR.instances.ShowPageTextArea.destroy();
+                                                    page2 = $('#ShowPageTextArea');
+                                                    page2.val(page);
+                                                    page2.trigger('textArea');
+                                                    CKEDITOR.inline('ShowPageTextArea');
+                                                    console.log('ckEditor Destroy And Replace ');
+                                            }
+
+                                            id2 = $('#EditId');
+                                                    id2.val(id);
+                                                    id2.trigger("input");
+                                                    title2 = $('#EditTitle');
+                                                    title2.val(title);
+                                                    title2.trigger("input");
+                                                    order_list2 = $('#Editorder_list');
+                                                    order_list2.val(order_list);
+                                                    order_list2.trigger('input');
+                                                    $('.showPage').css('display', 'block');
+                                                    $('#EditBtnModal').click();
+                                            }
+                                            // end Show
+                                            // Active Paginate 
+                                            $(document).on('click', '.paginate', function() {
+                                            $('.paginate').removeClass('active');
+                                                    $('.paginate').removeAttr('id');
+                                                    $(this).addClass('active');
+                                                    $(this).attr('id', 'active');
+                                            });
+                                                    $(document).on('click', '#paginateNext', function() {
+                                            $('.paginate').removeClass('active');
+                                                    var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+                                                    $(element).next().addClass('active').attr('id', 'active');
+                                            });
+                                                    $(document).on('click', '#paginatePreview', function() {
+                                            $('.paginate').removeClass('active');
+                                                    var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+                                                    $(element).prev().addClass('active').attr('id', 'active');
+                                            });</script>

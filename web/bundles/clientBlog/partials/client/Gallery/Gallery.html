@@ -1,0 +1,21 @@
+<div class="ViewGallery"  infinite-scroll="loadMore('{{category}}')" infinite-scroll-distance='1' infinite-scroll-disabled="{{busyScroll}}">
+    <h2 class="title" style="text-align: right">گالری ها</h2>
+    <div id="work" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 20px;margin-bottom: 10px">
+        <div  id="work-div" class="clearfix" >
+            <div  class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ParentGallery item"  ng-repeat="entity in entities"  ng-show="entity.img">
+                <div  style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 5px;margin: 5px">
+                    <div class="gallery">
+                        <a href="#/Gallery/{{entity.id}}">
+                            <img data-ng-src="{{entity.img}}" alt="{{entity.alt}}">
+                            <div><p class="label">{{entity.title}}</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="msg" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);margin-top: 10px;color:#fff;padding: 10px;font-size: medium">
+        {{showMessage}}
+    </div>
+    <br class="clearfix"/>
+</div>

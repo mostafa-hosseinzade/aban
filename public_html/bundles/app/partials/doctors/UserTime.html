@@ -1,0 +1,335 @@
+<form ng-submit="submitTime()" novalidate>
+
+    <div class="col-lg-12">
+        <div class="col-lg-12" style="box-shadow: 0 0 2px;background-color: white">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 pull-right" style="padding-top: 10px">
+                <span><h4>زمانبندی حضور</h4></span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 pull-right" style="padding-top: 5px;padding-top: 15px">
+                <span>
+                    <input type="number" class="form-control" id="CountWeek" placeholder="تکرار هفته" ng-model="CountWeek" min="0" max="{{MaxWeek}}"> 
+                </span>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 pull-right">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 DateShowRight pull-right">
+                        <p style="line-height: 0px;">
+                            <button type="button" ng-click="TimeBefor(data)" class="btn">
+                                <span  class="fa fa-arrow-right"></span>
+                            </button>
+                            شروع<small>({{StartDate}})</small> 
+                        </p>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 DateShowLeft pull-right">
+                        <p class="pull-left" style="line-height: 0px;">
+                            پایان<small>({{ExpiredDate}})</small>
+                            <button type="button" ng-click="TimeNext(data)" class="btn">
+                                <span  class="fa fa-arrow-left"></span>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 pull-right" style="padding: 5px;padding-top: 15px;">
+                <select class="form-control" ng-change="TimeMonth()" ng-model="timemonth">
+                    <option value="defualt" ng-selected="true">انتخاب ماه</option>
+                    <option value="0">فروردین</option>
+                    <option value="4">اردیبهشت</option>
+                    <option value="9">خرداد</option>
+                    <option value="14">تیر</option>
+                    <option value="19">مرداد</option>
+                    <option value="24">شهریور</option>
+                    <option value="28">مهر</option>
+                    <option value="32">آبان</option>
+                    <option value="36">آذر</option>
+                    <option value="40">دی</option>
+                    <option value="44">بهمن</option>
+                    <option value="48">اسفند</option>
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12" style="margin-top: 12px">
+                <span class="pull-left"><button type="submit" id="btnSend" class="btn btn-success " disabled="true">ذخیره تغییرات <span class="glyphicon glyphicon-ok-circle"></span></button></span>
+            </div>
+        </div>
+
+        <input type="text" ng-show="false" ng-model="Id" value="{{Id}}">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th>روز</th>
+                <th>هستم/نیستم</th>
+                <th>صبح</th>
+                <th>عصر</th>
+                </thead>
+                <tbody>
+                    <tr class="TrTime" id="One">
+                        <td>شنبه &nbsp;<small> ({{StartDate}})</small></td>
+                        <td>
+                            <!--<div class="btn-group" data-toggle="buttons">-->
+                            <label class="btn ">
+                                <input type="checkbox" class="checked OneTrue" id="checkedm1"   ng-model="OneTrue" > هستم
+                            </label>
+                            <label class="btn ">
+                                <input type="checkbox" class="checked OneFalse" id="checkedm2" ng-model="OneFalse" > نیستم
+                            </label>
+                            <!--</div>-->
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right" data-ng-init="OneMorningLow">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="OneMorningLow" class="form-control" value="{{OneMorningLow}}" min="0" max="12" step="0.01" placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="OneMorningHigh" class="form-control" value="{{OneMorningHigh}}" min="0" max="12" step="0.01" placeholder="پایان">
+                            </div>                        
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="OneAfterLow" class="form-control" value="{{OneAfterLow}}"  placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="OneAfterHigh" class="form-control" value="{{OneAfterHigh}}"  placeholder="پایان">
+                            </div>                        
+                        </td>
+                    </tr>
+
+                    <tr class="TrTime" id="Tow">
+                        <td>یکشنبه</td>
+                        <td>
+                            <!--<div class="btn-group" data-toggle="buttons">-->
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm3" class="checked TowTrue" name="TowTrue" ng-model="TowTrue" > هستم
+                            </label>
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm4" class="checked TowFalse" name="TowFalse" ng-model="TowFalse" > نیستم
+                            </label>
+                            <!--</div>-->
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="TowMorningLow" value="{{TowMorningLow}}" class="form-control" min="0" max="12" step="0.01" placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="TowMorningHigh" value="{{TowMorningHigh}}" class="form-control" min="0" max="12" step="0.01" placeholder="پایان">
+                            </div>                        
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="TowAfterLow" value="{{TowAfterLow}}" class="form-control"  placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="TowAfterHigh" value="{{TowAfterHigh}}" class="form-control"  placeholder="پایان">
+                            </div>                        
+                        </td>
+                    </tr>
+
+                    <tr class="TrTime" id="Three">
+                        <td>دو شنبه</td>
+                        <td>
+                            <!--<div class="btn-group" data-toggle="buttons">-->
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm5" class="checked ThreeTrue" name="ThreeTrue" ng-model="ThreeTrue" > هستم
+                            </label>
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm6" class="checked ThreeFalse" name="ThreeFalse" ng-model="ThreeFalse" > نیستم
+                            </label>
+                            <!--</div>-->
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="ThreeMorningLow" value="{{ThreeMorningLow}}" class="form-control" min="0" max="12" step="0.01" placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="ThreeMorningHigh" value="{{ThreeMorningHigh}}" class="form-control" min="0" max="12" step="0.01" placeholder="پایان">
+                            </div>                        
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="ThreeAfterLow" value="{{ThreeAfterLow}}" class="form-control"  placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="ThreeAfterHigh" value="{{ThreeAfterHigh}}" class="form-control"  placeholder="پایان">
+                            </div>                        
+                        </td>
+                    </tr>
+
+                    <tr class="TrTime" id="Four">
+                        <td>سه شنبه</td>
+                        <td>
+                            <!--<div class="btn-group" data-toggle="buttons">-->
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm7" class="checked FourTrue" name="FourTrue"  ng-model="FourTrue" > هستم
+                            </label>
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm8" class="checked FourFalse" name="FourFalse" ng-model="FourFalse" > نیستم
+                            </label>
+                            <!--</div>-->
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="FourMorningLow" value="{{FourMorningLow}}" class="form-control" min="0" max="12" step="0.01" placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="FourMorningHigh" value="{{FourMorningHigh}}" class="form-control" min="0" max="12" step="0.01" placeholder="پایان">
+                            </div>                        
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="FourAfterLow" value="{{FourAfterLow}}" class="form-control"  placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="FourAfterHigh" value="{{FourAfterHigh}}" class="form-control"  placeholder="پایان"> 
+                            </div>                        
+                        </td>
+                    </tr>
+
+                    <tr class="TrTime" id="Five">
+                        <td>چهار شنبه</td>
+                        <td>
+                            <!--<div class="btn-group" data-toggle="buttons">-->
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm9" class="checked FiveTrue"   ng-model="FiveTrue" > هستم
+                            </label>
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm10" class="checked FiveFalse"   ng-model="FiveFalse"> نیستم
+                            </label>
+                            <!--</div>-->
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="FiveMorningLow" value="{{FiveMorningLow}}" class="form-control" min="0" max="12" step="0.01" placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="FiveMorningHigh" value="{{FiveMorningHigh}}" class="form-control" min="0" max="12" step="0.01" placeholder="پایان">
+                            </div>                        
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="FiveAfterLow" value="{{FiveAfterLow}}" class="form-control"  placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="FiveAfterHigh" value="{{FiveAfterHigh}}" class="form-control"  placeholder="پایان">
+                            </div>                        
+                        </td>
+                    </tr>
+
+                    <tr class="TrTime" id="Six">
+                        <td>پنجشنبه</td>
+                        <td>
+                            <!--<div class="btn-group" data-toggle="buttons">-->
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm11" class="checked SixTrue" name="options"  ng-model="SixTrue" > هستم
+                            </label>
+                            <label class="btn ">
+                                <input type="checkbox" id="checkedm12" class="checked SixFalse" name="options"  ng-model="SixFalse" > نیستم
+                            </label>
+                            <!--</div>-->
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="SixMorningLow" value="{{SixMorningLow}}" class="form-control" min="0" max="12" step="0.01"  placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="SixMorningHigh" value="{{SixMorningHigh}}" class="form-control" min="0" max="12" step="0.01" placeholder="پایان">
+                            </div>                        
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="SixAfterLow" value="{{SixAfterLow}}" class="form-control"  placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="SixAfterHigh" value="{{SixAfterHigh}}" class="form-control"  placeholder="پایان">
+                            </div>                        
+                        </td>
+                    </tr>
+
+                    <tr class="TrTime" id="Seven">
+                        <td>جمعه&nbsp;<small>({{ExpiredDate}})</small></td>
+                        <td>
+                            <!--<div class="btn-group" data-toggle="buttons">-->
+                            <label class="btn ">
+                                <input type="checkbox" class="checked SevenTrue" id="checkedm13" ng-model="SevenTrue"  > هستم
+                            </label>
+                            <label class="btn ">
+                                <input type="checkbox" class="checked SevenFalse" id="checkedm14"  ng-model="SevenFalse" > نیستم
+                            </label>
+                            <!--</div>-->
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="SevenMorningLow" value="{{SevenMorningLow}}" class="form-control" min="0" max="12" step="0.01" placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="SevenMorningHigh" value="{{SevenMorningHigh}}" class="form-control " min="0" max="12" step="0.01" placeholder="پایان">
+                            </div>                        
+                        </td>
+                        <td>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="SevenAfterLow" value="{{SevenAfterLow}}" class="form-control"  placeholder="شروع">
+                            </div>
+                            <div class="col-lg-6 pull-right">
+                                <input type="text" pattern="99:99"  septrator=":" masked-input id="SevenAfterHigh" value="{{SevenAfterHigh}}" class="form-control "  placeholder="پایان"> 
+                            </div>                        
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</form> 
+<div class="clearfix"></div>
+<script type="text/javascript">
+    $('.TrTime').on('change', function() {
+        $('#btnSend').removeAttr('disabled');
+    });
+
+    $(document).ready(function() {
+        $("#started").datepicker();
+
+        $("#expired").datepicker();
+        $("#datepicker1btn").click(function(event) {
+            event.preventDefault();
+            $("#datepicker1").focus();
+        })
+    });
+
+</script>
+
+<script>
+    $('.checked').on('change', function() {
+        //read attr id
+        var id = $(this).attr('id');
+        //check this checked or not
+        if ($(this).is(":checked") == true) {
+            var bool = false;
+        } else {
+            bool = true;
+        }
+
+        // split id with 2
+        id = id.split('m');
+
+        //read id 
+        id = id[1];
+        //if section one
+        if (id == 1) {
+            $('#checkedm2').prop('checked', bool);
+        }
+        //if number % 2 == 0
+        if (id % 2 === 0) {
+            id = id - 1;
+            $('#checkedm' + id).prop('checked', bool);
+        } else {
+            if (id % 2 === 1) {
+                id++;
+                $('#checkedm' + id).prop('checked', bool);
+            }
+        }
+    });
+</script>

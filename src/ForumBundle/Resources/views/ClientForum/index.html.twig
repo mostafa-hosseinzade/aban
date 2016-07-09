@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}کلینیک تخصصی آبان{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/public/css/Style-Client-Forum.css')}}">
+    <style>
+        body{
+            background-image: url({{asset(KeyValue.ForumBundleimg.0)}});min-height: 100vh;background-attachment: fixed;background-size: auto 100vh
+        }
+    </style>
+{% endblock %}
+{% block ngApp %}ng-app="myApp"{% endblock %}
+{% block body %}
+    {% if KeyValue.Sections.ForumBundle == 1 %}
+        <div class="main-content">
+            <div class="content" style="min-height: 50vh" dir="rtl">               
+                <div ng-view></div>
+                <div loading class="loading">
+                    <span>
+                        <img style="width: 100px; auto" src="" alt=""/><br/>
+                        <span>لطفا منتظر بمانید ...</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="main-content" style="margin-top: 100px;">
+            <div class="content" style="min-height: 50vh" dir="rtl">    
+                <div class="pageShow" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 10px 20px 20px 20px">
+                    <div class="contentPage" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);">
+                        <div style="padding:10px" ><h2>صفحه مورد نظر غیر فعال می باشد .</h2></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {% if KeyValue.Sections.ShopBundle == 1 %}
+    <script src="{{ asset('bundles/public/js/convertDate/moment.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/public/js/convertDate/moment-jalaali.js')}}" type="text/javascript"></script>
+    <script src='{{ asset('bundles/public/js/tinymce/tinymce.min.js')}}'></script>
+    <script src="{{ asset('bundles/public/js/angular/ng-infinite-scroll.min.js') }}"></script>
+    <script src="{{ asset('bundles/public/js/angular/angular-cookies.js') }}"></script>
+    <script src="{{ asset('bundles/forum/js/controller_cli.js') }}"></script>
+    <script>
+var token = '{{ csrf_token('authenticate') }}';
+    </script>
+    {%endif%}
+{% endblock %}
+
+
+

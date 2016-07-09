@@ -1,0 +1,40 @@
+
+<div >
+    <div style=" postion:relative;line-height:40px">
+        <h2 class="title" style="z-index:8;position: relative;color:#fff">فروشگاه 
+            <span style="left:10px;display:inline-block;color:#3b5998;z-index:9;float:left;position: relative;top:-20px;width:60px;height:60px">
+                <a  id="basket" href="#/basket" data-toggle="tooltip" data-placement="bottom" title="تعداد محصول موجود در سبد خرید شما"  >
+                    <span class="glyphicon glyphicon-shopping-cart" style="font-size: 60px!important;position:relative;z-index:99999" aria-hidden="true"><span style="margin:-39px -50px 0 0;position:relative;z-index:99999;font-size:16px" class="badge">{{countBasket}}</span></span>
+                </a>
+            </span>
+        </h2>
+    </div>
+    <div class="page" style="text-align: right">
+        <div style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);margin: 20px 0;padding: 0 10px">
+            <h4  style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);padding: 10px;color:#fff;"> محصولات</h4>
+            <div ng-show="path" style="background: rgba(255,255,255,0.2);color:#fff;border: 1px solid rgba(255,255,255,0.3);padding: 5px 15px;margin-bottom:10px;text-align: right">
+                <span style="font-size:16px;">مسیر شما</span> : <a href="#/">دسته بندی اصلی </a> <span> / </span> <span ng-repeat="p in path"> <a href="#/category/{{p.id}}" style="font-size:16px;padding:0 5px" ng-show="p.id">{{p.name}}</a><span ng-show="!p.id">{{p.name}}</span>  <span ng-show="p.id"> / </span> </span>
+            </div>
+            <h3 ng-show="isNull == 0" style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);padding: 10px;">محصولی موجود نیست</h3>
+            <div class="bx" ng-repeat="root in product" style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);padding: 5px">
+                <div class="bx_clone">
+                    <img src="/bundles/shop_res/img/product-default.jpg" style="width:100%;" alt="" ng-show="!root.photo"/>
+                    <img data-ng-src="{{root.photo}}"  alt="" style="height:100%;width:auto" ng-show="root.photo"/>
+
+                    <div class="scarf" style="padding: 5px 20px">
+                        <h4 style="margin-bottom: 17px">نام محصول : {{root.name}}</h4>
+                        <h5>شناسه محصول : {{root.product_no}}</h5>
+                        <h5>قیمت : {{root.price|number}} ریال</h5>
+                        <div class="star-rating" star-rating rating-value="root.rate" read-only="isreadOnly"  data-max="5" on-rating-selected="rateFunction(rating)"></div>
+                        <div class="link" >
+                            <a style="float:right;margin-bottom:7px;margin-right:-10px;" data-toggle="tooltip" data-placement="left" title="جزییات محصول" href="#/products/show/{{root.id}}"  class="detail"><span  class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+                            <a ng-show="!removeEnable[root.id]" style="float:left;margin-left:30px;margin-bottom:7px" data-toggle="tooltip" data-placement="right" title="افزودن به سبد خرید" class="basket" ng-click="onBasket(root.id, root.name, root.price, root.product_no, $event)"><span  class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
+                            <a ng-show="removeEnable[root.id]" style="float:left;margin-left:30px;margin-bottom:7px" data-toggle="tooltip" data-placement="right" title="حذف از سبد خرید" class="basket" ng-click="removeItem(root.id)"><span style="color:red;"  class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

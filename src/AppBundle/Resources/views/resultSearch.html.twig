@@ -1,0 +1,125 @@
+{% if res[0] is empty and res[1] is empty and res[2] is empty and res[3] is empty and res[4] is empty and res[5] is empty %}
+    <p style="text-align: center;direction: rtl;color:#fff">نتیجه ای یافت نشد.</p>
+{% else %}    
+<ul class="nav nav-tabs" style="font-size: 12px;width: 100%">
+    {% if res[0] is not empty %}
+        <li class="active" ><a  data-toggle="tab" href="#page">صفحات</a></li>
+        {% endif %}
+        {% if res[1] is not empty %}
+        <li class="{% if res[0] is empty %}active{% endif %}" ><a  data-toggle="tab" href="#content">اخبار/مقالات</a></li>
+        {% endif %}
+        {% if res[2] is not empty %}
+        <li class="{% if res[0] is empty and res[1] is empty %}active{% endif %}" ><a  data-toggle="tab" href="#post">پست ها</a></li>
+        {% endif %}
+        {% if res[3] is not empty %}
+        <li class="{% if res[0] is empty and res[1] is empty and res[2] is empty %}active{% endif %}" ><a  data-toggle="tab" href="#images">محصولات</a></li>
+        {% endif %}
+        {% if res[4] is not empty %}
+        <li class="{% if res[0] is empty and res[1] is empty and res[2] is empty and res[3] is empty %}active{% endif %}" ><a  data-toggle="tab" href="#product">تصاویر</a></li>
+        {% endif %}
+        {% if res[5] is not empty %}
+        <li class="{% if res[0] is empty and res[1] is empty and res[2] is empty and res[3] is empty and res[4] is empty %}active{% endif %}" ><a  data-toggle="tab" href="#doctors">پزشکان</a></li>
+        {% endif %}
+</ul>
+<div class="tab-content">
+    {% if res[0] is not empty %}
+        <div id="page" class="tab-pane fade in active"  >
+            <ul style="list-style: none;direction: rtl;text-align: right;padding-right: 0">
+                {% for item in res[0] %}
+                    <li style="position: relative">
+                        <h4 style="color:#fff;">{{item.title}}</h4>
+                        <p style="padding: 10px;color: rgb(50, 226, 194);font-size: 13px;background-color: rgba(255,255,255,0.1); border-top: 2px solid rgba(255,255,255,.3);" >{{item.content|striptags|slice(0, 130)}}...  <a href="/partial#/Page/{{item.id}}" >مشاهده</a></p>   
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}  
+    {% if res[1] is not empty %}
+        <div id="content" class="tab-pane fade {% if res[0] is empty %} in active{% endif %}" >
+            <ul style="list-style: none;direction: rtl;text-align: right;padding-right: 0">
+                {% for item in res[1] %}
+                    <li style="position: relative">
+                        <h4 style="color:#fff;">{{item.title}}</h4>
+                        <p style="padding: 10px;color: rgb(50, 226, 194);font-size: 13px;background-color: rgba(255,255,255,0.1); border-top: 2px solid rgba(255,255,255,.3);" >{{item.content|striptags|slice(0, 130)}}...  <a href="/partial#/Content/Show/{{item.id}}" >مشاهده</a></p>   
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}  
+    {% if res[2] is not empty %}
+        <div id="post" class="tab-pane fade {% if res[0] is empty and res[1] is empty %}in active{% endif %}" >
+            <ul style="list-style: none;direction: rtl;text-align: right;padding-right: 0">
+                {% for item in res[2] %}
+                    <li style="position: relative">
+                        <h4 style="color:#fff;">{{item.title}}</h4>
+                        <p style="padding: 10px;color: rgb(50, 226, 194);font-size: 13px;background-color: rgba(255,255,255,0.1); border-top: 2px solid rgba(255,255,255,.3);" >{{item.content|striptags|slice(0, 130)}}...  <a href="/forum#/showpost/{{item.group_id}}/{{item.id}}" >مشاهده</a></p>   
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}  
+    {% if res[3] is not empty %}
+        <div id="images" class="tab-pane fade {% if res[0] is empty and res[1] is empty and res[2] is empty %}in active{% endif %} ">
+            <ul style="list-style: none;direction: rtl;text-align: right;padding-right: 0">
+                {% for item in res[3] %}
+                    <li style="padding: 5px;color: rgb(50, 226, 194);font-size: 13px;background-color: rgba(255,255,255,0.1); border-top: 2px solid rgba(255,255,255,.3);margin-top: 2px">
+                        <table>
+                            <tr>
+                                <td style="width:120px!important;padding: 5px;border-left: 1px solid rgba(255,255,255,.1);padding-left: 10px"><img style="width:100px" src="{{item.photo}}" /></td>
+                                <td style="color: rgb(50, 226, 194);padding-right: 10px">
+                                    <p style="color:#fff;">{{item.name}}</p>
+                                    <p style="font-size: 12px">
+                                        شناسه محصول : {{item.productNo}}<br/>
+                                        قیمت: {{item.price}}<br/>
+                                        <a href="/shop#/products/Show/{{item.id}}" >مشاهده</a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}  
+    {% if res[4] is not empty %}
+        <div id="product" class="tab-pane fade {% if res[0] is empty and res[1] is empty and res[2] is empty and res[3] is empty %}in active{% endif %}" >
+            <ul style="list-style: none;direction: rtl;text-align: right;padding-right: 0">
+                {% for item in res[4] %}
+                    <li style="padding: 5px;color: rgb(50, 226, 194);font-size: 13px;background-color: rgba(255,255,255,0.1); border-top: 2px solid rgba(255,255,255,.3);margin-top: 2px">
+                        <a href="/partial#/Gallery/{{item.gallery_id}}" ><img style="width:100%" alt="{{item.alt}}" src="{{item.src}}" /></a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}  
+    {% if res[5] is not empty %}
+        <div id="doctors" class="tab-pane fade {% if res[0] is empty and res[1] is empty and res[2] is empty and res[3] is empty and res[4] is empty %}in active{% endif %}" >
+            <ul style="list-style: none;direction: rtl;text-align: right;padding-right: 0">
+                {% for item in res[5] %}
+                    <li style="padding: 5px;color: rgb(50, 226, 194);font-size: 13px;background-color: rgba(255,255,255,0.1); border-top: 2px solid rgba(255,255,255,.3);margin-top: 2px">
+                        <table>
+                            <tr>
+                                <td style="width:120px!important;padding: 5px;border-left: 1px solid rgba(255,255,255,.1);padding-left: 10px">
+                                    <img style="width:100px" src="{{item.photo}}" />
+                                </td>
+                                <td style="color: rgb(50, 226, 194);padding-right: 10px">
+                                    <p style="color:#fff;">نام : {{item.name}} {{item.family}}</p>
+                                    {% if res[6][item.id] is not empty  %}
+                                        <p>تخصص: 
+                                            {% for exp in res[6][item.id] %}
+                                                <span> {{exp}} </span>  
+                                            {%endfor %}
+                                        </p>
+                                    {% endif %}
+                                    <a href="/partial#/Doctors/Show/{{item.id}}" >صفحه پزشک</a>
+                                </td>
+                                
+                            </tr>
+                        </table>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}  
+</div>
+{% endif %}

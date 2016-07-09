@@ -1,0 +1,30 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.security.authentication_handler:
+        class: AppBundle\Security\AuthenticationHandler
+        public: false
+        arguments: ["@router", "@session"]
+        
+    CheckIdController:
+        class: AppBundle\Controller\CheckIdController
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    wsse.security.authentication.provider:
+        class: AppBundle\Security\Authentication\Provider\WsseProvider
+        arguments:
+            - '' # User Provider
+            - '%kernel.cache_dir%/security/nonces'
+            - "@security.password_encoder"
+        public: false
+
+    wsse.security.authentication.listener:
+        class: AppBundle\Security\Firewall\WsseListener
+        arguments: ['@security.token_storage', '@security.authentication.manager']
+        public: false

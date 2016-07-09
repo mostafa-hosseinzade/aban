@@ -1,0 +1,92 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+blog:
+    resource: "@BlogBundle/Controller/"
+    type:     annotation
+    
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+blog_bundle:
+    resource: "@BlogBundle/Resources/config/route/route.yml"
+    
+
+
+shop:
+    resource: "@ShopBundle/Controller/"
+    type:     annotation
+    prefix:   / 
+    
+user_info:
+    type: rest
+    prefix:   /cli_panel
+    resource: AppBundle\Controller\UserController
+    
+user_reservetime:
+    type: rest
+    prefix:   /cli_panel
+    resource: AppBundle\Controller\DoctorTimeVisitController
+    
+user_ticket:
+    type: rest
+    prefix:   /cli_panel
+    resource: AppBundle\Controller\TicketController
+    
+certificate_doctor:
+    type: rest
+    prefix:   /cli_panel
+    resource: AppBundle\Controller\CertificateofdoctorsController
+   
+animals_info:
+    type: rest
+    prefix:   /cli_panel
+    resource: AppBundle\Controller\AnimalsController
+    
+animals_pictures:
+    type: rest
+    prefix:   /cli_panel
+    resource: AppBundle\Controller\AnimalsphotoController
+
+animals_category:
+    type: rest
+    prefix:   /cli_panel
+    resource: AppBundle\Controller\AnimalscategoryController
+
+user_message:
+    type: rest
+    prefix:   /cli_panel
+    resource: AppBundle\Controller\UserMessageController
+
+forum_clientallrest: 
+    type: rest
+    prefix: /
+    resource: ForumBundle\Controller\ClientallrestController
+    
+mobile_api:
+    type: rest
+    prefix:  /mobile
+    resource: AppBundle\Controller\MobileController
+    
+Mobile_Registration:
+    type: rest
+    prefix: /mr
+    resource: AppBundle\Controller\MobileRegistrationController
+    
+UserManager:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+    prefix:   / 
+
+Slider:
+    resource: "@AppBundle/Controller"
+    type:     annotation
+    prefix:   /    
+shop:
+    resource: "@ShopBundle/Controller/"
+    type: annotation
+    prefix:   /   
+                
+forum_bundle:
+    resource: "@ForumBundle/Resources/config/route/route.yml"    
+            

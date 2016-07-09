@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/x-icon" href="{{asset('favicon.ico')}}">
+        <title>کلینیک آبان</title>
+        <link rel="stylesheet" href="{{ asset('bundles/public/css/bootstrap.4.css')}}">
+        {#        <link href="{{ asset('bundles/public/css/bootstrap.rtl.css') }}" rel="stylesheet" type="text/css" />#}
+        <link rel="stylesheet" href="{{ asset('bundles/public/css/font-awesome.min.css')}}">
+        <link href="{{ asset('bundles/app/css/AppCss.css') }}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{asset('bundles/public/css/bootstrap-datepicker.min.css')}}" />
+        <link rel="stylesheet" href="{{ asset('bundles/public/css/cropper.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('bundles/public/css/loading-bar.css')}}">
+        <script>
+            var baseURL = '{{ app.request.getBaseURL() }}';
+        </script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" style="color:white;background: rgba(90,156,144,.7)">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><img src="{{ asset('bundles/public/img/logo_title.png') }}" width="60px" style="margin-left: 20px" />پنل  کاربری</a>
+                </div>
+            </div>
+        </nav>
+        <div style="margin-top: 100px;" class="row" >
+            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12 rightmenu"  >
+                <div class="resetPanel">
+                    <div class="list-group" style="text-align: right">
+                        <a class="list-group-item active" href="#/userInfo"> پروفایل من <i class="fa fa-user icon" ></i></a>
+                        <a class="list-group-item" href="#/userCertificate">مدارک من <i class="fa fa-heart icon" ></i></a>
+                        <a class="list-group-item" href="#/userTime">زمان بندی حضور <i class="fa fa-file icon" ></i></a>
+                        <a class="list-group-item" href="#/userReserve">مریض های من  <i class="fa fa-inbox icon" ></i></a>
+                        <a class="list-group-item" href="#">راهنما <i class="fa fa-question icon" ></i> </a>  
+                        <a class="list-group-item" href="/logout">خروج  <i class="glyphicon glyphicon-log-out  icon" ></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12"  >
+                <div class="panel panel-default" style="padding: 10px;direction: rtl">
+                    <div ng-view>
+                        <!-- show part of site -->
+
+                    </div>
+                </div>  
+            </div>
+            <div id="cropper"></div>
+        </div>
+        <script type="text/javascript">
+            var csrf = '{{ csrf_token('authenticate') }}';
+        </script>
+
+        <script src="{{ asset('bundles/public/js/jquery.min.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/stacktable.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/cropper.min.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/convertDate/moment.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/convertDate/moment-jalaali.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/jquery.maskedinput.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/bootstrap-datepicker.min.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/bootstrap-datepicker.fa.min.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/bootstrap.min.js')}}"></script>
+        <script src='{{ asset('bundles/public/js/tinymce/tinymce.min.js')}}'></script>
+        <script src="{{ asset('bundles/blog/js/angular.min.js') }}"></script>
+        <script src="{{ asset('bundles/public/js/angular-route.min.js') }}"></script>
+        <script src="{{ asset('bundles/public/js/angular-animate.min.js') }}"></script>
+        <script src="{{ asset('bundles/public/js/loading-bar.js') }}"></script>        
+        <script src="{{ asset('bundles/app/js/doctor/app.js') }}"></script>
+        <!-- PNotify -->
+        <script type="text/javascript" src="{{ asset('bundles/public/js/notify/pnotify.core.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/public/js/notify/pnotify.buttons.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/public/js/notify/pnotify.nonblock.js')}}"></script>
+        <script>
+            $(document).ready(function() {
+                $('.list-group-item').click(function() {
+                    $('.list-group-item').removeClass('active');
+                    $(this).addClass('active');
+                });
+                $(document).click(function(e) {
+                    if (!$(e.target).is('.navbar-toggle')) {
+                        $('.rightmenu').removeClass('showpanel');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

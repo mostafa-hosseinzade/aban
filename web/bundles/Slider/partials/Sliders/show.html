@@ -1,0 +1,21 @@
+<div ng-show="ShowSliderInfo">
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-8">
+            <img class="pull-left" ng-src="../../bundles/public/img/slider/{{Selected.file}}" style="max-width: 568px;max-height: 408px;">
+        </div>
+        <div class="col-lg-4 test">
+            عنوان کوچک : {{Selected.title_h3}}
+        </div>
+
+        <div class="test col-lg-4">
+            عنوان بزرگ : {{Selected.title_h1}}
+        </div>
+        <div class="clearfix">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success pull-left" ng-click="prepareEdit()">ویرایش</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+

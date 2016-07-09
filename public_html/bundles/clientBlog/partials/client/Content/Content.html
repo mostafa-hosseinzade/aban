@@ -1,0 +1,32 @@
+<div   infinite-scroll="loadMore('{{category}}')" infinite-scroll-distance='1' infinite-scroll-disabled="{{busyScroll}}">
+    <h2 class="title" style="text-align: right">{{categoryName}}</h2>
+    <div id="work" class="clearfix" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 20px">
+        <div  id="work-div" class="clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 0px;padding: 7.5px" ng-repeat="entity in ContentShow" >
+                <div style="background: rgba(255,255,255,.4);border: 1px solid rgba(255,255,255,0.6);padding: 5px">
+                    <div class="news-header" style="color: #000;font-weight: bold">
+                        <time datetime="2015-08-13 11:09" class="item_published">
+                            <span> {{entity.title| cut:true:25:' ...'}}</span><span style="font-size: 18px;color: #000"><small>({{entity.created_at}})</small></span>
+                        </time>
+                    </div>
+
+                    <div class="news-body "  style="color: #000;padding: 7px">
+                        {{entity.content|htmlToPlaintext| cut:true:110:' ...' }}
+                    </div>
+                    <div class="row" style="margin: 0">
+                        <a class="pull-left" style="font-size: 14px;" href="partial#/Content/Show/{{entity.id}}">اطلاعات بیشتر</a>
+                        <p class="pull-right"  style="color: #000;">
+                            تعداد مشاهده : {{entity.visit}}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>   
+    </div>
+    <br class="clearfix"/>
+ <div class="msg" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);margin-top: 10px;color:#fff;padding: 10px;font-size: medium">
+        {{showMessage}}
+    </div>
+    <br class="clearfix"/>
+</div>

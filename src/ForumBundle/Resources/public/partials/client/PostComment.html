@@ -1,0 +1,167 @@
+ 
+<h3 class="headerWraper row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><span>عنوان فروم:  {{forum}}</span><button id="addpostform" class="input btnbox" ng-click="newPostClick()" style="float: left;width: 100px" ng-show="test">پست جدید</button><a href="#/" style="float: left;width: 100px;margin-left: 10px;text-decoration: none" class="input btnprimary">بازگشت </a></div>
+    <div class="clear-fix"/>
+</h3>
+
+
+<div class="forumItemWraper" infinite-scroll='loadMore()' infinite-scroll-distance='1' infinite-scroll-disabled="{{busyScroll}}" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);margin-bottom: 20px">
+    <div >
+        <form ItemForum class="insert" name="form" novalidate form-post style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 5px;margin: 10px">
+
+        </form>
+
+    </div>
+    <div ng-repeat="item in PostsShow" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 5px;margin: 10px">
+        <div class="ItemForum"  style="margin: 0;width: 100%">
+            <table style="width:100%;vertical-align: top">
+                <tr>
+                    <td style="width:100px">
+                        <div ng-show="!item.user.photo">
+                            <span class="glyphicon glyphicon-user" style="font-size: 60px;color:rgba(0,0,0,0.5)" hidden-area="true"></span>
+                        </div>
+                        <div ng-show="item.user.photo">
+                            <img style="width: 80px" data-ng-src="{{ item.user.photo}}" alt="{{ item.user.username}}"/>
+                        </div> 
+                    </td>
+                    <td>
+                        <h4>{{ item.user.username}}</h4>
+                        <h4 class="postShowItemTitle">عنوان: {{ item.title}} </h4>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- print content text whith out escape -->
+            <div class="postContent" ng-bind-html-unsafe="item.content">
+
+            </div>
+            <div class="postContentFooter">
+                <span class="framelike"><span id="em{{ item.id}}" class="badge" ng-init="like[item.id] = item.like" ng-bind="like[item.id]"> {{ item.like}}</span> <span class="glyphicon glyphicon-thumbs-up" ng-click="CookieSetLikeValue(item.id)" > </span></span>
+                <!--<span><a><i style="color: rgb(180,0,0)" class="glyphicon glyphicon-thumbs-down"></i></a><em class="badge"></em></span>-->
+                <!--            <span><a  ng-click="ClickForAddComment(item.id)" class="btn btn-primary btn-sm" >افزودن کامنت</a></span>-->
+                <span><a  ng-click="ClickForShowComment(item.id)"  class="btn btn-default btn-sm">مشاهده کامنت ها </a></span>
+                <div class="commentWraper" ng-show="listCommentShow[item.id]" >
+
+                    <!--                <div class="titleCommentBox">مشاهده کامنت های این پست</div>-->
+                    <form class="row" ng-show="test">
+                        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12"><button ng-click="addComment(item.id)"  class="input btnprimary">ارسال</button><br/>
+                            <button type="reset" class="input btnbox">انصراف</button></div>
+                        <div class="col-lg-11 col-md-11 col-sm-10 col-xs-12"><textarea ng-model="commentMsg[item.id]" style="color:#000;padding: 10px" class="input textbox input-rtl"></textarea></div>
+
+                    </form>
+
+                    <div class="ItemCommentWraper" ng-repeat="iComment in AllComment[item.id]">
+                        <div>
+                            <!--                        <div class="ItemCommentheader">کامنت با سرتیتر    "{{ iComment.title }}"</div>-->
+                            <table style="width:100%;">
+                                <tr style="vertical-align:top">
+                                    <td style="width: 100px">
+                                        <div ng-show="!iComment.user.photo">
+                                            <span class="glyphicon glyphicon-user" style="font-size: 50px;color:rgba(0,0,0,0.5)" hidden-area="true"></span>
+                                        </div>
+                                        <div ng-show="iComment.user.photo">
+                                            <img style="width: 60px" data-ng-src="{{ iComment.user.photo}}" alt="{{ iComment.user.username}}"/>
+                                        </div> 
+                                    </td>
+                                    <td>
+                                        <div class="ItemCommentFooter"><span style="float:right">{{ iComment.user.username}}</span> <span>در تاریخ {{ iComment.created_at | ConvertedToDateShamsi }}</span> <span><span class="badge" ng-init="likeComment[iComment.id] = iComment.like" ng-bind="likeComment[iComment.id]"> {{ iComment.like}}</span><span class="glyphicon glyphicon-thumbs-up" ng-click="CookieSetLikeCommentValue(iComment.id)"></span></span></div>
+                                        <div class="ItemCommentContent" ng-bind-html-unsafe="iComment.content"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div loading style="text-align: center">
+                        <span>
+                            <img style="width: 50px;"  alt=""/><br/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center" ng-show="busyScroll" ng-bind="showMessage">
+    </div> 
+</div>
+
+
+<!-- Modal insert -->
+<!--<div class="modal fade" id="panelInsertPost" role="dialog">
+    <div class="modal-dialog modal-lg">
+         Modal content
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">درج پست جدید</h4>
+            </div>
+            <div class="modal-body">
+                //title,content,like,enabled
+                <p>لطفا اطلاعات رو وارد نمایید</p>
+                <form role="form" name="postForm" ng-submit="submitadd()" novalidate>
+                    <div class="form-group">
+                        <label for="title">تیتر پست</label>
+                        <input type="text" class="form-control" id="title" name="title" ng-model="title" required>
+                        <div style="margin-top: 20px" ng-show = "postForm.title.$dirty">
+                            <span class="alert alert-danger" ng-show="postForm.title.$error.required"> لطفا تیتر را وارد کنید </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">محتوای پست</label>
+                        <textarea type="text" class="form-control" id="content" rows="5" ng-model="content" required></textarea>
+
+                        <div style="margin-top: 20px" ng-show = "postForm.content.$dirty">
+                            <span class="alert alert-error" ng-show="postForm.content.$error.required">  </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input ng-model="ForumGroupIditem" id="ForumGroupIditem" ng-show="false" />
+                        <label ng-show="isUndefined(ForumGroupIditem)" for="grpForum">لیست گروه ها</label>
+                        <select ng-show="isUndefined(ForumGroupIditem)"  class="form-control" name="group" ng-model="groupitem">
+                            <option ng-repeat="n in forumgroup" value="{{n.id}}"> {{ n.title}}</option>
+                        </select>
+                        <span> {{ groupitem }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label><input id="checkActivate" type="checkbox" name="enabled" value="false" ng-model="enabled"/> فعال/غیر فعال </label>
+                    </div>
+
+                    <div style="text-align: left" class="form-group">
+                        <input id="insrtbtnpost" type="submit" name="submit" class="btn btn-success" value="درج پست"/>
+                    </div>    
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+<script>
+    $(document).ready(function () {
+        //pagination Control
+//        $(document).on('click', '.paginate', function () {
+//            $('.paginate').removeClass('active');
+//            $('.paginate').removeAttr('id');
+//            $(this).addClass('active');
+//            $(this).attr('id', 'active');
+//        });
+//        $(document).on('click', '#paginateNext', function () {
+//            $('.paginate').removeClass('active');
+//            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+//            $(element).next().addClass('active').attr('id', 'active');
+//        });
+//        $(document).on('click', '#paginatePreview', function () {
+//            $('.paginate').removeClass('active');
+//            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+//            $(element).prev().addClass('active').attr('id', 'active');
+//        });
+    });
+</script>

@@ -1,0 +1,13 @@
+<div ng-controller="search" >
+    <div style="width: 80%;margin:0 auto;direction: rtl">
+        <form ng-submit="onSearch()" id="submitsearch" >
+            <div class="row" >
+                <div style="padding: 0" class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><button type="submit" class="input btnprimary">جست و جو</button></div>
+                <div style="padding: 0" ng-model="searchword" class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input  class="input textbox"  ng-model="searchword" placeholder="کلمه مورد نظر را تایپ کنید..."/></div>
+            </div>
+        </form>
+    </div>
+    <div ng-show="resultSearch" style="overflow-y: auto;height: 90vh;padding: 0 10px" ng-bind-html-unsafe="resultSearch">
+        
+    </div>
+</div>

@@ -1,0 +1,50 @@
+
+<div style="width:50%;float: right">
+    <h3>اطلاعات کاربری</h3>
+    <p ng-show="message" >{{message}}</p>
+    <form>
+        <table>
+            <tr>
+                <td> <label>نام:</label></td>
+                <td>
+                    <p ng-show="isUpdate">{{user.name}}</p>
+                    <input ng-show="!isUpdate"  ng-model="user.name" class="form-control"  required="true" placeholder="نام" />
+                </td>
+            </tr>
+            <tr>
+                <td><label>نام خانوادگی:</label></td>
+                <td>
+                    <p ng-show="isUpdate">{{user.family}}</p>
+                    <input ng-show="!isUpdate" ng-model="user.family" class="form-control" required="true"  placeholder="نام خانوادگی" />
+                </td>
+            </tr>
+            <tr>
+                <td> <label>ایمیل:</label></td>
+                <td>
+                    <p ng-show="isUpdate">{{user.email}}</p>
+                    <input ng-show="!isUpdate" type="email" ng-model="user.email" required="true" class="form-control"  placeholder="ایمیل" />
+                </td>
+            </tr>
+            <tr>
+                <td><label>شماره همراه:</label></td>
+                <td>
+                    <p ng-show="isUpdate">{{user.mobile}}</p>
+                    <input ng-show="!isUpdate" ng-model="user.mobile" required="true" class="form-control"  placeholder="شماره همراه" />
+                </td>
+            </tr>
+        </table>
+        <button style="margin-top: 10px"  ng-click="onUpdate()">{{updateLabel}}</button> 
+    </form>
+    <hr/>
+    <form>
+        <div>
+            <label>کلمه عبور:</label>
+            <input ng-model="password" type="password" class="form-control" placeholder="کلمه عبور" />
+        </div>
+        <div>
+            <label>تکرار کلمه عبور:</label>
+            <input ng-model="repassword" type="password" class="form-control" placeholder="تکرار کلمه عبور" />
+        </div>
+        <button style="margin-top: 10px" ng-disable="!password" ng-click="onUpdatePassword()">تغییر کلمه عبور</button>
+    </form>
+</div>

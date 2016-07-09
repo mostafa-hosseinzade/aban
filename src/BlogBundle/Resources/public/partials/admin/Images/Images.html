@@ -1,0 +1,182 @@
+<div class="alert alert-success alert-dismissible fade in growl" role="alert" ng-show="message" ng-class="{'alert-danger':message.error}">
+    <strong>
+        <span ng-show="message.error" style="font-size: large" class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> 
+        <span ng-show="!message.error" style="font-size: large"  class="glyphicon glyphicon-ok" aria-hidden="true"></span> 
+        {{message.msg}} 
+    </strong>
+</div>
+<div >
+    <h3 class="page row">
+        <div class="col-lg-4 col-md-5 col-sm-3 col-xs-3">
+            <div class="pull-left hidden-sm-down">
+                <button style="margin: 0 2px" type="button" class="btn btn-info btn-md pull-left" id="modalAdd" ng-click="prepareCreate()" data-toggle="modal" data-target="#AddModal">
+                    افزودن<i class="fa fa-plus"></i>
+                </button>
+                <button style="margin: 0 2px" ng-disabled="!selectedItem"  type="button" class="btn btn-success btn-md pull-left" id="modaledit" ng-click="prepareEdit()"  data-toggle="modal" data-target="#AddModal">
+                    ویرایش<i class="fa fa-edit"></i>
+                </button>
+                <button style="margin: 0 2px" ng-disabled="!selectedItem"  type="button" class="btn btn-danger btn-md pull-left" id="deletemodal"  data-toggle="modal" data-target="#DeleteModal">
+                    حذف<i class="fa fa-remove"></i>
+                </button>
+            </div>
+            <div class="input-group-btn hidden-md-up">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    فعالیت
+                </button>
+                <div class="dropdown-menu">
+                    <button style="margin: 0 2px" type="button" class="dropdown-item"  ng-click="prepareCreate()" data-toggle="modal" data-target="#AddModal">
+                        افزودن<i class="fa fa-plus"></i>
+                    </button>
+                    <button style="margin: 0 2px" ng-disabled="!selectedItem"  type="button" class="dropdown-item" ng-click="prepareEdit()"  data-toggle="modal" data-target="#AddModal">
+                        ویرایش<i class="fa fa-edit"></i>
+                    </button>
+                    <button style="margin: 0 2px" ng-disabled="!selectedItem"  type="button" class="dropdown-item"   data-toggle="modal" data-target="#DeleteModal">
+                        حذف<i class="fa fa-remove"></i>
+                    </button>
+                </div>
+            </div>
+        </div>    
+        <div class="col-lg-5 col-md-3 col-sm-5 col-xs-4">
+            <form class="pull-left" role="search" style="margin-left: 10px">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="جستجو ..."
+                           ng-model='searchText'
+                           ng-change="search()">
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-5">
+            {{labelPage}}
+        </div>
+    </h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead style="background: rgba(90,156,144,0.5)">
+                <tr  header ></tr>
+            </thead>
+            <tbody>
+                <tr row  ng-repeat="row in content" class="rowitem" ></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-md-2 hidden-sm-down" style="line-height: 74px">تعداد کل رکوردها : {{count}}</div>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <nav style="text-align: center;" class="btnTooltip" data-placement="auto" title="صفحه بندی" >
+                <ul class="pagination pagination-sm">
+                    <li class="page-item">
+                        <a class="page-link"  aria-label="Previous" href="#/{{route}}page/{{current - 1}}"  ng-show="current != 1">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" ng-repeat="result in Allpaginate" class="paginate"  ng-class="{active:result == current}" >
+                        <span ng-show="!result">...</span> 
+                        <a class="page-link"  ng-show="result" style="cursor: pointer;" href="#/{{route}}page/{{result}}" >{{result}}</a> 
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"   aria-label="Next" href="#/{{route}}page/{{1 + current}}" ng-show="allPage > current">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-lg-2 col-md-2 hidden-sm-down" style="line-height: 74px;padding-top: 15px">
+            <select ng-model="constPageItems" ng-change="numberShowChange()" class="form-control">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- End Add image  -->
+    <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{action.label}}</h4>
+                </div> 
+                <div class="modal-body">
+                    <div  showpanel  />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="CloseDeleteBtn" data-dismiss="modal">انصراف</button>
+                    <button style="margin: 0 2px" ng-disabled="!selectedItem"  type="button" class="btn btn-success btn-md pull-left" id="modaledit" ng-click="prepareEdit()"  data-toggle="modal" data-target="#AddModal">
+                        ویرایش
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button style="margin: 0 2px" ng-disabled="!selectedItem"  type="button" class="btn btn-danger btn-md pull-left" data-toggle="modal" data-target="#DeleteModal">
+                        حذف
+                        <i class="fa fa-remove"></i>
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    <!-- image Add-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="AddModal">
+        <div class="modal-dialog modal-lg"  role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{action.label}} </h4>
+                </div>
+                <form  ng-submit="SubmitAdd()" >
+                    <div class="modal-body">
+                        <div editform="selectedItem" ng-model="selectedItem" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> انصراف<i class="fa fa-cancel"></i></button>
+                        <button type="reset" class="btn btn-danger" ng-show="action.type == 'CREATE'">خالی کردن فیلدها<i class="fa fa-refresh"></i></button>
+                        <button type="submit" class="btn btn-primary">ذخیره اطلاعات<i class="fa fa-save"></i></button>
+                    </div>
+                </form>  
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content -->
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">حذف اطلاعات</h4>
+                </div>
+                <div class="modal-body">
+                    <form ng-submit="SubmitDelete()">
+                        <input type="hidden" name="DeleteImageId" id="DeleteId" ng-model="DeleteId">
+                        <p>
+                            آیا از حذف اطلاعات مطمءن هستید؟
+                        </p>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="CloseDeleteBtn" data-dismiss="modal">انصراف <i class="fa fa-cancel"></i></button>
+                            <button type="submit" class="btn btn-danger">حذف اطلاعات  <i class="fa fa-remove"></i></button>
+                        </div>
+                    </form>  
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //convert picture to base64
+    jQuery(document).ready(function ($) {
+//        $('#AddModal').on('hidden.bs.modal', function () {
+//            for (name in CKEDITOR.instances)
+//            {
+//                CKEDITOR.instances[name].destroy(true);
+//            }
+//        });
+        
+    });
+</script>

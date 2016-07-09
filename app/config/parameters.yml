@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: abanpet
+    database_user: aban
+    database_password: gomaneh2015
+    mailer_transport: smtp
+    mailer_host: mail.abanpet.com
+    mailer_port: 587
+    mailer_user: info@abanpet.com
+    mailer_password: pet2015
+    secret: 4a5bebd2aa68d0e683cb15f74e77efb70b6e2f64

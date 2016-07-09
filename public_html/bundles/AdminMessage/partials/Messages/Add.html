@@ -1,0 +1,42 @@
+<form ng-submit="CreateMessage()" name="AddInfoMessageForm" ng-show="AddInfoMessage" novalidate>
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-12">
+
+            <!--<div class="col-lg-12 test col-md-12 col-sm-12 col-xs-12 pull-right">-->
+            <div ng-show="!user_id">
+                <label>  کاربر</label>
+                <select ng-model="AddItem.user_id" class="form-control js-example-basic-multiple" name="user_id" required="true" ng-class="{ErrorInput:AddInfoMessageForm.user_id.$invalid}">
+                    <option value="0">انتخاب کنید</option>
+                    <option value="{{Users.id}}" ng-selected="Users.id == user_id" ng-repeat="Users in UserAllData">
+                        {{Users.name}} {{Users.family}}
+                    </option>
+                </select>
+            </div>
+
+            <!--</div>-->
+            <div ng-show="user_id">
+                <strong>کاربر </strong> : <span>{{Selected.name}}  {{Selected.family}}</span>
+            </div>
+            <div class="col-lg-12 test col-md-12 col-sm-12 col-xs-12">
+                <label >پیام</label>
+                <textarea ng-model="AddItem.message" name="message" required="true" ng-class="{ErrorInput:AddInfoMessageForm.message.$invalid}" class="form-control"></textarea>
+            </div>
+            <div ng-show="!user_id">
+                ارسال برای تمام کاربران <input type="checkbox" ng-model="AddItem.AllUserSend">
+            </div>
+        </div>
+
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success pull-left" ng-disabled="AddInfoMessageForm.message.$invalid" type="submit">ارسال</button>
+        <button class="btn btn-danger pull-left Close" data-dismiss="modal" aria-label="Close">انصراف</button>
+    </div>
+    <div class="clearfix"></div>
+</form>
+<script>
+    $(document).ready(function() {
+        $(".js-example-basic-multiple").select2();
+    });
+</script>

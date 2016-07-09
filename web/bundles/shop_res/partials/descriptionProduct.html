@@ -1,0 +1,120 @@
+<div >
+    <div style=" postion:relative;line-height:40px">
+        <h2 class="title" style="z-index:8;position: relative;color:#fff">فروشگاه 
+            <span style="left:10px;display:inline-block;color:#3b5998;z-index:9;float:left;position: relative;top:-20px;width:60px;height:60px">
+                <a  id="basket" href="#/basket" data-toggle="tooltip" data-placement="bottom" title="تعداد محصول موجود در سبد خرید شما"  >
+                    <span class="glyphicon glyphicon-shopping-cart" style="font-size: 60px!important;position:relative;z-index:99999" aria-hidden="true"><span style="margin:-39px -50px 0 0;position:relative;z-index:99999;font-size:16px" class="badge">{{countBasket}}</span></span>
+                </a>
+            </span>
+        </h2>
+    </div>
+    <div class="page" style="text-align: right;">
+        <a href="#/products/{{pro.category_id}}" style="float: left;margin-left: -40px">بازگشت</a>
+        <div style="padding: 15px;color: rgb(50, 226, 194);font-size: 13px;background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,.2);margin: 22px 0">
+            <div class="mytable">
+                <div class="myrow">
+                    <div class="left-column" >
+                        <div class="img_row">
+                            <div class="pro_img" >
+                                <img class="product_image" src="/bundles/shop_res/img/product-default.jpg"  alt="" ng-show="!pro.photo"/>
+                                <img class="product_image" data-ng-src="{{pro.photo}}"  alt=""  ng-show="pro.photo"/>
+                            </div>
+                            <div class="pro_decr" >
+                                <h4 style="color:#fff">مشحصات</h4>
+
+                                <div  class="pro_description" style="font-size: 12px">
+                                    <h4 >نام : {{pro.name}}</h4>
+                                    <h4 >شناسه محصول : {{pro.product_no}}</h4>
+                                    <h4 >قیمت : {{pro.price|number}} ریال</h4>
+                                    <div class="star-rating" star-rating rating-value="rating" read-only="isreadOnly"  data-max="5" on-rating-selected="rateFunction(rating)"></div>
+                                    <button ng-show="!removeEnable[pro.id]"   data-toggle="tooltip" data-placement="left" title="افزودن به سبد خرید" class="input btnbox " ng-click="onBasket(pro.id, pro.name, pro.price, pro.product_no, $event)">افزودن به سبد خرید<span  class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
+                                    <button ng-show="removeEnable[pro.id]" style="width:100%" data-toggle="tooltip" data-placement="left" title="حذف از سبد خرید" class="btn btn-danger" ng-click="removeItem(pro.id)">حذف از سبد خرید <span style="color:red;"  class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-column" >
+                        <div style="padding: 15px;color: rgb(184, 245, 230);font-size: 13px;background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,.2);height: 100%;min-height: 350px;">
+                            <ul class="nav nav-tabs" style="width: 100%">
+                                <li class="active"><a  data-toggle="tab" href="#desc">توضیحات</a></li>
+                                <li><a data-toggle="tab" ng-click="showComment()" href="#comment">نظرات</a></li>
+                                <li  ><a ng-click="showImage()"  data-toggle="tab" href="#img">تصاویر</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="desc" class="tab-pane fade in active"  >
+                                    <h4 >نام : {{pro.name}}</h4>
+                                    <h4 >زیرگروه : {{pro.category_name}}</h4>
+                                    <div class="star-rating" star-rating rating-value="rating" read-only="isreadOnly"  data-max="5" on-rating-selected="rateFunction(rating)"></div>
+                                    <p ng-bind="">{{pro.descr}}</p>
+                                    <div class="mychart">
+                                    <canvas id="line" class="chart chart-line" width="400" height="300px"></canvas> 
+                                    </div>
+                                
+                                </div>
+                                <div id="comment" class="tab-pane fade"  >
+                                    <form ng-submit="addCommentForProduct()" ng-show="loginUser">
+                                        <table>
+                                            <tr>
+                                                <td> <textarea class="input textbox" placeholder="متن شما" ng-model="mycomment" style="height: 50px;margin-top: 16px;resize: none;"></textarea></td>
+                                                <td style="width: 100px;"><input type="submit" style="height: 50px" ng-disabled=""  class="input btnbox" value="ارسال"></td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                    <p style="margin-top: 20px;text-align: center" ng-show="message"  ng-bind="message" ></p>
+                                    <table  ng-repeat="item in commentList" style="margin-top: 20px;">
+                                        <tr>
+                                            <td style="width: 50px;vertical-align: top">
+                                                <div style="background-color: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,.3);padding: 5px;margin:0 5px">
+                                                    <span ng-show="!item.photo" class="glyphicon glyphicon-user" title="{{ item.name}}" style="font-size: 40px;color:rgba(0,0,0,0.5)" hidden-area="true"></span>
+                                                    <img style="width: 40px" ng-src="{{ item.photo}}" alt="{{ item.name}}"/>
+                                                </div>
+                                            </td>
+                                            <td style="vertical-align: top">
+                                                <div class="comment">
+                                                    {{item.user| nameNull}}: <span ng-bind-html-unsafe="item.comment">  </span> ({{item.date.date|ConvertedToDateShamsi}})
+                                                </div>
+                                            </td> 
+                                        </tr>
+                                    </table> 
+                                </div>
+                                <div id="img" class="tab-pane fade"  >
+
+                                    <div id="myCarousel" class="carousel slide" data-ride="carousel" ng-show="imageList">
+                                        <ol class="carousel-indicators">
+                                            <li data-target="#myCarousel" ng-repeat="img in imageList" data-slide-to="{{$index}}" ng-class="{active:$index == 0}"></li>
+                                        </ol>
+
+                                        <!-- Wrapper for slides -->
+                                        <div class="carousel-inner" role="listbox">
+                                            <div class="item" ng-repeat="img in imageList"ng-class="{active:$index == 0}" >
+                                                <img style="width: 100%" ng-src="{{img}}" alt="{{pro.name}}">
+                                            </div>
+                                        </div>
+
+                                        <!-- Left and right controls -->
+                                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                            <span class="sr-only">قبلی</span>
+                                        </a>
+                                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                            <span class="sr-only">بعدی</span>
+                                        </a>
+                                    </div> 
+                                    <p style="margin-top: 20px;text-align: center" ng-show="message" ng-bind="message"></p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--        <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button> 
+                    <a ng-show="!removeEnable[pro.id]" style="float:left;margin-left:20px;" data-toggle="tooltip" data-placement="right" title="افزودن به سبد خرید" class="btn btn-primary" ng-click="onBasket(pro.id, pro.name, pro.price, pro.product_no, $event)"><span  class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
+                    <a ng-show="removeEnable[pro.id]" style="float:left;margin-left:20px;" data-toggle="tooltip" data-placement="right" title="حذف از سبد خرید" class="btn btn-danger" ng-click="removeItem(pro.id)"><span style="color:red;"  class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
+            -->
+        </div>
+    </div>
+</div>

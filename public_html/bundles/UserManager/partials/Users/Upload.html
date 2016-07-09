@@ -1,0 +1,69 @@
+<div>
+    <div ng-show="ShowAllHistory">
+        <h3 class="page row">
+
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 pull-right">
+                <small>اطلاعات کاربر</small>
+            </div>
+        </h3>
+        <div class="table-responsive">
+            <table id="example1" class="table table-strip table-bordered" dir="rtl">
+                <thead style="background: rgba(90,156,144,0.5)">
+                    <tr>
+                        <th>ردیف</th>
+                        <th>توضیحات</th>
+                        <th>اسکن پرونده</th>
+                        <th>آخرین تغییرات</th>
+                        <th>تاریخ ثبت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="h{{entity.id}}" class='item-tr' ng-click="SelectedItemsUpload(entity)" ng-dblclick="ShowUpload()"  ng-class="{
+                            SelectedItem:entity.id == SelectedUpload.id
+                        }" ng-repeat="entity in UserShowInfoUploadData">
+                        <!--<td> <input class="selecteditem" name="selectitems[]" type='checkbox' value="{{ entity.id}}" /> </td>-->
+                        <td>{{ $index + 1}}</td>
+                        <td>{{ entity.documentTitle}}</td>
+                        <td><img ng-src="{{ entity.photo}}" style="max-width: 80px;max-height: 70px"></td>
+                        <td>{{ entity.updateAt}}</td>
+                        <td>{{ entity.createAt}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>ردیف</th>
+                        <th>توضیحات</th>
+                        <th>اسکن پرونده</th>
+                        <th>آخرین تغییرات</th>
+                        <th>تاریخ ثبت</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-content" ng-show="!ShowAllHistory">
+        <div class="modal-header">
+            <span class="modal-title pull-right"> اطلاعات کاربر  </span>
+            <a class="close pull-left" ng-click="HideShowUpload()" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        </div>
+        <userinfoshowupload></userinfoshowupload>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog"  id="DeleteModalHistoryID">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title pull-right">حذف اطلاعات  کاربر</span>
+                    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-success pull-left" ng-click="DeleteInfoUserUpload()" >حذف اطلاعات</button>
+                    <button type="button" class="btn btn-danger Close pull-left" data-dismiss="modal" aria-label="Close">انصراف</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

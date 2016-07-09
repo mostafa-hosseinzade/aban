@@ -1,0 +1,148 @@
+@font-face {
+    font-family: 'BTitrBold';
+    src: url('font/BTitrBold.eot?#iefix') 
+        format('embedded-opentype'),  
+        url('font/BTitrBold.woff') 
+        format('woff'), url('font/BTitrBold.ttf')  
+        format('truetype'), 
+        url('BTitrBold#persian-DastNevis') 
+        format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BYekan';
+    src: url('font/BYekan.eot?#iefix') 
+        format('embedded-opentype'),  
+        url('font/BYekan.woff') 
+        format('woff'), url('font/BYekan.ttf')  
+        format('truetype'), 
+        url('BKoodakBold.svg#persian-DastNevis') 
+        format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'BKoodak';
+    src: url('font/BKoodakBold.eot?#iefix') format('embedded-opentype'),  url('font/BKoodakBold.woff') format('woff'), url('font/BKoodakBold.ttf')  format('truetype'), url('BKoodakBold.svg#persian-DastNevis') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+}
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: #00cccc;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+    background: #009999;
+}
+::-webkit-scrollbar-track {
+    background: #99ffff;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+    background: #009999;
+}
+::-webkit-scrollbar-track:active {
+    background: #003333;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+body{
+    margin: 0;
+    font-family:'BYekan';
+    font-weight: 100;
+}
+h1,h2,h3,h4,h5,h6
+{
+    color:rgb(51,143,255);
+}
+th{
+    font-family: 'BTitrBold' !important;
+    font-size: 15px;
+    font-weight: 100;
+}
+table
+{
+    font-family: 'BYekan' !important;
+    font-size: 14px;
+    font-weight: 100;
+}
+nav
+{
+    font-family: 'BYekan' !important;
+    font-size: 17px; 
+    font-weight: 100;
+}
+
+#wrapPart
+{
+    padding: 0 30px;
+}
+
+.popover-title{
+    font-family: 'BYekan' !important;
+    font-size: 14px;
+    font-weight: 100;
+}
+.btn
+{
+    font-family: 'BYekan' !important; 
+}
+
+.closeitem
+{
+    float: left;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.8;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    margin-left: 10px;
+    text-decoration: none;
+}
+.closeitem:hover{
+    opacity: .8;
+}
+
+
+#tablePost
+{
+    position: relative;
+}
+
+.iconTH
+{
+    font-size: 9px;
+    color:rgb(0, 153, 204);
+}
+
+.loading
+{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    line-height: 50em;
+    background-color: rgba(255,255,255,0.8);
+    color:black;
+    z-index: 9999999999;
+}
+ 

@@ -1,0 +1,68 @@
+<div style="direction: rtl;width:80%;margin:0 auto" ng-show="!AnimalShow && !UserShow">
+    <h2 class="title" style="color: #fff;text-align: right">تایید اطلاعات</h2>
+    <hr>
+    <div class="alert alert-{{TypeError}} " role="alert" ng-show="error">
+        {{ErrorMsg}}</div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>نام</span> : <span>{{user.name}}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>نام خانوادگی</span> : <span>{{user.family}}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>آدرس</span> : <span>{{user.address}}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>ایمیل</span> : <span>{{user.email}}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>تلفن همراه</span> : <span>{{user.mobile}}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>جنسیت</span> : <span>
+            <span ng-show="user.sex == 1">آقا</span>
+            <span ng-show="user.sex == 0">خانم</span>
+        </span>
+    </div>
+    <div class="clearfix"></div>
+    <hr>
+    <h2 class="title" style="color: #fff;text-align: right">  اطلاعات حیوان</h2>
+    <hr>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>نام حیوان</span> : <span>{{animal.name}}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>جنسیت</span> : <span>
+            <span ng-show="animal.sex ==1">نر</span>
+            <span ng-show="animal.sex == 0">ماده</span>
+        </span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>دسته بندی</span> : <span>{{animal.ctg}}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>کد میکروچیپ</span> : <span>{{animal.code}}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>تاریخ تولد</span> : <span>{{animal.age}}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 showinfo">
+        <span>وزن</span> : <span>{{animal.weight}}</span>
+    </div>
+    
+    <div class="col-lg-6" ng-hide="SendOk">
+        <button  ng-click="SendAllInfo()" ng-disabled="isLoading == 1" class="input btnbox" id="_submit"  name="_submit" ><span>تائید و ارسال داده ها</span> : <i class="fa fa-check"></i></button>                    
+    </div>
+    <div class="col-lg-6">
+        <button  ng-click="ShowAnimal()" ng-disabled="isLoading == 1" class="input btnbox" id="_submit"  name="_submit" ><span>مرحله قبلی</span> : <i class="fa fa-arrow-right"></i></button>                    
+    </div>
+    <div class="clearfix"></div>
+</div>
+<style>
+    .showinfo{
+        padding: 10px;
+        color: #fff;
+        font-size: 1.5em;
+        font-family: arial;
+    }
+</style>

@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Factor</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Total</th>
+                <td>{{ entity.total }}</td>
+            </tr>
+            <tr>
+                <th>Descr</th>
+                <td>{{ entity.descr }}</td>
+            </tr>
+            <tr>
+                <th>Refsale</th>
+                <td>{{ entity.refsale }}</td>
+            </tr>
+            <tr>
+                <th>Ipclient</th>
+                <td>{{ entity.ipClient }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('factor') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('factor_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

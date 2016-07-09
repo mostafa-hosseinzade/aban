@@ -1,0 +1,47 @@
+<div ng-controller="microchip">
+    <div style="width: 80%;margin:0 auto;direction: rtl">
+        <div style="text-align: center;color:#fff">
+            <span class="glyphicon glyphicon-qrcode" style="font-size:70px" aria-hidden="true"></span>
+            <h3>سامانه میکروچیپ حیوانات خانگی</h3>
+        </div>
+        <form ng-show='!animal' style="margin-top: 30px;color:#fff">
+            <label>شماره حیوان مورد نظر را وارد کنید:</label>
+            <input ng-disabled="isloading" ng-model='animalId'  type="text" style="direction: ltr"  class="input textbox" placeholder="xxxxxxxxxxxxxxx" maxlengh="15" angular-mask="000-000-000-000-000" />
+            <button ng-disabled="isloading" ng-click="animalSearch($event)" class="input btnbox">{{search}}</button>
+            <h4 ng-show="notFind">شماره حیوان در سامانه یافت نشد.</h4>
+        </form>
+        <div ng-show='animal' style="margin-top: 30px;color:#fff">
+            <div>
+                <button ng-click="searchAgain()" class="input btnbox">جست و جو</button> 
+                <table style="width: 100%;margin-top: 20px;color:#fff">
+                    <tr ><td colspan="2"><img style="width:100%;margin-bottom: 5px" ng-src='{{animal.photo}}' /></td></tr>
+                    <tr>
+                        <td>
+                            <table style="width: 100%;margin-top: 5px;color:#fff">
+                                <tr ><td>نام:</td><td>{{animal.name}}</td></tr>
+                                <tr ><td>گونه:</td><td>{{animal.sp}}</td></tr>
+                                <tr ><td>نژاد:</td><td>{{animal.br}}</td></tr>
+                                <tr ><td>جنسیت:</td><td>{{animal.sex}}</td></tr>
+                                <tr ><td>رنگ:</td><td>{{animal.color}}</td></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <qrcode ></qrcode>
+                        </td>
+                    </tr>
+                    <tr><td colspan="2">برای اطلاعات بیشتر با کلینیک تماس بگیرید.</td></tr>
+                </table>
+
+            </div>
+        </div>
+        <button ng-show='!islogin' ng-disabled="isloading" ng-click="addAnimals($event)" class="input btnprimary">ثبت میکروچیپ در سامانه</button>
+        
+        <h5 ng-show='islogin' style="color:#fff">برای ثبت میکروچیپ باید وارد ناحیه کاربری خود شوید یا ثبت نام کنید.</h5>
+        <table ng-show='islogin' style="width:100%">
+            <tr>
+                <td style="padding: 2px"><button ng-click="gotoLogin()" class='btn btn-success form-control'>&nbsp;ورود&nbsp;&nbsp;</button></td>
+                <td style="padding: 2px"><button ng-click="gotoReg()" class='btn btn-primary form-control'>ثبت نام</button><td>
+            </tr>
+        </table>
+    </div>
+</div>

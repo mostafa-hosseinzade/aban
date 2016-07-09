@@ -1,0 +1,168 @@
+<style>
+    .wrapThumtionalProfile
+    {
+        position: relative;
+        background-color: rgb(204, 255, 255);
+        border: 2px dashed rgba(0,0,0,.3);
+        text-align: center;
+        line-height: 120px;
+        height: 128px;
+        width: 128px;
+    }
+</style>
+<h3>
+    ویرایش اطلاعات کاربری 
+</h3>
+<div >
+    <div class="form-group"> 
+        نام کاربری شما<span> : <strong> {{username}}</strong></span>
+    </div>
+    <div id="ViewMode"  ng-show="!editMode">
+        <div>
+
+            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div ng-show="photo" style="background-image: url('{{photo}}');background-size: cover;width: 139px;height: 139px;border-radius: 100%">
+                </div>
+                <span ng-show="!photo" style="font-size: 4em"><i class="glyphicon glyphicon-user"></i></span>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="name" >نام</label> :
+                <span  ng-bind="name"></span>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="family" >فامیلی</label> :
+                <span  ng-bind="family"></span>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="email" >ایمیل</label> :
+                <span  ng-bind="email"></span>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="phone" >تلفن</label> :
+                <span  ng-bind="phone"></span>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="phone" >موبایل</label> :
+                <span  ng-bind="mobile"></span>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label  for="phone" >آدرس</label> :
+                <span  ng-bind="address"></span>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="modal fade" id="ModalEdit"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3>فرم ویرایش اطلاعات</h3>
+                </div>
+                <div class="modal-body">
+                    <form  ng-submit="submitEdit()" role="form" name="EditFormUserInfo" novalidate>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-md-12">
+                            <inputfile ></inputfile>
+                            <div></div>
+                        </div>
+
+
+                        <div class="form-group col-lg-6">
+                            <label for="name" >نام</label>
+                            <input class="form-control" name="name" ng-model="name" required/>
+                            <div style="margin-top: 20px" ng-show = "EditFormUserInfo.name.$dirty">
+                                <span class="alert alert-error" ng-show="EditFormUserInfo.name.$error.required">فیلد نام را پر کنید </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label for="family" >فامیلی</label>
+                            <input class="form-control" name="family" ng-model="family" required/>
+                            <div style="margin-top: 20px" ng-show = "EditFormUserInfo.family.$dirty">
+                                <span class="alert alert-error" ng-show="EditFormUserInfo.family.$error.required">فیلد فامیلی را پر کنید </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label for="email" >ایمیل</label>
+                            <input class="form-control" name="email" ng-model="email" required/>
+                            <div style="margin-top: 20px" ng-show = "EditFormUserInfo.email.$dirty">
+                                <span class="alert alert-error" ng-show="EditFormUserInfo.email.$dirty && EditFormUserInfo.email.$invalid">فیلد ایمیل پر نشده یا نا معتبر است </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label for="phone" >تلفن</label>
+                            <input class="form-control" name="phone" ng-model="phone" required/>
+                            <div style="margin-top: 20px" ng-show = "EditFormUserInfo.phone.$dirty">
+                                <span class="alert alert-error" ng-show="EditFormUserInfo.phone.$error.required">فیلد تلفن را پر کنید </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label for="phone" >موبایل</label>
+                            <input class="form-control" name="mobile" ng-model="mobile" required/>
+                            <div style="margin-top: 20px" ng-show = "EditFormUserInfo.mobile.$dirty">
+                                <span class="alert alert-error" ng-show="EditFormUserInfo.mobile.$error.required">فیلد تلفن را پر کنید </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label for="address" >آدرس</label>
+                            <input class="form-control" name="address" ng-model="address" required/>
+                            <div style="margin-top: 20px" ng-show = "EditFormUserInfo.address.$dirty">
+                                <span class="alert alert-error" ng-show="EditFormUserInfo.address.$error.required">فیلد آدرس را پر کنید </span>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div class="form-group">
+                            <input class="btn btn-success pull-left" type="submit" value="بروزرسانی"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+
+
+<div class="clearfix"></div>
+                    <div class="form-group" >
+                        <form ng-submit="submitChangePassword()" role="form" name="changePassword" novalidate>
+                            <div class="form-group">
+                                <label for="password">پسورد جدید</label>
+                                <input name="password" class="form-control" id="password" type="password" ng-model="password" ng-required=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="passold">تکرار پسورد</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" ng-model="confirmPassword" ng-required="" pw-check="password" />
+                            </div>
+                            <div class="form-group">
+                                <div class="alert alert-danger" ng-show="changePassword.confirmPassword.$error.pwmatch">
+                                    <span>
+                                        پسورد ها با هم برابر نیست
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary pull-left" value="تغییر کلمه عبور" />
+                            </div>
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group" style="text-align: left">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#ModalEdit"> {{ textBtnEdit}} </button>
+
+    </div>
+</div>
+<div class="clearfix"></div>

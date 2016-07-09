@@ -1,0 +1,185 @@
+<h3>
+    زمان بندی دکتران
+</h3>
+<style>
+    #tableScheduling td,th,tr{
+        text-align: right;
+    } 
+</style>
+<div class="row">
+    <div class="col-md-8">
+        <div>
+            <h5 class="alert alert-info">لطفا دکتر مورد نظر خود را انتخاب کنید:</h5> 
+            <div class="table-responsive">
+                <table id="tableScheduling" class="table table-striped" >
+                    <thead>
+                        <tr>
+                            <th>
+                                ردیف
+                            </th>
+                            <th>
+                                نام دکتر 
+                            </th>
+                            <th>
+                                تخصص دکتر
+                            </th>
+                            <th>
+                                مشاهده زمان بندی
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table">
+                        <tr ng-repeat="info in InfoDoctorListCertificationDoctor.user">
+                            
+                            <td>
+                                {{ $index + 1}}
+                            </td>
+
+                            <td>
+                                <span style="font-weight: bold;"> دکتر</span>
+                                <span>{{  info.name | IfNull  }}</span>
+                                <span>{{  info.family | IfNull  }}</span> 
+                            </td>
+
+                            <td >
+                                <span ng-repeat="expert in InfoDoctorListCertificationDoctor.expertise[info.id]" > {{expert}} </span>
+                            </td>
+
+                            <td>
+                                <button ng-disabled="SeeTimes" ng-click="ShowScheduling(info.id, info.name, info.family)" class="btn btn-info btn-xs">برای مشاهده کلیک کنید</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+
+                </table>   
+            </div>
+        </div>
+
+        <div id="ShowTimeDoctor" ng-show="SeeTimes">
+
+            <hr/>
+            <h5 class="alert alert-success">تاریخ آغاز هفته:{{ TableTimeReserved.StartedWeek | ConvertedToDateShamsi  }}</h5>
+            <table class="table">
+                <thead style="background-color: rgb(230, 251, 255);">
+                <th>
+                    شنبه  <span class="dateFormat"> {{  one[0]}}</span>
+                </th>
+                <th>
+                    یکشنبه<span class="dateFormat"> {{  two[0]}}</span>
+                </th>
+                <th>
+                    دوشنبه <span class="dateFormat">{{  three[0]}}</span>
+                </th>
+                <th>
+                    سه شنبه <span class="dateFormat">{{  four[0]}}</span>
+                </th>
+                <th>
+                    چهارشنبه <span class="dateFormat">{{  five[0]}}</span>
+                </th>
+                <th>
+                    پنج شنبه <span class="dateFormat">{{  six[0]}}</span>
+                </th>
+                <th>
+                    جمعه <span class="dateFormat">{{  seven[0]}}</span>
+                </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ng-repeat="x in TableTimeReserved.TableResultForWeek">
+                            <span ng-show="checkValueZero(x)" style='color:rgb(217, 83, 79);cursor:not-allowed'><i style='padding-left:5px;' class='glyphicon glyphicon-remove' ng-disabled='true'></i>دکتر نیست</span>
+                            <span ng-show="!checkValueZero(x)" style='color:rgb(71, 164, 71);cursor:pointer' ng-click='ShowFormReserve($index)'><i style='padding-left:5px;' class='glyphicon glyphicon-ok' ng-disabled='false'></i>نویت بگیرید</span>
+                            <!--<span ng-bind="checkValueZero(x)"></span>-->
+                        </td>
+                    </tr> 
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="6"><input type="button" ng-click="prevWeek()" class="btn btn-success btn-sm" ng-disabled="currentWeek == 0" value="هفته قبلی"/> <input type="button" ng-click="nextWeek()" class="btn btn-success btn-sm" ng-disabled="AllWeek == currentWeek + 1" value="هفته بعدی"/>  </th>
+                        <th colspan="6" style="text-align: left"><input type="button" ng-click="SeeTimes = false" class="btn btn-info btn-sm"  value="بستن"/> </th>
+                    </tr>
+                </tfoot>
+            </table>   
+        </div>
+
+        <hr/>
+
+        <div ng-show="ShowHiddenReserveForm">
+            <h5 class="alert alert-info">فرم دریافت نوبت برای : {{ selectedDoctorName}} <span> تاریخ انتخاب شده: {{ selectShamsiDateReserve}} </span></h5>  
+            <div class="animalsWraper" id="wrapAnimalsSelect" style="border: 1px dashed rgba(0,0,0,.1)">
+                <h5>حیوان خود را انتخاب کنید:</h5>
+                <!--        <div class="divAnimals"  >
+                            <img class="img-thumbnail" width="128" data-ng-src="{{ myAnimals.defaultPhoto[$index].photo}}" ng-click="SelectAnimals(animal.id)" />
+                        </div>-->
+
+                <div id="divAnimals" style="display: block;background-color:#ECECEC;position: relative;    padding: 10px;">
+                    <img style="margin-left: 10px" width="96px" style="display: inline-block;" class="img-thumbnail"  ng-click="SelectAnimals($event, animal.id)" data-ng-src="{{ myAnimals.defaultPhoto[$index].photo}}" ng-repeat="animal in myAnimals.infoAnimals" />
+                </div> 
+                <div id="insertReserveTime">
+                    <!--<div ng-bind="idTimeDoctor"></div>-->
+
+                    <form role="form" name="FormReserveTime" ng-submit="insertReserveTime()" novalidate>
+                        <div class="form-group" style="margin-top: 10px">
+                            <input class="form-control" style="display: inline-block;width: 85%" name="desc" ng-model="desc" placeholder="اگر توضیحاتی دارید در اینجا یادداشت فرمایید"/> 
+                            <input class="btn btn-success btn-sm"  value="ثبت شود" ng-click="insertClick()"/>
+                        </div>
+                        <input type="text" ng-show="false" name="CurrentAnimalsSelect" ng-model="CurrentAnimalsSelect"/>
+                        <input type="text" ng-show="false" name="idTimeDoctor" ng-model="idTimeDoctor" />
+                        <input type="text" ng-show="false" name="date" ng-model="dateSet"/>
+                    </form>  
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div><span></span></div>
+        <h5>نمایش نوبت های شما:</h5>
+        <div class="table-responsive text-center" style="height: 400px;overflow-y: auto;overflow-x: hidden;padding: 10px">
+            <table id="tableShowTicketUser" style="width: 100%">
+                <tbody>
+                    <tr ng-repeat="row in UserTickets">
+                        <td>
+                            <i ng-show="row.active==1" class="glyphicon glyphicon-check" style="color:#70b948"></i>
+                            <i ng-show="row.active==0" class="glyphicon glyphicon-unchecked" style="color:#b94a48"></i>
+                        </td>
+                        <td>
+                            تاریخ: <span style="color:#8BB9B1">{{ row._date | ConvertedToDateShamsi }}</span>
+                        </td>
+                        <td>
+                            شماره: <span style="color:#8BB9B1">{{ row.number }}</span>
+                        </td>
+                        
+                        <td>
+                            <span ng-show="row.fieldtime">ساعت حضور:{{ row.fieldtime }}</span>  
+                        </td>
+                        
+                        <td style="width: 16px">
+                            <span ng-show="row.active==0" style="cursor: pointer" ng-click="DoModalDeleteTicket($index,row.number,row.id)"><i style="color:#b94a48" class="glyphicon glyphicon-remove"></i></span> 
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+    
+    <div class="modal fade" id="ModalDeleteTicket" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">حذف <span id="postname"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p>آیا از حذف نوبت خود اطمینان دارید؟</p>
+                <p>شماره:{{ currentNumber }}</p>
+            </div>
+            <div class="modal-footer">
+                <button id="deletedAlertButton" type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteTicket(currentTicket)">حذف</button> 
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,37 @@
+<form ng-submit="SendEditKeyValue()" ng-show="EditKeyValue" name="EditKeyValueForm">
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-12">
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>مقدار</label>
+                <p ng-repeat="(key,value) in Edit" ng-hide="key == 'label'">
+                    <label>{{key}} :</label>
+                    <input type="text"  value="{{value}}"  ng-hide="FileInputShow || SelectedInput " class="EditOk form-control edit{{key}}">  
+                    <select  class="form-control edits{{key}}" ng-show="SelectedInput">
+                        <option value="1" ng-selected="value == 1">فعال</option>
+                        <option value="0" ng-selected="value == 0">غیر فعال</option>
+                    </select>
+                </p>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12" ng-show="FileInputShow">
+                <label>
+                    تصاویر این بخش
+                </label>
+                <inputfile ></inputfile>
+                <div ></div>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>  نام</label>
+                <p>{{Edit.label}}</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="modal-footer">
+            <button class="btn btn-success pull-left" ng-disabled="EditKeyValueForm.key.$invalid" type="submit">ارسال</button>
+            <button class="btn btn-danger pull-left Close" data-dismiss="modal" aria-label="Close">انصراف</button>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+</form>

@@ -1,0 +1,21 @@
+<div ng-controller="Login">
+<h2 class="title" style="text-align: center;color:#fff">ورود</h2>
+<div style="    background-color: rgba(255,255,255,.3);width:400px;margin: 10px auto;border:solid thin rgba(255,255,255,0.1);direction: rtl;">
+    <div style="background: rgba(255,255,255,0.4);color:red;padding: 10px;border-radius: 5px;border:solid thin rgba(255,255,255,0.1);font-size: medium;margin:20px;text-align: center;margin-bottom: 0" ng-show="errorMsg">{{ errorMsg}}</div>
+
+    <form   style="padding: 20px;border-radius: 5px">
+        <input type="hidden" name="_csrf_token" ng-model="token" value="{{ token}}" />
+
+        <input type="text" ng-disabled="isLoading == 1" data-toggle="tooltip" ng-model="username"  data-placement="top" title="نام کاربری" class="input textbox" id="username" name="_username" value="{{username}}" placeholder="نام کاربری"  />
+
+        <input type="password" ng-disabled="isLoading == 1" data-toggle="tooltip" ng-model="password" data-placement="top" title="کلمه عبور"  class="input textbox" id="password" name="_password" placeholder="کلمه عبور"  />
+
+        <input type="checkbox" ng-disabled="isLoading == 1" id="remember_me" name="_remember_me" ng-model="remember" value="on" />
+        <label for="remember_me">مرا به یاد بسپار</label>
+
+        <button  ng-click="onSubmit()" ng-disabled="isLoading == 1" class="input btnbox" id="_submit"  name="_submit" >{{login}}</button>
+        <a class="input btnprimary" ng-disabled="isLoading == 1" style="width:100%;display: inline-block;margin: 12px 0 -10px 0"  href="{{path('fos_user_registration_register')}}">ثبت نام</a>
+        <a href="#/reset" style="width:100%;display: inline-block;margin: 12px 0 -10px 0"  >بازیابی کلمه عبور</a>
+    </form>
+</div>
+</div>

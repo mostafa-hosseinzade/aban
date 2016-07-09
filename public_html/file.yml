@@ -1,0 +1,600 @@
+User:
+    name: User
+    class: AppBundle\Entity\User
+    prop:
+        - username
+        - usernameCanonical
+        - email
+        - emailCanonical
+        - enabled
+        - salt
+        - password
+        - lastLogin
+        - locked
+        - expired
+        - expiresAt
+        - confirmationToken
+        - passwordRequestedAt
+        - roles
+        - credentialsExpired
+        - credentialsExpireAt
+        - id
+        - photo
+        - name
+        - family
+        - phone
+        - mobile
+        - address
+    label: User
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - username
+        - usernameCanonical
+        - email
+        - emailCanonical
+        - enabled
+        - salt
+        - password
+        - lastLogin
+        - locked
+        - expired
+        - expiresAt
+        - confirmationToken
+        - passwordRequestedAt
+        - roles
+        - credentialsExpired
+        - credentialsExpireAt
+        - id
+        - photo
+        - name
+        - family
+        - phone
+        - mobile
+        - address
+    show:
+        - { name: username, type: string, label: username }
+        - { name: usernameCanonical, type: string, label: usernameCanonical }
+        - { name: email, type: string, label: email }
+        - { name: emailCanonical, type: string, label: emailCanonical }
+        - { name: enabled, type: boolean, label: enabled }
+        - { name: salt, type: string, label: salt }
+        - { name: password, type: string, label: password }
+        - { name: lastLogin, type: datetime, label: lastLogin }
+        - { name: locked, type: boolean, label: locked }
+        - { name: expired, type: boolean, label: expired }
+        - { name: expiresAt, type: datetime, label: expiresAt }
+        - { name: confirmationToken, type: string, label: confirmationToken }
+        - { name: passwordRequestedAt, type: datetime, label: passwordRequestedAt }
+        - { name: roles, type: array, label: roles }
+        - { name: credentialsExpired, type: boolean, label: credentialsExpired }
+        - { name: credentialsExpireAt, type: datetime, label: credentialsExpireAt }
+        - { name: id, type: integer, label: id }
+        - { name: photo, type: text, label: photo }
+        - { name: name, type: text, label: name }
+        - { name: family, type: text, label: family }
+        - { name: phone, type: string, label: phone }
+        - { name: mobile, type: string, label: mobile }
+        - { name: address, type: string, label: address }
+    form:
+        - { name: username, type: string, label: username }
+        - { name: usernameCanonical, type: string, label: usernameCanonical }
+        - { name: email, type: string, label: email }
+        - { name: emailCanonical, type: string, label: emailCanonical }
+        - { name: enabled, type: boolean, label: enabled }
+        - { name: salt, type: string, label: salt }
+        - { name: password, type: string, label: password }
+        - { name: lastLogin, type: datetime, label: lastLogin }
+        - { name: locked, type: boolean, label: locked }
+        - { name: expired, type: boolean, label: expired }
+        - { name: expiresAt, type: datetime, label: expiresAt }
+        - { name: confirmationToken, type: string, label: confirmationToken }
+        - { name: passwordRequestedAt, type: datetime, label: passwordRequestedAt }
+        - { name: roles, type: array, label: roles }
+        - { name: credentialsExpired, type: boolean, label: credentialsExpired }
+        - { name: credentialsExpireAt, type: datetime, label: credentialsExpireAt }
+        - { name: id, type: integer, label: id }
+        - { name: photo, type: text, label: photo }
+        - { name: name, type: text, label: name }
+        - { name: family, type: text, label: family }
+        - { name: phone, type: string, label: phone }
+        - { name: mobile, type: string, label: mobile }
+        - { name: address, type: string, label: address }
+    import: {  }
+    export: {  }
+Contact:
+    name: Contact
+    class: BlogBundle\Entity\Contact
+    prop:
+        - id
+        - name
+        - mobile
+        - email
+        - subject
+        - msg
+        - createdAt
+        - isRead
+    label: Contact
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - id
+        - name
+        - mobile
+        - email
+        - subject
+        - msg
+        - createdAt
+        - isRead
+    show:
+        - { name: id, type: integer, label: id }
+        - { name: name, type: string, label: name }
+        - { name: mobile, type: string, label: mobile }
+        - { name: email, type: string, label: email }
+        - { name: subject, type: string, label: subject }
+        - { name: msg, type: string, label: msg }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: isRead, type: boolean, label: isRead }
+    form:
+        - { name: id, type: integer, label: id }
+        - { name: name, type: string, label: name }
+        - { name: mobile, type: string, label: mobile }
+        - { name: email, type: string, label: email }
+        - { name: subject, type: string, label: subject }
+        - { name: msg, type: string, label: msg }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: isRead, type: boolean, label: isRead }
+    import: {  }
+    export: {  }
+Content:
+    name: Content
+    class: BlogBundle\Entity\Content
+    prop:
+        - title
+        - content
+        - visit
+        - orderList
+        - createdAt
+        - updatedAt
+        - id
+    label: Content
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - title
+        - content
+        - visit
+        - orderList
+        - createdAt
+        - updatedAt
+        - id
+    show:
+        - { name: title, type: string, label: title }
+        - { name: content, type: text, label: content }
+        - { name: visit, type: integer, label: visit }
+        - { name: orderList, type: integer, label: orderList }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: id, type: integer, label: id }
+    form:
+        - { name: title, type: string, label: title }
+        - { name: content, type: text, label: content }
+        - { name: visit, type: integer, label: visit }
+        - { name: orderList, type: integer, label: orderList }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: id, type: integer, label: id }
+    import: {  }
+    export: {  }
+ContentCategory:
+    name: ContentCategory
+    class: BlogBundle\Entity\ContentCategory
+    prop:
+        - title
+        - active
+        - slug
+        - createdAt
+        - updatedAt
+        - id
+    label: ContentCategory
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - title
+        - active
+        - slug
+        - createdAt
+        - updatedAt
+        - id
+    show:
+        - { name: title, type: string, label: title }
+        - { name: active, type: boolean, label: active }
+        - { name: slug, type: string, label: slug }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: id, type: integer, label: id }
+    form:
+        - { name: title, type: string, label: title }
+        - { name: active, type: boolean, label: active }
+        - { name: slug, type: string, label: slug }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: id, type: integer, label: id }
+    import: {  }
+    export: {  }
+Gallery:
+    name: Gallery
+    class: BlogBundle\Entity\Gallery
+    prop:
+        - title
+        - meta
+        - createAt
+        - updateAt
+        - orderList
+        - id
+    label: Gallery
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - title
+        - meta
+        - createAt
+        - updateAt
+        - orderList
+        - id
+    show:
+        - { name: title, type: string, label: title }
+        - { name: meta, type: string, label: meta }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: datetime, label: updateAt }
+        - { name: orderList, type: integer, label: orderList }
+        - { name: id, type: integer, label: id }
+    form:
+        - { name: title, type: string, label: title }
+        - { name: meta, type: string, label: meta }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: datetime, label: updateAt }
+        - { name: orderList, type: integer, label: orderList }
+        - { name: id, type: integer, label: id }
+    import: {  }
+    export: {  }
+Images:
+    name: Images
+    class: BlogBundle\Entity\Images
+    prop:
+        - alt
+        - meta
+        - src
+        - createAt
+        - updateAt
+        - id
+        - orderList
+    label: Images
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - alt
+        - meta
+        - src
+        - createAt
+        - updateAt
+        - id
+        - orderList
+    show:
+        - { name: alt, type: string, label: alt }
+        - { name: meta, type: string, label: meta }
+        - { name: src, type: text, label: src }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: integer, label: updateAt }
+        - { name: id, type: integer, label: id }
+        - { name: orderList, type: string, label: orderList }
+    form:
+        - { name: alt, type: string, label: alt }
+        - { name: meta, type: string, label: meta }
+        - { name: src, type: text, label: src }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: integer, label: updateAt }
+        - { name: id, type: integer, label: id }
+        - { name: orderList, type: string, label: orderList }
+    import: {  }
+    export: {  }
+Media:
+    name: Media
+    class: BlogBundle\Entity\Media
+    prop:
+        - alt
+        - src
+        - createAt
+        - updateAt
+        - id
+    label: Media
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - alt
+        - src
+        - createAt
+        - updateAt
+        - id
+    show:
+        - { name: alt, type: string, label: alt }
+        - { name: src, type: text, label: src }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: datetime, label: updateAt }
+        - { name: id, type: integer, label: id }
+    form:
+        - { name: alt, type: string, label: alt }
+        - { name: src, type: text, label: src }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: datetime, label: updateAt }
+        - { name: id, type: integer, label: id }
+    import: {  }
+    export: {  }
+Menu:
+    name: Menu
+    class: BlogBundle\Entity\Menu
+    prop:
+        - title
+        - orderList
+        - createdAt
+        - updatedAt
+        - active
+        - id
+    label: Menu
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - title
+        - orderList
+        - createdAt
+        - updatedAt
+        - active
+        - id
+    show:
+        - { name: title, type: string, label: title }
+        - { name: orderList, type: integer, label: orderList }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: active, type: boolean, label: active }
+        - { name: id, type: integer, label: id }
+    form:
+        - { name: title, type: string, label: title }
+        - { name: orderList, type: integer, label: orderList }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: active, type: boolean, label: active }
+        - { name: id, type: integer, label: id }
+    import: {  }
+    export: {  }
+Page:
+    name: Page
+    class: BlogBundle\Entity\Page
+    prop:
+        - title
+        - content
+        - meta
+        - visit
+        - createAt
+        - updateAt
+        - id
+    label: Page
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - title
+        - content
+        - meta
+        - visit
+        - createAt
+        - updateAt
+        - id
+    show:
+        - { name: title, type: string, label: title }
+        - { name: content, type: text, label: content }
+        - { name: meta, type: text, label: meta }
+        - { name: visit, type: integer, label: visit }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: datetime, label: updateAt }
+        - { name: id, type: integer, label: id }
+    form:
+        - { name: title, type: string, label: title }
+        - { name: content, type: text, label: content }
+        - { name: meta, type: text, label: meta }
+        - { name: visit, type: integer, label: visit }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: datetime, label: updateAt }
+        - { name: id, type: integer, label: id }
+    import: {  }
+    export: {  }
+Comment:
+    name: Comment
+    class: ForumBundle\Entity\Comment
+    prop:
+        - title
+        - content
+        - like
+        - createdAt
+        - updatedAt
+        - id
+        - enabled
+    label: Comment
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - title
+        - content
+        - like
+        - createdAt
+        - updatedAt
+        - id
+        - enabled
+    show:
+        - { name: title, type: string, label: title }
+        - { name: content, type: text, label: content }
+        - { name: like, type: integer, label: like }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: id, type: integer, label: id }
+        - { name: enabled, type: boolean, label: enabled }
+    form:
+        - { name: title, type: string, label: title }
+        - { name: content, type: text, label: content }
+        - { name: like, type: integer, label: like }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: id, type: integer, label: id }
+        - { name: enabled, type: boolean, label: enabled }
+    import: {  }
+    export: {  }
+GroupForum:
+    name: GroupForum
+    class: ForumBundle\Entity\GroupForum
+    prop:
+        - title
+        - meta
+        - orderList
+        - createAt
+        - updateAt
+        - id
+        - enabled
+    label: GroupForum
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - title
+        - meta
+        - orderList
+        - createAt
+        - updateAt
+        - id
+        - enabled
+    show:
+        - { name: title, type: string, label: title }
+        - { name: meta, type: string, label: meta }
+        - { name: orderList, type: integer, label: orderList }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: datetime, label: updateAt }
+        - { name: id, type: integer, label: id }
+        - { name: enabled, type: boolean, label: enabled }
+    form:
+        - { name: title, type: string, label: title }
+        - { name: meta, type: string, label: meta }
+        - { name: orderList, type: integer, label: orderList }
+        - { name: createAt, type: datetime, label: createAt }
+        - { name: updateAt, type: datetime, label: updateAt }
+        - { name: id, type: integer, label: id }
+        - { name: enabled, type: boolean, label: enabled }
+    import: {  }
+    export: {  }
+Post:
+    name: Post
+    class: ForumBundle\Entity\Post
+    prop:
+        - title
+        - content
+        - like
+        - createdAt
+        - updatedAt
+        - id
+        - enabled
+    label: Post
+    enable: true
+    action:
+        - edit
+        - add
+        - delete
+        - show
+        - export
+        - import
+    list:
+        - title
+        - content
+        - like
+        - createdAt
+        - updatedAt
+        - id
+        - enabled
+    show:
+        - { name: title, type: string, label: title }
+        - { name: content, type: text, label: content }
+        - { name: like, type: integer, label: like }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: id, type: integer, label: id }
+        - { name: enabled, type: boolean, label: enabled }
+    form:
+        - { name: title, type: string, label: title }
+        - { name: content, type: text, label: content }
+        - { name: like, type: integer, label: like }
+        - { name: createdAt, type: datetime, label: createdAt }
+        - { name: updatedAt, type: datetime, label: updatedAt }
+        - { name: id, type: integer, label: id }
+        - { name: enabled, type: boolean, label: enabled }
+    import: {  }
+    export: {  }

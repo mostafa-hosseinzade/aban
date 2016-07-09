@@ -1,0 +1,358 @@
+<h2>مشاهده تمامی کامنت ها</h2>
+<ol ng-hide="isUndefined(ForumGroupIditem)" class="breadcrumb">
+    <li><a href="#/Posts">لیست پست ها</a></li>
+    <li ng-model="breaditemPost" ng-if="breaditemPost != null">{{ breaditemPost.title}}</li>
+</ol>
+
+<hr/>
+<table class="table">
+
+    <thead>
+    <th>
+        <span   style="cursor: pointer" ng-show="true" ng-click="sortDesc('id')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('id')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+        شماره
+    </th>  
+    <th>
+        <span   style="cursor: pointer" ng-show="true" ng-click="sortDesc('user')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('user')" class="glyphicon glyphicon-arrow-down iconTH"></span>   
+        نام کاربر
+    </th>
+    <th>
+        <span   style="cursor: pointer" ng-show="true" ng-click="sortDesc('title')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('title')" class="glyphicon glyphicon-arrow-down iconTH"></span>   
+        تیتر کامنت
+    </th>
+    <th>
+        <span   style="cursor: pointer" ng-show="true" ng-click="sortDesc('content')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('content')" class="glyphicon glyphicon-arrow-down iconTH"></span>   
+        محتوای کامنت
+    </th>    
+    <th>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('like')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('like')" class="glyphicon glyphicon-arrow-down iconTH"></span>   
+
+        تعداد لایک
+    </th>
+    <th>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('createAt')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('createAt')" class="glyphicon glyphicon-arrow-down iconTH"></span>   
+        تاریخ ثبت
+    </th>    
+    <th>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('enabled')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('enabled')" class="glyphicon glyphicon-arrow-down iconTH"></span>   
+        فعال/غیرفعال
+    </th>
+    <th>
+        ویرایش/حذف
+    </th>
+</thead>
+
+<tbody>
+    <tr ng-repeat="tr in commentRows">
+        <td>{{tr.id}}</td>
+        <td>{{tr.user.username}}</td>
+        <td>{{tr.title| htmlToPlaintext | cut:true:20:' ...'}}</td>
+        <td>{{tr.content| htmlToPlaintext | cut:true:25:' ...' }}</td>
+        <td>{{tr.like}}</td>
+        <td>{{tr.created_at | ConvertedToDateShamsi }}</td>
+        <td>{{tr.enabled| active}}</td>  
+        <td><span class="badge alert-danger btnTooltip" data-placement="auto" title="حذف"><span  data-struct="{{tr.id}}" class="glyphicon glyphicon-remove deleteRecord"></span></span> <span class="badge alert-success btnTooltip" data-placement="auto" title="ویرایش"><span  class="glyphicon glyphicon-edit editRecord" data-struct="{{tr.id}}|{{ tr.user}}|{{ tr.title}}|{{ tr.content}}|{{ tr.like}}|{{tr.post.id}}|{{ tr.enabled}}| {{ tr.createdAt}}"></span></span></td>
+        <!--<td><button data-struct="{{ tr.id }}" class="btn btn-small btn-danger">حذف</button><button class="btn btn-small btn-success">ویرایش</button></td>-->
+    </tr>
+</tbody>
+
+<tfoot>
+<th>شماره</th>  
+<th>نام کاربر</th>
+<th>تیتر کامنت</th>
+<th>محتوای کامنت</th>    
+<th>تعداد لایک</th>
+<th>تاریخ ثبت</th>    
+<th>فعال/غیرفعال</th>
+<th>ویرایش/حذف</th>
+</tfoot>
+
+</table>
+
+
+<!--Create Pagination For Table-->
+<nav style="text-align: center;" class="btnTooltip" data-placement="auto" title="صفحه بندی" >
+    <ul class="pagination pagination-sm">
+        <li>
+            <a style="cursor: pointer;" id="paginatePreview" aria-label="Previous" ng-click="pagePreview()" ng-show="checkVisiblePrev()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="paginate active" id="active"><a style="cursor: pointer;" ng-click="paginate(1)">1</a></li>
+        <li ng-repeat="result in Allpaginate" class="paginate" ng-switch on="result" >
+            <span ng-switch-when="0">...</span> 
+            <a ng-switch-default="result" ng-if="checkZero(result)" style="cursor: pointer;" ng-click="paginate(result + 1)">{{result + 1}}</a> 
+        </li>
+
+
+        <li>
+            <a style="cursor: pointer;" id="paginateNext" aria-label="Next" ng-click="pageNext()" ng-show="checkVisibleNext()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container" style="text-align: left">
+    <button type="button" class="btn btn-info btn-lg btnTooltip" id="insertPostBtn"  data-placement="auto" title="کامنت جدید درج کنید">درج کامنت جدید</button>  
+    <button type="button" class="btn btn-danger btn-lg btnTooltip" id="BtnDeleteGroup" data-placement="auto" title="حذف گروهی اطلاعات">حذف گروهی</button> 
+
+</div>
+
+<!-- Modal insert Comments -->
+<div class="modal fade" id="ModalInsertComment" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">درج کامنت جدید</h4>
+            </div>
+            <div class="modal-body">
+                <!--//title,content,like,enabled-->
+                <p>لطفا اطلاعات رو وارد نمایید</p>
+                <form role="form" name="postFormComment" ng-submit="submitaddComment()" novalidate>
+                    <!--help id if this opened of posts list
+                        if click on post and click insert post id automatic passed
+                         else
+                        show select element for select post for inserted 
+                    -->
+
+                    <div class="form-group">
+                        <input ng-model="postIditem" id="postIditem" ng-show="false" />
+                        <label ng-show="isUndefined(postIditem)" for="selectPost">پست مورد نظر را انتخاب کنید</label>
+                        <select id="selectPost" ng-show = "isUndefined(postIditem)" class="form-control" name="post" ng-model="postIiemSelect">
+                            <option ng-repeat="x in allpost" value="{{ x.id}}"> {{ x.title}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">تیتر کامنت</label>
+                        <input type="text" class="form-control" id="title" name="title" ng-model="title" required>
+                        <div style="margin-top: 20px" ng-show = "postFormComment.title.$dirty">
+                            <span class="alert alert-danger" ng-show="postFormComment.title.$error.required"> لطفا تیتر را وارد کنید </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="content">محتوای  کامنت</label>
+                        <textarea type="text" class="form-control" id="content" rows="5" ng-model="content" required></textarea>
+
+                        <div style="margin-top: 20px" ng-show = "postFormComment.content.$dirty">
+                            <span class="alert alert-error" ng-show="postFormComment.content.$error.required">  </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label><input id="checkActivate" type="checkbox" name="enabled" value="false" ng-model="enabled"/> فعال/غیر فعال </label>
+                    </div>
+
+                    <div style="text-align: left" class="form-group">
+                        <input id="insrtbtncomment" type="submit" name="submit" class="btn btn-success" value="درج کامنت"/>
+                    </div>    
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal edit -->
+<div class="modal fade" id="ModalEditComment" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">ویرایش کامنت : <span id="commentTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <!--//title,content,like,enabled-->
+                <p>لطفا اطلاعات رو ویرایش نمایید</p>
+                <form role="form" name="CommentFormEdit" ng-submit="submiteditComment()" novalidate>
+
+                    <div class="form-group">
+                        <input type="text" ng-show="false"  id="EdititemId" ng-model="EdititemId" name="EdititemId" testChange/>
+                        <input type="text" ng-show="false"  id="EditPostId" ng-model="EditPostId" name="EditPostId" testChange/>
+                        <!--<input type="text" ng-show="true"  id="EditCommentCreateAt" ng-model="EditCommentCreateAt" name="EditCommentCreateAt" testChange/>-->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">تیتر کامنت</label>
+
+                        <input type="text" class="form-control" id="EdittitleComment" name="title" ng-model="EdittitleComment" testChange required>
+                        <div style="margin-top: 20px" ng-show = "CommentFormEdit.title.$dirty">
+                            <span class="alert alert-danger" ng-show="CommentFormEdit.title.$error.required"> لطفا تیتر را وارد کنید </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">محتوای کامنت</label>
+                        <textarea type="text" class="form-control" id="EditContentComment" rows="5" ng-model="EditContentComment" required ></textarea>
+
+                        <div style="margin-top: 20px" ng-show = "CommentFormEdit.content.$dirty">
+                            <span class="alert alert-error" ng-show="CommentFormEdit.content.$error.required">  </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label><input id="EditcheckActivate" type="checkbox" name="enabled" value="false" testChange ng-model="Editenabled"/> فعال/غیر فعال </label>
+                    </div>
+
+                    <div style="text-align: left" class="form-group">
+                        <input id="editbtnComment" type="submit" name="submit" class="btn btn-success" value="ویرایش"/>
+                    </div>    
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal delete -->
+<div class="modal fade" id="ModalDeleteComment" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">حذف <span id="postname"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p>آیا از حذف این رکورد اطمینان دارید؟</p>
+
+            </div>
+            <div class="modal-footer">
+                <input type="text" ng-show="false" ng-model="itemfordelete" id="itemfordeleteName">
+                <button id="deletedAlertButton" type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteitemComment(itemfordelete)">حذف</button> 
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //delete button in table show modal
+
+        $(document).on('click', '.deleteRecord', function () {
+            var input = $("#itemfordeleteName");
+            input.val($(this).attr('data-struct'));
+            input.trigger("input");
+            $('#ModalDeleteComment').modal();
+        });
+
+        $(document).on('click', '.paginate', function () {
+            $('.paginate').removeClass('active');
+            $('.paginate').removeAttr('id');
+            $(this).addClass('active');
+            $(this).attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginateNext', function () {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).next().addClass('active').attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginatePreview', function () {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).prev().addClass('active').attr('id', 'active');
+        });
+
+        //btn insert new post
+        $("#insertPostBtn").click(function () {
+            $("#ModalInsertComment").modal();
+           if (CKEDITOR.instances.content)
+                CKEDITOR.instances.content.destroy();
+
+            CKEDITOR.replace('content', {language: 'fa'});
+        });
+
+        $("#insrtbtncomment").click(function () {
+            $("#ModalInsertComment").modal('hide');
+        });
+
+        $("#editbtnComment").click(function () {
+            $("#ModalEditComment").modal('hide');
+        });
+
+
+        $('#checkActivate').click(function () {
+            $(this).is(':checked') ? $(this).val(1) : $(this).val(0);
+        });
+
+        $('#EditcheckActivate').click(function () {
+            $(this).is(':checked') ? $(this).val(1) : $(this).val(0);
+        });
+
+
+        $(document).on('click', '.editRecord', function (e) {
+
+            var items = $(this).attr('data-struct');
+            var arr = [];
+            arr = items.split("|");
+            //{{tr.id}0}|{{ tr.user }}1|{{ tr.title }}2|{{ tr.content}}3|{{ tr.like }}4|{{tr.post.id}}5|{{ tr.enabled}}6
+            var input = $("#EdititemId");
+            input.val(arr[0]);
+            input.trigger("input");
+
+            var input = $("#EditPostId");
+            input.val(arr[5]);
+            input.trigger("input");
+
+            var input = $("#EdittitleComment");
+            input.val(arr[2]);
+            input.trigger("input");
+
+            var input = $("#EditContentComment");
+            input.val(arr[3]);
+            input.trigger("input");
+
+            var input = $("#EditCommentCreateAt");
+            input.val(arr[7]);
+            input.trigger("input");
+
+
+            if ($("#EditcheckActivate").val())
+            {
+                $("#EditcheckActivate").prop('checked', true);
+            } else
+            {
+                $("#EditcheckActivate").prop('checked', false);
+            }
+
+
+            if (CKEDITOR.instances.EditContentComment)
+                CKEDITOR.instances.EditContentComment.destroy();
+
+            CKEDITOR.replace('EditContentComment', {language: 'fa'});
+
+            $("#ModalEditComment").modal();
+
+        });
+
+
+
+
+    });
+</script>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="utf-8">
+        <title>My AngularJS App</title>
+        <link rel="stylesheet" href="{{asset('bundles/public/css/bootstrap.4.css')}}">
+        <link rel="stylesheet" href="{{asset('bundles/public/css/font-awesome.min.css')}}">
+        <link rel="stylesheet" href="{{asset('bundles/public/css/loading-bar.css')}}">
+        <link rel="stylesheet" href="{{ asset('bundles/blog/css/blog.css') }}"/>
+        <link rel="stylesheet" href="{{asset('bundles/public/css/cropper.min.css')}}">
+    </head>
+    <body>
+        <div >
+
+            <div class="col-lg-10" style="margin: 0;padding:0">
+                <nav class="navbar navbar-dark " style="background: rgba(90,156,144,0.7)">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <div class="nav navbar-nav " main-menu>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </nav>
+                <div style="margin: 30px">
+                    <div ng-view></div>
+                </div>
+            </div>
+            <div class="col-lg-2" style="margin: 0;padding:0">
+                <div style="background: rgba(90,156,144,0.7);text-align: center;padding: 5px">
+                    <a href="/"> <img src="{{asset('bundles/public/img/logo.png')}}" alt=""/></a>
+                </div>
+                <div class="list-group" style="text-align: right;">
+                    <a href="{{path('_admin')}}#/" class="list-group-item active main" onclick="active('main')">
+                        صفحه اصلی
+                    </a>
+                    <a href="{{path('UserManager')}}" class="list-group-item">کنترل کاربران</a>
+                    <a href="{{path('Slider')}}" class="list-group-item">اسلایدر</a>
+                    <a href="{{path('Slider')}}#/keyvalue" class="list-group-item">مقدارهای ثابت</a>
+                    <a href="{{path('AdminMessage')}}" class="list-group-item">پیام های کاربران</a>
+                    <a href="{{path('_admin')}}#/profile" class="list-group-item">پروفایل</a>
+                    <a href="{{path('fos_user_security_logout')}}#/keyvalue" class="list-group-item">خروج</a>
+                </div>
+            </div>
+        </div>
+        <script src="{{ asset('bundles/public/js/jquery-1.11.1.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/bootstrap.min.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/stacktable.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/cropper.min.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/convertDate/moment.js')}}"></script>
+        <script src="{{ asset('bundles/public/js/convertDate/moment-jalaali.js')}}"></script>
+        <script src="{{ asset('bundles/blog/js/angular.min.js') }}"></script>
+        <script src="{{ asset('bundles/public/js/angular-route.min.js') }}"></script>
+        <script src="{{ asset('bundles/public/js/angular-animate.min.js') }}"></script>
+        <script src="{{ asset('bundles/public/js/loading-bar.js') }}"></script>
+        <script src="{{asset('bundles/public/js/angular-ckeditor.min.js')}}"></script>
+        <script src="{{asset('bundles/public/ckeditor/ckeditor.js')}}"></script>
+        <script src="{{ asset('bundles/blog/js/app.js') }}"></script>
+        <script src="{{ asset('bundles/blog/js/services.js') }}"></script>
+        <script src="{{ asset('bundles/blog/js/controller.js') }}"></script>
+        <script src="{{ asset('bundles/blog/js/filters.js') }}"></script>
+        <script src="{{ asset('bundles/blog/js/directives.js') }}"></script>
+        <script type="text/javascript">
+                        function active(c) {
+                            $('.list-group-item').removeClass('active');
+                            $('.' + c).addClass('active');
+                        }
+                        var BaseUrl = '{{path('_def')}}';
+                        var BaseUrlAdmin = '{{path('_admin')}}';
+                        var BaseUrlAdminBlog = '{{path('_admin')}}blog';
+                        var entity = [];
+                        var entity
+                        = {% autoescape false %}{{entity}}{% endautoescape %};
+                                var entity = entity['entity'];
+                        $(document).on('click', '.menuTop', function() {
+                            $('.menuTop').removeClass('active');
+                            $(this).addClass('active');
+                        });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,395 @@
+<h2>مشاهده پست ها</h2>
+<ol ng-hide="isUndefined(ForumGroupIditem)" class="breadcrumb">
+    <li><a href="#/ForumGroup">لیست فروم ها</a></li>
+    <li ng-model="breaditem">{{ breaditem.title}}</li>
+
+</ol>
+<hr/>
+
+<table class="table" id="tablePost">
+    <thead>
+        <tr>
+            <th>
+                <span   style="cursor: pointer" ng-show="true" ng-click="sortDesc('id')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('id')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+                شماره
+            </th>    
+            <th>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('title')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('title')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+                تیتر  پست
+            </th>
+            <th>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('content')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('content')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+                محتوای پست
+            </th>    
+            <th>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('like')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('like')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+                تعداد لایک
+            </th>
+            <th>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('createdAt')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('createdAt')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+                تاریخ ثبت
+            </th>  
+            <th>
+                <span   style="cursor: pointer" ng-show="true" ng-click="sortDesc('user')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('user')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+                نام کاربر
+            </th>
+            <th>
+                <span   style="cursor: pointer" ng-show="true" ng-click="sortDesc('group')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('group')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+                فروم
+            </th> 
+            <th>
+                <span   style="cursor: pointer" ng-show="true" ng-click="sortDesc('enabled')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+                <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('enabled')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+                فعال/غیرفعال
+            </th>
+            <th>ویرایش/حذف</th>
+        </tr>
+
+    </thead>
+    <tbody>
+
+        <tr ng-repeat="tr in PostsShow">
+            <td>{{tr.id}}</td>
+            <td><a href="#/Comments/{{tr.id}}"> {{tr.title| htmlToPlaintext | cut:true:20:' ...'}}</a></td>
+            <td>{{tr.content| htmlToPlaintext | cut:true:20:' ...'  }} </td>
+            <td>{{tr.like}}</td>
+            <td>{{tr.created_at| ConvertedToDateShamsi}}</td>
+            <td>{{tr.user.username}}</td>
+            <td>{{tr.group.title}}</td>
+            <td>{{tr.enabled| active}}</td>  
+            <td>
+                <!--<button ng-confirm-click="آیا اطمینان دارید؟" confirmed-click = "deleteitem(tr.id)" data-onConfirm='' data-popout='true' data-singleton='true' data-placement="top" data-toggle="confirmation" data-btnOkLabel='<i class="icon-ok-sign icon-white"></i> بله' data-btnCancelLabel='<i class="icon-remove-sign"></i> خیر' data-title="آیا از حذف این رکورد مطمئن هستید؟" data-struct="{{tr.id}}" class="btn btn-danger btn-small deleteRecord">حذف</button><button  class="btn btn-success btn-small editRecord" data-struct="{{tr.id}},{{ tr.title}},{{ tr.content}} ,{{ tr.enabled}},{{ tr.group.id}},{{tr.title}}">ویرایش</button>--> 
+                <span class="badge alert-danger btnTooltip" data-placement="auto" title="حذف"><span  data-struct="{{tr.id}}" class="glyphicon glyphicon-remove deleteRecord"></span></span>  <span class="badge alert-success btnTooltip" data-placement="auto" title="ویرایش"><span  class="glyphicon glyphicon-edit editRecord" data-struct="{{tr.id}}|{{ tr.title}}|{{ tr.content}}|{{ tr.enabled}}|{{ tr.group.id}}|{{tr.title}}"></span></span>
+            </td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th>شماره</th>    
+            <th>تیتر  پست</th>
+            <th>محتوای پست</th>    
+            <th>تعداد لایک</th>
+            <th>تاریخ ثبت</th>  
+            <th>نام کاربر</th>
+            <th>فروم</th> 
+            <th>فعال/غیرفعال</th>
+            <th>ویرایش/حذف</th>
+        </tr>
+    </tfoot>
+</table>
+
+<!--Create Pagination For Table-->
+<nav style="text-align: center;" class="btnTooltip" data-placement="auto" title="صفحه بندی" >
+    <ul class="pagination pagination-sm">
+        <li>
+            <a style="cursor: pointer;" id="paginatePreview" aria-label="Previous" ng-click="pagePreview()" ng-show="checkVisiblePrev()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="paginate active" id="active"><a style="cursor: pointer;" ng-click="paginate(1)">1</a></li>
+        <li ng-repeat="result in Allpaginate" class="paginate" ng-switch on="result" >
+            <span ng-switch-when="0">...</span> 
+            <a ng-switch-default="result" ng-if="checkZero(result)" style="cursor: pointer;" ng-click="paginate(result + 1)">{{result + 1}}</a> 
+        </li>
+
+
+        <li>
+            <a style="cursor: pointer;" id="paginateNext" aria-label="Next" ng-click="pageNext()" ng-show="checkVisibleNext()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<div class="container" style="text-align: left">
+    <button  type="button" class="btn btn-info btn-lg btnTooltip" data-placement="auto" title="پست جدید ایجاد کنید" id="insertPostBtn">درج پست جدید</button> 
+    <button type="button" class="btn btn-danger btn-lg btnTooltip" id="BtnDeleteGroup"   data-placement="top" title="پاک کردن گروهی اطلاعات">حذف گروهی</button> 
+</div>
+
+<!-- Modal insert -->
+<div class="modal fade" id="ModalInsert" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">درج پست جدید</h4>
+            </div>
+            <div class="modal-body">
+                <!--//title,content,like,enabled-->
+                <p>لطفا اطلاعات رو وارد نمایید</p>
+                <form role="form" name="postForm" ng-submit="submitadd()" novalidate>
+                    <div class="form-group">
+                        <label for="title">تیتر پست</label>
+                        <input type="text" class="form-control" id="title" name="title" ng-model="title" required>
+                        <div style="margin-top: 20px" ng-show = "postForm.title.$dirty">
+                            <span class="alert alert-danger" ng-show="postForm.title.$error.required"> لطفا تیتر را وارد کنید </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">محتوای پست</label>
+                        <textarea type="text" class="form-control" id="content" rows="5" ng-model="content" required></textarea>
+
+                        <div style="margin-top: 20px" ng-show = "postForm.content.$dirty">
+                            <span class="alert alert-error" ng-show="postForm.content.$error.required">  </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input ng-model="ForumGroupIditem" id="ForumGroupIditem" ng-show="false" />
+                        <label ng-show="isUndefined(ForumGroupIditem)" for="grpForum">لیست گروه ها</label>
+                        <select ng-show="isUndefined(ForumGroupIditem)"  class="form-control" name="group" ng-model="groupitem">
+                            <option ng-repeat="n in forumgroup" value="{{n.id}}"> {{ n.title}}</option>
+                        </select>
+                        <span> {{ groupitem}}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label><input id="checkActivate" type="checkbox" name="enabled" value="false" ng-model="enabled"/> فعال/غیر فعال </label>
+                    </div>
+
+                    <div style="text-align: left" class="form-group">
+                        <input id="insrtbtnpost" type="submit" name="submit" class="btn btn-success" value="درج پست"/>
+                    </div>    
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal edit -->
+<div class="modal fade" id="ModalEdit" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">ویرایش پست : <span id="postname"></span></h4>
+            </div>
+            <div class="modal-body">
+                <!--//title,content,like,enabled-->
+                <p>لطفا اطلاعات رو ویرایش نمایید</p>
+                <form role="form" name="postForm" ng-submit="submitedit()" novalidate>
+
+                    <div class="form-group">
+                        <input type="text" ng-show="false"  id="EdititemId" ng-model="EdititemId" name="EdititemId" testChange/>
+                        <input type="text" ng-show="false"  id="EditGroupId" ng-model="EditGroupId" name="EditGroupId" testChange/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">تیتر پست</label>
+
+                        <input type="text" class="form-control" id="Edittitle" name="title" ng-model="Edittitle" testChange required>
+                        <div style="margin-top: 20px" ng-show = "postForm.title.$dirty">
+                            <span class="alert alert-danger" ng-show="postForm.title.$error.required"> لطفا تیتر را وارد کنید </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">محتوای پست</label>
+                        <textarea type="text" class="form-control" id="Editcontent" rows="5" ng-model="Editcontent" required ></textarea>
+
+                        <div style="margin-top: 20px" ng-show = "postForm.content.$dirty">
+                            <span class="alert alert-error" ng-show="postForm.content.$error.required">  </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label><input id="EditcheckActivate" type="checkbox" name="enabled" value="false" testChange ng-model="Editenabled"/> فعال/غیر فعال </label>
+                    </div>
+
+                    <div style="text-align: left" class="form-group">
+                        <input id="editPostbtnClick" type="submit" name="submit" class="btn btn-success" value="ویرایش"/>
+                    </div>    
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal delete -->
+<div class="modal fade" id="ModalDelete" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">حذف <span id="postname"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p>آیا از حذف این رکورد اطمینان دارید؟</p>
+
+            </div>
+            <div class="modal-footer">
+                <input type="text" ng-show="false" ng-model="itemfordelete" id="itemfordeleteName">
+                <button id="deletedAlertButton" type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteitem(itemfordelete)">حذف</button> 
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+
+        function checkCKEditor() {
+
+            try {
+                if (CKEDITOR.instances.Editcontent)
+                    CKEDITOR.instances.Editcontent.destroy();
+
+                CKEDITOR.replace('Editcontent', {language: 'fa'});
+
+                if (CKEDITOR.instances.content)
+                    CKEDITOR.instances.content.destroy();
+
+                CKEDITOR.replace('content', {language: 'fa'});
+
+
+            } catch (err)
+            {
+
+            }
+
+        }
+        checkCKEditor();
+
+        $(document).on('click', '.deleteRecord', function() {
+
+            var input = $("#itemfordeleteName");
+            input.val($(this).attr('data-struct'));
+            input.trigger("input");
+            $('#ModalDelete').modal();
+        });
+        //Set value for enabled post
+        $('#checkActivate').click(function() {
+            $(this).is(':checked') ? $(this).val(1) : $(this).val(0);
+        });
+
+        $('#EditcheckActivate').click(function() {
+            $(this).is(':checked') ? $(this).val(1) : $(this).val(0);
+        });
+
+        $(document).on('click', '.editRecord', function(e) {
+
+        });
+
+        //btn edit record post
+        //{{tr.id}},{{ tr.title }},{{ tr.content }} ,{{ tr.enabled }}
+        $(document).on('click', '.editRecord', function(e) {
+
+            var items = $(this).attr('data-struct');
+            var arr = [];
+            arr = items.split("|");
+
+            //alert(arr[0]);
+            var input = $("#EdititemId");
+            input.val(arr[0]);
+            input.trigger("input");
+
+            var input2 = $("#Edittitle");
+            input2.val(arr[1]);
+            input2.trigger("input");
+
+
+
+            if (CKEDITOR.instances.Editcontent)
+                CKEDITOR.instances.Editcontent.destroy();
+
+            CKEDITOR.replace('Editcontent', {language: 'fa'});
+
+            $("#Editcontent").val(arr[2]);
+
+            var input3 = $("#EditcheckActivate");
+            input3.val(arr[3]);
+            input3.trigger("input");
+
+            //alert(arr[3]);
+            if ($("#EditcheckActivate").val())
+            {
+                $("#EditcheckActivate").prop('checked', true);
+            } else
+            {
+                $("#EditcheckActivate").prop('checked', false);
+            }
+
+
+            var input4 = $("#EditGroupId");
+            input4.val(arr[4]);
+            input4.trigger("input");
+
+            $("#postname").text(arr[5]);
+
+
+            $("#ModalEdit").modal();
+
+            if (CKEDITOR.instances.Editcontent)
+                CKEDITOR.instances.Editcontent.destroy();
+
+            CKEDITOR.replace('Editcontent', {language: 'fa'});
+        });
+
+
+        $(document).on('click', '.paginate', function() {
+            $('.paginate').removeClass('active');
+            $('.paginate').removeAttr('id');
+            $(this).addClass('active');
+            $(this).attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginateNext', function() {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).next().addClass('active').attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginatePreview', function() {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).prev().addClass('active').attr('id', 'active');
+        });
+
+        //btn insert new post
+        $("#insertPostBtn").click(function() {
+            $("#ModalInsert").modal();
+            try {
+                CKEDITOR.replace('content');
+            }
+            catch (err) {
+
+            }
+        });
+
+        $("#insrtbtnpost").click(function() {
+            $("#ModalInsert").modal('hide');
+        });
+
+        $("#editPostbtnClick").click(function() {
+            $("#ModalEdit").modal('hide');
+        });
+
+
+    });
+</script>

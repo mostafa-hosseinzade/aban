@@ -1,0 +1,108 @@
+<div class="modal fade" id="EditUser">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title pull-right">نمایش اطلاعات کاربر</span>
+                <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <edituser></edituser>
+            <adduser></adduser>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteUser">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-left" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h3 class="pull-right">حذف کاربر</h3>
+            </div>
+            <div class="modal-body" dir="rtl">
+                <h4>آیا از حذف اطلاعات مطمئن هستید  ؟</h4>
+            </div>
+            <div class="modal-footer">
+                <button class="pull-left btn btn-success" ng-click="SendDeleteUser()">حذف اطلاعات </button>
+                <button class="pull-left btn btn-danger" data-dismiss="modal">انصراف</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="SendSMS" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form ng-submit="SendMsg()">
+                <div class="modal-header">
+                    <h4 class="modal-title pull-right" id="myModalLabel">ارسال پیام</h4>
+                    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" dir="rtl">
+                    <textarea name="smsBody" id="TextSms" ng-model="TextSms" cols="3" rows="5" class="form-control" placeholder="SMS Body"></textarea>
+                    تعداد کاراکتر: <span id="countTextSms"></span><br>
+                    <span id="MoreTextSms"></span>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success pull-left" name="btnSendSMSBody" value="ارسال اطلاعات" id="btnSendSMSBody" />
+                    <button type="button" id="CloseSms" class="btn btn-danger pull-left" data-dismiss="modal">انصراف</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SendEmail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">ارسال ایمیل</h4>
+            </div>
+            <div class="modal-body">
+                <textarea name="EmailBody" id="editor1" cols="3" rows="5" class="form-control" placeholder="Email Body"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-success" name="btnSendEmailBody" value="Send" id="btnSendEmailBody" />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<script>
+    $(document).ready(function() {
+        $('.selectall').on('click', function(e) {
+
+            var value = $(".selectall").prop('checked');
+            $('.selecteditem').prop("checked", value);
+        });
+
+        var i = 0;
+        var TextSms = false;
+        $('#TextSms').keyup(function() {
+            i = $('#TextSms').val();
+            $('#countTextSms').html(i.length);
+            if (i.length > 68) {
+                $('#MoreTextSms').html('تعداد پیام های شما از یک پیام بیشتر شده است');
+            }
+            if (i.length >= 136) {
+                $('#MoreTextSms').html('تعداد پیام های شما از دو پیام بیشتر شده است');
+                $('#TextSms').attr('disabled', true);
+                TextSms = true;
+            }
+
+            if (i.length < 68) {
+                $('#MoreTextSms').html(' ');
+            }
+
+        });
+
+        $('#CloseSms').click(function() {
+            $('#TextSms').attr('disabled', false);
+            $('#TextSms').val('');
+        });
+    });
+</script>

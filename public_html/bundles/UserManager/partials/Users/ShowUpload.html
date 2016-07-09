@@ -1,0 +1,32 @@
+<div ng-show="!ShowAllHistory">
+    <div class="modal-body"  dir="rtl">
+
+        <div class="col-lg-12">
+            <label>بخش مدارک کاربر :</label>
+            <hr style="height: 2px">
+        </div>
+        <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+            <span>اسکن مدرک :</span> <img ng-src="{{SelectedUpload.photo}}" class="img img-rounded" style="max-width: 400px;">
+        </div> 
+
+        <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+            <span>توضیحات:</span> <span>{{SelectedUpload.documentTitle}} </span>
+        </div> 
+
+        <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+            <span>زمان ایجاد پرونده :</span> <span>{{SelectedUpload.createAt}} </span>
+        </div> 
+        
+        <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+            <span>آخرین تغییرات :</span> <span>{{SelectedUpload.updateAt}} </span>
+        </div> 
+        
+        <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+            <button class="btn btn-success" ng-click="download()">دانلود تصویر</button>
+        </div>        
+        <div class="clearfix"></div>
+    </div>
+    <div class="modal-footer">
+        <p>&nbsp;</p>
+    </div>
+</div>

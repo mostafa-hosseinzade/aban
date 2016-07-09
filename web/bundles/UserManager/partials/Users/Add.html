@@ -1,0 +1,104 @@
+<form ng-submit="CreateUser()" name="AddUserForm" ng-show="AddUserInfo" novalidate>
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-12">
+            <div class="col-lg-6 test pull-left col-md-6 col-sm-12 col-xs-12">
+                <!--<img ng-src="{{Selected.photo}}" class="pull-left img img-rounded">-->
+                <label >تصویر کاربر</label>
+                <inputfile ></inputfile>
+                <div ></div>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>نام   *</label>
+                <input type="text" name="name" ng-class="{ErrorInput:AddUserForm.name.$invalid}" required ng-model="Selected.name"  class="form-control">
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+
+                <label>  نام خانوادگی *</label>
+                <input type="text" name="family" required ng-class="{ErrorInput:AddUserForm.family.$invalid}" ng-model="Selected.family"  class="form-control">
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> نام کاربری</label>
+                <input type="text"  required  ng-model="Selected.username"   class="form-control">
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> رمز عیور</label>
+                <input type="text"  required ng-model="Selected.password"   class="form-control">
+            </div>            
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> آدرس</label>
+                <input type="text"  required ng-model="Selected.address"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>آدرس ایمیل  *</label>
+                <input type="email" name="email"  required ng-class="{ErrorInput:AddUserForm.email.$invalid}" ng-model="Selected.email"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>تلفن </label>
+                <input type="text"  required ng-model="Selected.phone"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>تلفن همراه  *</label>
+                <input type="text" name="mobile"  required ng-class="{ErrorInput:AddUserForm.mobile.$invalid}" ng-model="Selected.mobile"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> کد پستی</label>
+                <input type="text"  required  ng-model="Selected.postcode"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>جنسیت *</label>
+                <select name="sex" required="true" ng-class="{ErrorInput:AddUserForm.sex.$invalid}" ng-model="Selected.sex" class="form-control">
+                    <option value="true" selected>مرد</option>
+                    <option value="false" >زن </option>
+                </select>
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>نوع کاربر *</label>
+                <select name="roles" required="true" ng-class="{ErrorInput:AddUserForm.roles.$invalid}" ng-model="Selected.roles" class="form-control">
+                    <option value="ROLE_USER" selected>کاربر عادی</option>
+                    <option value="ROLE_DOCTOR" >پزشک </option>
+                    <option value="ROLE_SUPER_ADMIN" >مدیریت</option>
+                </select>
+            </div>
+            
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> موجودی حساب</label>
+                <input type="text"  required value="0" ng-model="Selected.money"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>قفل کاربر </label>
+                <select ng-model="Selected.locked" class="form-control">
+                    <option value="true" >فعال</option>
+                    <option value="false" selected>غیر فعال</option>
+                </select>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> وضعیت </label>
+                <select ng-model="Selected.enabled" class="form-control">
+                    <option value="true" selected="true">فعال</option>
+                    <option value="false">غیر فعال</option>
+                </select>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>تاریخ پایان عضویت </label>
+                <input type="text"  required ng-class="{ErrorInput:AddUserForm.val.$invalid}" id="ExpiresAtAdd" ng-model="Selected.expires_at"  class="form-control expires_at_add">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success pull-left" ng-disabled="AddUserForm.name.$invalid || AddUserForm.roles.$invalid || AddUserForm.family.$invalid || AddUserForm.email.$invalid ||AddUserForm.sex.$invalid" type="submit">ارسال</button>
+            <button class="btn btn-danger pull-left Close" data-dismiss="modal" aria-label="Close">انصراف</button>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</form>
+<script>
+    $(document).ready(function() {
+        $("#ExpiresAtAdd").datepicker();
+    });
+</script>

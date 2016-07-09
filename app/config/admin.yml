@@ -1,0 +1,824 @@
+entity:
+    Contact:
+        name: Contact
+        class: BlogBundle\Entity\Contact
+        prop:
+            - id
+            - name
+            - mobile
+            - email
+            - subject
+            - msg
+            - createdAt
+            - isRead
+        table-s:    
+            - id
+            - name
+            - mobile
+            - email
+            - subject
+            - msg
+        label: ارتباط با ما
+        enable: true
+        action:
+            - delete
+            - show
+            - export
+            - import
+            - search
+        list:
+            - { name: name, type: string, label: نام }
+            - { name: mobile, type: string, label: موبایل }
+            - { name: email, type: string, label: ایمیل }
+            - { name: subject, type: string, label: موضوع }
+            - { name: msg, type: string, label: پیام }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: isRead, type: boolean, label: isRead }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: name, type: string, label: نام }
+            - { name: mobile, type: string, label: موبایل }
+            - { name: email, type: string, label: ایمیل }
+            - { name: subject, type: string, label: موضوع }
+            - { name: msg, type: string, label: پیام }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: isRead, type: boolean, label: خوانده شده }
+        form:
+            - { name: id, type: integer, label:  شماره }
+            - { name: name, type: string, label: نام }
+            - { name: mobile, type: string, label: موبایل }
+            - { name: email, type: string, label: ایمیل }
+            - { name: subject, type: string, label: موضوع }
+            - { name: msg, type: string, label: پیام }
+        import: {  }
+        export: {  }
+    Content:
+        name: Content
+        class: BlogBundle\Entity\Content
+        prop:
+            - title
+            - content
+            - visit
+            - orderList
+            - createdAt
+            - updatedAt
+            - id
+        table-s:
+            - id
+            - title
+            - content
+            - visit
+        label: محتوی
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - search
+            - export
+            - import
+        list:
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: visit, type: integer, label:  تعداد مشاهده }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: visit, type: integer, label:  تعداد مشاهده }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+        form:
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: ctg, type: entity,entityName: ContentCategory,prop: title, label:  انتخاب دسته بندی }
+            - { name: orderList, type: integer, label:  اولویت }
+        import: {  }
+        export: {  }
+    ContentCategory:
+        name: ContentCategory
+        class: BlogBundle\Entity\ContentCategory
+        prop:
+            - title
+            - active
+            - slug
+            - createdAt
+            - updatedAt
+            - id
+        label: انواع محتوی
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: title, type: string, label:  عنوان }
+            - { name: slug, type: string, label:  توضیحات }
+            - { name: active, type: boolean, label:  فعال/غیرفعال }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: title, type: string, label:  عنوان }
+            - { name: slug, type: string, label:  توضیحات }
+            - { name: active, type: boolean, label:  فعال/غیرفعال }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی } 
+        form:
+            - { name: title, type: string, label:  عنوان }
+            - { name: slug, type: string, label:  توضیحات }
+            - { name: active, type: boolean, label:  فعال/غیرفعال }
+        import: {  }
+        export: {  }
+    Gallery:
+        name: Gallery
+        class: BlogBundle\Entity\Gallery
+        prop:
+            - title
+            - meta
+            - createAt
+            - updateAt
+            - orderList
+            - id
+        label: گالری
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: title, type: string, label:  عنوان }
+            - { name: meta, type: string, label:  برچسب }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+            - { name: updateAt, type: datetime, label:  آخرین بروزرسانی }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: title, type: string, label:  عنوان }
+            - { name: meta, type: string, label:  برچسب }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+            - { name: updateAt, type: datetime, label:  آخرین بروزرسانی }
+        form:
+            - { name: title, type: string, label:  عنوان }
+            - { name: meta, type: string, label:  برچسب }
+            - { name: orderList, type: integer, label:  اولویت }
+        import: {  }
+        export: {  }
+    Images:
+        name: Images
+        class: BlogBundle\Entity\Images
+        prop:
+            - alt
+            - meta
+            - src
+            - createAt
+            - updateAt
+            - id
+            - orderList
+        table-s:
+            - alt
+            
+        label: تصاویر
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+            - search
+            
+        list:
+            - { name: src, type: picture, label:  تصویر }
+            - { name: alt, type: string, label:  توضیح }
+            - { name: orderList, type: string, label:  اولویت }
+            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: alt, type: string, label:  توضیح }
+            - { name: src, type: picture, label:  تصویر }
+            - { name: orderList, type: string, label:  اولویت }
+            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+        form:
+            - { name: alt, type: string, label:  توضیح }
+            - { name: src, type: file, label:  تصویر }
+            - { name: gallery, type: entity,entityName: Gallery,prop: title, label:  گالری }
+            - { name: orderList, type: string, label:  اولویت }
+        import: {  }
+        export: {  }
+#    Media:
+#        name: Media
+#        class: BlogBundle\Entity\Media
+#        prop:
+#            - alt
+#            - src
+#            - createAt
+#            - updateAt
+#            - id
+#        label: مدیا
+#        enable: false
+#        action:
+#            - edit
+#            - add
+#            - delete
+#            - show
+#            - export
+#            - import
+#        list:
+#            - { name: alt, type: string, label:  توضیح }
+#            - { name: src, type: file, label:  فایل }
+#            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+#            - { name: updateAt, type: datetime, label:  آخرین بروزرسانی }
+#        show:
+#            - { name: id, type: integer, label:  شماره }
+#            - { name: alt, type: string, label:  توضیح }
+#            - { name: src, type: file, label:  فایل }
+#            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+#            - { name: updateAt, type: datetime, label:  آخرین بروزرسانی }
+#        form:
+#            - { name: alt, type: string, label:  توضیح }
+#            - { name: src, type: file, label:  فایل }
+#        import: {  }
+#        export: {  }
+    Menu:
+        name: Menu
+        class: BlogBundle\Entity\Menu
+        prop:
+            - title
+            - orderList
+            - createdAt
+            - updatedAt
+            - active
+            - id
+        label: منوها
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: title, type: string, label:  عنوان }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: active, type: boolean, label:  فعال/غیرفعال }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: title, type: string, label:  عنوان }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+            - { name: active, type: boolean, label:  فعال/غیرفعال }
+        form:
+            - { name: title, type: string, label:  عنوان }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: page, type: entity,entityName: Page,prop: title, label:  انتخاب صفحه ,filter: u}
+            - { name: active, type: boolean, label:  فعال/غیرفعال }
+        import: {  }
+        export: {  }
+        Menu:
+        name: Menu
+        class: BlogBundle\Entity\Menu
+        prop:
+            - title
+            - orderList
+            - createdAt
+            - updatedAt
+            - active
+            - id
+        label: منوها
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: title, type: string, label:  عنوان }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: active, type: boolean, label:  فعال/غیرفعال }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: title, type: string, label:  عنوان }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+            - { name: active, type: boolean, label:  فعال/غیرفعال }
+        form:
+            - { name: title, type: string, label:  عنوان }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: page, type: entity,entityName: Page,prop: title, label:  انتخاب صفحه }
+            - { name: active, type: boolean, label:  فعال/غیرفعال }
+        import: {  }
+        export: {  }    
+    Page:
+        name: Page
+        class: BlogBundle\Entity\Page
+        prop:
+            - title
+            - content
+            - meta
+            - visit
+            - createAt
+            - updateAt
+            - id
+        table-s:
+            - title
+            - content
+            - meta
+            - visit
+            - id
+        label: صفحه ها
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+            - search
+        list:
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: meta, type: string, label:  برچسب }
+            - { name: visit, type: integer, label:  تعداد مشاهده }
+            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+            - { name: updateAt, type: datetime, label:  آخرین بروزرسانی }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: meta, type: string, label:  برچسب }
+            - { name: visit, type: integer, label:  تعداد مشاهده }
+            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+            - { name: updateAt, type: datetime, label:  آخرین بروزرسانی }
+        form:
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: meta, type: string, label:  برچسب }
+        import: {  }
+        export: {  }
+    Comment:
+        name: Comment
+        class: ForumBundle\Entity\Comment
+        prop:
+            - title
+            - content
+            - like
+            - createdAt
+            - updatedAt
+            - id
+            - enabled
+        table-s:
+            - title
+            - content
+            - like
+            - id
+        label: کامنت ها
+        enable: true
+        action:
+            - delete
+            - show
+            - export
+            - import
+            - search
+        list:
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: like, type: integer, label:  تعداد لایک }
+            - { name: enabled, type: boolean, label: فعال/غیرفعال }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: like, type: integer, label:  تعداد لایک }
+            - { name: enabled, type: boolean, label: فعال/غیرفعال }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+        form:
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: enabled, type: boolean, label: فعال/غیرفعال }
+        import: {  }
+        export: {  }
+    GroupForum:
+        name: GroupForum
+        class: ForumBundle\Entity\GroupForum
+        prop:
+            - title
+            - meta
+            - orderList
+            - createAt
+            - updateAt
+            - id
+            - enabled
+        table-s:
+            - title
+            - meta
+            - id
+        label: فروم ها
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+            - search
+        list:
+            - { name: title, type: string, label:  عنوان }
+            - { name: meta, type: string, label:  برچسب }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: enabled, type: boolean, label: فعال/غیرفعال }
+            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+            - { name: updateAt, type: datetime, label:  آخرین بروزرسانی }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: title, type: string, label:  عنوان }
+            - { name: meta, type: string, label:  برچسب }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: enabled, type: boolean, label: فعال/غیرفعال }
+            - { name: createAt, type: datetime, label:  تاریخ ایجاد }
+            - { name: updateAt, type: datetime, label:  آخرین بروزرسانی }
+        form:
+            - { name: title, type: string, label:  عنوان }
+            - { name: meta, type: string, label:  برچسب }
+            - { name: orderList, type: integer, label:  اولویت }
+            - { name: enabled, type: boolean, label: فعال/غیرفعال }
+        import: {  }
+        export: {  }
+    Post:
+        name: Post
+        class: ForumBundle\Entity\Post
+        prop:
+            - title
+            - content
+            - like
+            - createdAt
+            - updatedAt
+            - id
+            - enabled
+        table-s:
+            - title
+            - content
+            - like
+            - id
+        label: پست ها
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+            - search
+        list:
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: like, type: integer, label:  تعداد لایک }
+            - { name: enabled, type: boolean, label: فعال/غیرفعال }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: like, type: integer, label:  تعداد لایک }
+            - { name: enabled, type: boolean, label: فعال/غیرفعال }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+            - { name: updatedAt, type: datetime, label:  آخرین بروزرسانی }            
+        form:
+            - { name: title, type: string, label:  عنوان }
+            - { name: content, type: text, label:  محتوی }
+            - { name: group, type: entity,entityName: GroupForum, prop: title, label:  نام فروم}
+            - { name: enabled, type: boolean, label: فعال/غیرفعال }
+            
+        import: {  }
+        export: {  }
+    Category:
+        name: Category
+        class: ShopBundle\Entity\Category
+        prop:
+            - name
+            - ctg_no  
+            - descr
+            - photo
+            - creatAt
+            - id
+            - parent
+            - is_has_sub_ctg
+        label:  گروه بندی محصولات
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: name, type: string, label: نام }
+            - { name: ctgNo, type: integer, label: شماره  گروه }
+            - { name: parent, type: entity,entityName: Category ,prop: name, label:  والد  گروه جاری}          
+            - { name: isHasSubCtg, type: boolean, label: دارای زیر گروه }
+            - { name: photo, type: picture, label: تصویر}
+        show:
+            - { name: id, type: integer, label: شماره}
+            - { name: name, type: string, label: نام }
+            - { name: ctgNo, type: integer, label: شماره  گروه }
+            - { name: parent, type: entity,entityName: Category ,prop: name, label:  والد  گروه جاری}          
+            - { name: creatAt, type: datetime, label: تاریخ ایجاد}
+            - { name: isHasSubCtg, type: boolean, label: دارای زیر گروه }
+            - { name: photo, type: picture, label: تصویر}
+            - { name: descr, type: string, label: توضیحات}
+        form:
+            - { name: name, type: string, label: نام }
+            - { name: ctgNo, type: integer, label: شماره  گروه }
+            - { name: parent, type: entity,entityName: Category, if:[isHasSubCtg,false],prop: name, label:  والد  گروه جاری}
+            - { name: isHasSubCtg, type: boolean, label: دارای زیر گروه }
+            - { name: photo, type: file, ratio: 1, width: 200, label: تصویر}        
+            - { name: descr, type: string, label: توضیحات}
+        import: {  }
+        export: {  }
+    Product:
+        name: Product
+        class: ShopBundle\Entity\Product
+        prop:
+            - name
+            - keyword  
+            - price
+            - productNo
+            - creatAt
+            - id
+            - photo
+            - descr
+            - category
+        table-s:
+            - name
+            - keyword
+            - price
+            - productNo
+            - descr
+            - id
+        label: محصول
+        enable: true
+        action:
+            - edit
+            - add
+            - delete
+            - show
+            - export
+            - import
+            - search
+        list:
+            - { name: name, type: string, label: نام }
+            - { name: productNo, type: integer, label: شماره محصول}
+            - { name: category, type: entity,entityName: Category ,prop: name, label:  نام گروه محصول }
+            - { name: price, type: integer, label: قیمت محصول}
+            - { name: photo, type: picture, label: تصویر}
+        show:
+            - { name: id, type: integer, label: شماره}
+            - { name: name, type: string, label: نام }
+            - { name: productNo, type: integer, label: شماره محصول}
+            - { name: category, type: entity,entityName: Category ,prop: name, label:  نام  گروه محصول }
+            - { name: price, type: integer, label: قیمت محصول}
+            - { name: keyword, type: string, label: کلمه کلیدی}
+            - { name: creatAt, type: datetime, label: تاریخ ایجاد}
+            - { name: photo, type: picture, label: تصویر}
+            - { name: descr, type: string, label: توضیحات}
+        form:
+            - { name: name, type: string, label: نام }
+            - { name: productNo, type: integer, label: شماره محصول}
+            - { name: category, type: entity,entityName: Category , if:[isHasSubCtg,true], prop: name, label:  نام  گروه محصول }
+            - { name: price, type: integer, label: قیمت محصول}
+            - { name: keyword, type: string, label: کلمه کلیدی}
+            - { name: photo, type: file, ratio: 1, width: 200, label: تصویر}
+            - { name: descr, type: string, label: توضیحات}
+        import: {  }
+        export: {  }
+    Basket:
+        name: Basket
+        class: ShopBundle\Entity\Basket
+        prop:
+            - number
+            - id    
+            - factor
+            - product
+        label: سبد خرید
+        enable: true
+        action:
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: number, type: integer, label: تعداد محصول }
+            - { name: factor, type: entity,entityName: Factor ,prop: id, label:  شماره فاکتور }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: number, type: integer, label: تعداد محصول }
+            - { name: factor, type: entity,entityName: Factor ,prop: id, label:  شماره فاکتور }
+        form:
+            - { name: number, type: integer, label: تعداد محصول }
+        import: {  }
+        export: {  }
+    Factor:
+        name: Factor
+        class: ShopBundle\Entity\Factor
+        prop:
+            - date 
+            - total  
+            - refsale
+            - descr
+        label: فاکتور
+        enable: true
+        action:
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: date, type: datetime, label: تاریخ}
+            - { name: total, type: integer, label: قیمت کل}
+            - { name: refsale, type: string, label: تخفیف}
+            - { name: descr, type: text, label: توضیحات}
+        show:
+            - { name: date, type: datetime, label: تاریخ}
+            - { name: total, type: integer, label: قیمت کل}
+            - { name: refsale, type: string, label: تخفیف}
+            - { name: descr, type: text, label: توضیحات}
+        form:
+            - { name: date, type: datetime, label: تاریخ}
+            - { name: total, type: integer, label: قیمت کل}
+            - { name: refsale, type: string, label: تخفیف}
+            - { name: descr, type: text, label: توضیحات}
+        import: {  }
+        export: {  }
+    ProImg:
+        name: ProImg
+        class: ShopBundle\Entity\ProImg
+        prop:
+            - src 
+            - product  
+        label: تصاویر محصولات
+        enable: true
+        action:
+            - delete
+            - show
+            - add
+            - export
+            - import
+        list:
+            - { name: src, type: picture, label: تصویر}
+            - { name: product, type: entity,entityName: Product ,prop: name, label: نام محصول}
+        show:
+            - { name: src, type: picture, label: تصویر}
+            - { name: product, type: entity,entityName: Product ,prop: name, label: نام محصول}
+        form:
+            - { name: src, type: file, ratio: 1.77, width: 800,  label: تصویر}
+            - { name: product, type: entity,entityName: Product , prop: name, label: نام محصول}
+        import: {  }
+        export: {  }
+    ActivityName:
+        name: ActivityName
+        class: AppBundle\Entity\ActivityName
+        prop:
+            - name
+            - createAt
+            - id
+        label: نام فعالیت ها
+        enable: true
+        action:
+            - add
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: name, type: string, label:  عنوان }
+            - { name: createAt, type: datetime, label: تاریخ ایجاد }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: name, type: string, label:  عنوان }
+            - { name: createAt, type: datetime, label: تاریخ ایجاد }
+        form:
+            - { name: name, type: string, label:  عنوان }
+        import: {  }
+        export: {  }
+        Menu:
+        name: ActivityName
+        class: AppBundle\Entity\ActivityName
+        prop:
+            - name
+            - createAt
+            - id
+        label: نام فعالیت ها
+        enable: true
+        action:
+            - add
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: name, type: string, label:  عنوان }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: name, type: string, label:  عنوان }
+            - { name: createdAt, type: datetime, label: تاریخ ایجاد }
+        form:
+            - { name: name, type: string, label:  عنوان }
+        import: {  }
+        export: {  }    
+    Animalscategory:
+        name: Animalscategory
+        class: AppBundle\Entity\Animalscategory
+        prop:
+            - animalstype
+            - describtion
+            - createAt
+            - updateAt
+            - id
+        label:  دسته بندی حیوانات
+        enable: true
+        action:
+            - add
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: animalstype, type: string, label:  عنوان }
+            - { name: describtion, type: string, label:  توضیحات }
+            - { name: updateAt, type: string, label:  بروز رسانی }
+            - { name: createAt, type: datetime, label: تاریخ ایجاد }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: animalstype, type: string, label:  عنوان }
+            - { name: describtion, type: string, label:  توضیحات }
+            - { name: updateAt, type: string, label:  بروز رسانی }
+            - { name: createAt, type: datetime, label: تاریخ ایجاد }
+        form:
+            - { name: animalstype, type: string, label:  عنوان }
+            - { name: describtion, type: string, label:  توضیحات }
+        import: {  }
+        export: {  }
+        Menu:
+        name: Animalscategory
+        class: AppBundle\Entity\Animalscategory
+        prop:
+            - animalstype
+            - describtion
+            - createAt
+            - updateAt
+            - id
+        label: دسته بندی حیوانات
+        enable: true
+        action:
+            - add
+            - delete
+            - show
+            - export
+            - import
+        list:
+            - { name: animalstype, type: string, label:  عنوان }
+            - { name: describtion, type: string, label:  توضیحات }
+            - { name: updateAt, type: string, label:  بروز رسانی }
+            - { name: createAt, type: datetime, label: تاریخ ایجاد }
+        show:
+            - { name: id, type: integer, label:  شماره }
+            - { name: animalstype, type: string, label:  عنوان }
+            - { name: describtion, type: string, label:  توضیحات }
+            - { name: updateAt, type: string, label:  بروز رسانی }
+            - { name: createAt, type: datetime, label: تاریخ ایجاد }
+        form:
+            - { name: animalstype, type: string, label:  عنوان }
+            - { name: describtion, type: string, label:  توضیحات }
+        import: {  }
+        export: {  }     

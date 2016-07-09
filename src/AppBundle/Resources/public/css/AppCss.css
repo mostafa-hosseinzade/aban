@@ -1,0 +1,266 @@
+
+@font-face {
+    font-family: 'BTitrBold';
+    src: url('../../public/css/font/BTitrBold.eot?#iefix') 
+        format('embedded-opentype'),  
+        url('../../public/css/font/BTitrBold.woff') 
+        format('woff'), url('../../public/css/font/BTitrBold.ttf')  
+        format('truetype'), 
+        url('BTitrBold#persian-DastNevis') 
+        format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.loading{
+    text-align: center;
+    display: block;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top:0;
+    left: 0;
+    background-color: rgba(255,255,255,.5);
+    z-index: 9999999;
+    line-height: 98vh;
+}
+.loading > span{
+    background-color: rgba(256,256,256,0.3);
+    border-radius: 3px;
+    padding: 15px;
+    color:rgba(0,0,0, 0.7);
+    font-size: large;
+    display: inline-block
+}
+@font-face {
+    font-family: 'BYekan';
+    src: url('../../public/css/font/BYekan.eot?#iefix') 
+        format('embedded-opentype'),  
+        url('../../public/css/font/BYekan.woff') 
+        format('woff'), url('../../public/css/font/BYekan.ttf')  
+        format('truetype'), 
+        url('BKoodakBold.svg#persian-DastNevis') 
+        format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'BKoodak';
+    src: url('../../public/css/font/BKoodakBold.eot?#iefix') format('embedded-opentype'),  url('../../public/css/font/BKoodakBold.woff') format('woff'), url('../../public/css/font/BKoodakBold.ttf')  format('truetype'), url('BKoodakBold.svg#persian-DastNevis') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}  
+
+.wrapThumtionalProfile
+{
+    position: relative;
+    background-color: rgba(139, 185, 177, 0.48);
+    border: 2px dashed rgb(137, 169, 164);
+    text-align: center;
+    line-height: 120px;
+    height: 128px;
+    width: 128px;
+}
+.rightPanelUser
+{
+
+    height: 100vh;
+}
+
+.rightPanelCol
+{
+    margin-left: 0;margin-right: 0;padding:0;
+    background: transparent;
+
+}
+.leftPanelCol
+{
+    margin-left: 0;margin-right: 0;padding:0;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,addfff+100 */
+    height: 99vh;
+
+}
+.mnuSildeWraper
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mnuSildeWraper li
+{
+    position: relative;
+    border-bottom: 1px solid rgba(139, 185, 177, 0.28);
+}
+@media(max-width:992px){
+    .rightmenu
+    {
+        float:none;
+        position: fixed;
+        top:62px!important;
+        left:0px!important;
+        z-index: 9999;
+        background: #fff;
+        display: inline-block;
+        transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+        -moz-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+        -o-transform: translateX(-100%);
+        transition: all linear 0.3s;
+        -webkit-transition: all linear 0.3s;
+        -o-transition: all linear 0.3s;
+        -ms-transition: all linear 0.3s;
+        -moz-transition: all linear 0.3s;
+    }
+
+    .showpanel{
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+    }
+    .navbar-header{
+        width: 100%
+    }
+}
+.mnuSildeWraper li .icon{
+    position: absolute;
+    left: 3%;
+    top: 23%;
+    font-size: 20px;
+    transition: all .7s;
+}
+
+.mnuSildeWraper li:hover .icon
+{
+
+    color:rgb(99, 132, 127);
+}
+
+.ItemMenuSideBar
+{
+    padding: 10px;
+    text-decoration: blink;
+    font-family: 'BYekan';
+    font-size: 15px;
+    display: block;
+    border-bottom: rgba(0,0,0,.5);
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f0f9ff+0,e2f4ff+47,e0f3ff+100 */
+    transition: all .7s;
+}
+.ItemMenuSideBar:hover{
+    text-decoration: blink;
+    background-color:rgba(90,156,144,.2);
+    color:rgba(90,156,144,.8);
+}
+
+
+.resetPanel
+{
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+body
+{
+    font-family: 'BYekan';
+}
+
+.selectedThumtional
+{
+    border: 3px solid rgb(0, 102, 102);
+
+}
+
+.animalsWraper
+{
+    overflow: hidden;
+    padding: 10px;
+}
+.divAnimals
+{
+    float: right;
+    margin-left: 20px;
+
+}
+.divAnimalsBorderWrap
+{
+    border: 1px solid rgb(163, 201, 235);
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+}
+.divAnimals .img-thumbnail{
+    margin: 5px;
+    text-align: center;
+    background: rgba(139, 185, 177, 0.21);
+}
+.InfoAnimal
+{
+    text-align: center;
+    padding: 2px;
+}
+
+.itemActionBox{
+    background-color: rgba(139, 185, 177, 0.33);
+    line-height: 6px;
+    padding: 8px;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+.itemActionBox a
+{
+    padding: 8px;
+}
+.itemActionBox a:hover{
+    text-decoration: none;
+}
+
+.modal{
+    z-index: 999999;
+}
+
+.dateFormat
+{
+    color:rgb(0, 153, 153);
+    font-size: 12px;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #FFFFFF !important;
+}
+
+.navbar-default .navbar-brand {
+    color: #FFFFFF !important;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: rgba(255,255,255,.5);
+    background-color: transparent;
+}
+
+#tableShowTicketUser{
+    font-size: 12px;
+
+}
+#tableShowTicketUser td,tr {
+    padding: 1px;
+}
+
+.boxColorHelp{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 2px;
+}
+
+.messageHelpMessage{
+    margin-right: 20px;
+}
+
+#tableMessage selectedRow:hover{
+    background: rgba(139, 185, 177, 0.53);
+    cursor: pointer;
+}

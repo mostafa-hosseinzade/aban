@@ -1,0 +1,153 @@
+<h3 class="page">تصاویر
+    <button  type="button" class="btn btn-info btn-sm pull-left" id="modalAdd" data-toggle="modal" data-target="#AddModal">
+        درج اطلاعات جدید
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+</h3>
+<div class="col-lg-12">
+    <div class="row">
+        <!--  Show Image Info  -->
+        <div class="col-lg-3 col-md-3 col-sm-6 col-sm-6 ImageInfo" ng-repeat="entity in content"
+             style="background-image: url('{{entity.src}}');" id="{{entity.id}}div">
+
+            <div class="header">
+                {{entity.alt| cut:true:20:' ...'}}
+            </div>
+            <div class="center">
+            </div>
+            <div class="footer">
+                <strong>توضیحات</strong> : {{entity.alt}}
+                <button onclick="Delete('{{ entity.id}}')" class="btn btn-danger btn-sm pull-left bottom-left">Delete</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--  paginate Show -->
+<nav style="text-align: center">
+    <ul class="pagination">
+        <li>
+            <a style="cursor: pointer;" id="paginatePreview" aria-label="Previous" ng-click="pagePreview()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="paginate active" id="active"><a style="cursor: pointer;" ng-click="paginate(1)">1</a></li>
+        <li ng-repeat="result in Allpaginate" class="paginate" ng-hide="result == CountPaginate"><a style="cursor: pointer;" ng-click="paginate(result + 1)">{{result + 1}}</a></li>
+        <li>
+            <a style="cursor: pointer;" id="paginateNext" aria-label="Next" ng-click="pageNext()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<!-- image Add-->
+<div class="modal fade" ng-controller="imageAdd" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">فرم درج اطلاعات</h4>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="SubmitAdd()">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> توضیحات عکس : </label>
+                        <input type="text" name="alt" ng-model="alt" id="AddAlt"  class="form-control" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> مرتب سازی بر اساس : </label>
+                        <input type="text" id="Addorder_list" name="order_list" ng-model="order_list" class="form-control" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label"> انتخاب گالری: </label>
+                        <select id="Addgallery" name="gallery" ng-model="gallery" class="form-control">
+                            <option ng-repeat="galleryValue in galleryAll" value="{{galleryValue.id}}">
+                                {{galleryValue.title}}
+                            </option>
+                        </select>
+                    </div>   
+                    <div class="form-group">
+                        <input type="file" id="image" class="form-control" value="Select an image" placeholder="Select an image">
+                        <textarea ng-show="false" id="AddSrcPic" class="well form-control" ></textarea>
+                    </div>                    
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">انصراف</button>
+                        <button type="reset" class="btn btn-danger">خالی کردن فیلدها</button>
+                        <button type="submit" class="btn btn-primary">ذخیره اطلاعات</button>
+                    </div>
+                </form>  
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Add image  -->
+
+<!-- Delete Blog image -->
+<button type="button" class="btn btn-primary hidden" id="DeleteBtnModal" data-toggle="modal" data-target="#DeleteModal">
+    حذف انتخاب شده ها
+</button>
+<!-- Content -->
+<div class="modal fade" ng-controller="imageDelete" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">حذف اطلاعات</h4>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="SubmitDelete()">
+                    <input type="hidden" name="DeleteImageId" id="DeleteId" ng-model="DeleteId">
+                    <p>
+                        آیا از حذف اطلاعات مطمءن هستید؟
+                    </p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="CloseDeleteBtn" data-dismiss="modal">انصراف</button>
+                        <button type="submit" class="btn btn-danger">حذف اطلاعات</button>
+                    </div>
+                </form>  
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Delete image  -->
+<script type="text/javascript" src="bundles/public/js/jquery.base64img.js"></script>
+<script type="text/javascript">
+                                //convert picture to base64
+                                        jQuery(document).ready(function($){
+                                $('#image').on('change', function(e){
+                                $(this).base64img({
+                                url: e.target.files[0],
+                                        result: '#AddSrcPic'
+                                });
+                                });
+                                });
+                                //delete image
+                                        function Delete(id){
+                                        $('#DeleteImageId').val(id);
+                                                $('#DeleteBtnModal').click();
+                                        }
+                                // Active Paginate 
+                                $(document).on('click', '.paginate', function() {
+                                $('.paginate').removeClass('active');
+                                        $('.paginate').removeAttr('id');
+                                        $(this).addClass('active');
+                                        $(this).attr('id', 'active');
+                                });
+                                        $(document).on('click', '#paginateNext', function() {
+                                $('.paginate').removeClass('active');
+                                        var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+                                        $(element).next().addClass('active').attr('id', 'active');
+                                });
+                                        $(document).on('click', '#paginatePreview', function() {
+                                $('.paginate').removeClass('active');
+                                        var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+                                        $(element).prev().addClass('active').attr('id', 'active');
+                                });</script>

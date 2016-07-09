@@ -1,0 +1,186 @@
+<div class="col-lg-12" style='background-color: rgba(255, 255, 255, 0.61);padding: 10px'>
+    <div class="col-lg-12" style="padding: 15px">
+            <button class='btn btn-success pull-left' data-toggle="modal" data-target="#AddModalForm">اضافه کردن اطلاعات
+                &nbsp;<span class="glyphicon glyphicon-ok-sign"></span>
+            </button>
+    </div>
+    <div class="col-lg-12" >
+        <div class="col-lg-12" ng-repeat="value in certificate" style='    
+             box-shadow: 0 0 1px #629A91;
+             padding: 5px;
+             padding-top: 10px;
+             font-size: 15px;' id='{{value.id}}'>
+            <div class="col-lg-8">
+                <p><span>توضیحات : </span> <span ng-bind-html-unsafe="value.desc"></span></p>
+                <p>نوع فایل : 
+                    <span ng-show='value.pdf' >PDF یا کتاب الکترونیکی</span>
+                    <span ng-show='value.photo' ng-hide='value.pdf'>Image یا عکس</span>
+                </p>
+                <button class='btn btn-danger' onclick=" DeleteModal('{{value.id}}') " >حذف  <span class='glyphicon glyphicon-remove'></span> </button>
+            </div>
+            <div class="col-lg-4">
+                <img ng-show="value.photo" ng-hide='value.pdf' ng-src="{{value.photo}}" style="width: 68%; height: 157px;cursor: pointer" class='img img-responsive pull-left' data-toggle="modal" data-target="#Show{{value.id}}">
+<!--                <button ng-show="value.pdf" class="btn btn-info" onclick="showpdf('{{value.pdf}}')">نمایش فایل pdf
+                    &nbsp;<span class="glyphicon glyphicon-open-file"></span>
+                </button>-->
+                <img src='../bundles/public/img/pdf3.png' onclick="showpdf('{{value.pdf}}')" alt='نمایش فایل pdf' title='نمایش فایل pdf' style="width: 68%; height: 157px;cursor: pointer" class='img img-responsive pull-left' ng-show='value.pdf'>
+                <!-- Large modal -->
+                <div class="modal fade" id='Show{{value.id}}' tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                    <div class="modal-header">
+                        <button type="button" class="close" style='color: white' data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-dialog modal-lg" style="position: initial;background-image: url('{{value.photo}}');background-size: cover;height: 100vh">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="AddModalForm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document" style="position: initial">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2>اضافه کردن اطلاعات</h2>
+                </div>
+                <div class="modal-body">
+                    <form ng-submit="AddCertificate()">
+                        <div class='col-lg-12'>
+                            <label for="desc">توضیحات کامل در مورد مدرک :</label>
+                            <textarea ng-disabled="disable" data-ui-tinymce id="tinymce2" data-ng-model="desc" >
+                            </textarea>
+                        </div>
+
+                        <div class="col-lg-6" style="padding-top: 10px">
+                            <label for='text'>تاریخ اخذ مدرک : </label>
+                            <input id='started' type="text" placeholder="Start Date" ng-model='started' class="form-control">
+                        </div>
+
+                        <div class="col-lg-6" style="padding-top: 10px">
+                            <label for='text'>تاریخ انقضا : </label>
+                            <input id='expired' type="text" placeholder="Expired Date" ng-model='expired' class="form-control">
+                        </div>
+
+                        <div class='col-lg-6' style="padding-top: 10px">
+                            <label for='image' > برای اضافه کردن فایل آن را به داخل کادر بکشید .فقط pdf یا عکس باشد</label>
+                            <div class="form-group wrapThumtionalProfile"  ondrop="drop(event)" ondragover="allowDrop(event)">
+                                <img id="ShowImageProfile" style="width: 96px;" data-ng-src="{{ File}}" name="photo"/>
+
+                            </div>
+                            <input id="dataHolderImage" class="form-control" ng-model="FileInfo" ng-show="false"/>
+                        </div>
+                        <div class='col-lg-12' style="padding: 10px">
+                            <button type="submit" class='btn btn-success pull-left' style="margin-left: 5px" > ذخیره اطلاعات
+                                &nbsp;<span class="glyphicon glyphicon-ok-circle"></span>
+                            </button>
+                            
+                           <button type="reset" ng-click="ShowAddForm = !ShowAddForm" style="margin-left: 5px" class='btn btn-primary pull-left'>خالی کردن فیلدها
+                               &nbsp;<span class="glyphicon glyphicon-ban-circle"></span>
+                           </button>
+                           <button type="button"  class='btn btn-danger pull-left' style="margin-left: 5px" data-dismiss="modal" aria-label="Close">انصراف
+                               &nbsp;<span class="glyphicon glyphicon-remove-circle"></span>
+                           </button>
+                            
+                        </div>
+                        
+                        <p>&nbsp;</p>
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class='clear-fix'></div>
+</div>
+
+<button type="button" class="btn btn-primary hidden" id="DeleteBtnModal" data-toggle="modal" data-target="#DeleteModal">
+    حذف انتخاب شده ها
+</button>
+<!-- Content -->
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">ویرایش اطلاعات</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" ng-show="false" name="DeleteId" id="DeleteId" ng-model="DeleteId">
+                    <p>
+                        آیا از حذف اطلاعات مطمئن هستید؟
+                    </p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="CloseDeleteBtn" data-dismiss="modal">انصراف</button>
+                        <button type="button" class="btn btn-danger" ng-click="CertificateDelete()">حذف اطلاعات</button>
+                    </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Delete Content  -->
+
+
+<script>
+    function DeleteModal(id){
+        var deleteinput;
+     deleteinput = $('#DeleteId');
+     deleteinput.val(id);
+     deleteinput.trigger("input");
+     $('#DeleteBtnModal').click();
+
+    }
+    function hide(id){
+        $('#'+id).slideUp();
+    }
+    function showpdf(pdf){
+        window.open(pdf);
+    }
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        jQuery.each(ev.dataTransfer.files, function(index, file) {
+            var fileReader = new FileReader();
+            fileReader.onload = (function(file) {
+                return function(e) {
+                    console.log(e.target.result);
+                    $('#ShowImageProfile').attr('src', e.target.result);
+                    var holderImg = $("#dataHolderImage");
+                    holderImg.val(e.target.result);
+                    holderImg.trigger('input');
+                };
+            })(file);
+            fileReader.readAsDataURL(file);
+        });
+
+    }
+    function allowDrop(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+    }
+    
+     $(document).ready(function() {
+                $("#started").datepicker();
+            
+                $("#expired").datepicker();
+                $("#datepicker1btn").click(function(event) {
+                    event.preventDefault();
+                    $("#datepicker1").focus();
+                })
+            });
+</script>
+<style>
+    .wrapThumtionalProfile
+    {
+        position: relative;
+        background-color: rgb(204, 255, 255);
+        border: 2px dashed rgba(0,0,0,.3);
+        text-align: center;
+        line-height: 120px;
+        height: 128px;
+        width: 128px;
+    }
+</style>

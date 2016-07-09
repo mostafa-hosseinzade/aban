@@ -1,0 +1,27 @@
+
+<html ng-app="myApp">
+    <head>
+        <title>SHOP</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{asset('bundles/public/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>ype="text/css"/>
+        <script src="{{asset('bundles/public/js/jquery-1.11.1.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/public/js/Chart.min.js') }}"></script>
+        <script src="{{asset('bundles/public/js/bootstrap.min.js')}}" type="text/javascript"></script>
+        <script>var BaseUrl = '{{path('_def')}}';</script>
+    </head>
+    <body>
+        <div ng-view></div>
+        <link href="{{asset('bundles/shop_res/admin/css/angular-chart.min.css')}}" rel="stylesheet" type="text/css"/>
+        <script src="{{ asset('bundles/public/js/angular/angular.min.js') }}"></script>
+        <script src="{{ asset('bundles/public/js/angular/angular-cookies.min.js') }}"></script>
+        <script src="{{ asset('bundles/public/js/angular/angular-resource.min.js') }}"></script>
+        <script src="{{ asset('bundles/public/js/angular/ng-infinite-scroll.min.js') }}"></script>
+        <script src="{{ asset('bundles/shop_res/admin/js/app.js') }}"></script>
+        <!--   //// Controller AngularJs /////////////          -->
+        <script src="{{ asset('bundles/shop_res/admin/js/controllers.js') }}"></script>
+        <script src="{{ asset('bundles/shop_res/admin/js/directives.js') }}"></script>
+        
+    </body>
+</html>
+

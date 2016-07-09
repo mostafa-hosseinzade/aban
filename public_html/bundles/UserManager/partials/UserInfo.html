@@ -1,0 +1,162 @@
+<h3 class="page row" >
+    <div class="col-lg-4 col-md-5 col-sm-3 col-xs-3">
+        <div class="pull-left hidden-sm-down">
+            <button style="margin: 0 2px" type="button" class="btn btn-info btn-md pull-left" id="modalAdd" ng-click="prepareCreate()" data-toggle="modal" data-target="#AddModal" data-original-title="" title="">
+                افزودن<i class="fa fa-plus"></i>
+            </button>
+            <button style="margin: 0 2px" ng-disabled="!Selected" type="button" class="btn btn-success btn-md pull-left" id="modaledit" ng-click="prepareEdit()" data-toggle="modal" data-target="#AddModal" data-original-title="" title="">
+                ویرایش<i class="fa fa-edit"></i>
+            </button>
+            <button style="margin: 0 2px" ng-disabled="!Selected" type="button" class="btn btn-danger btn-md pull-left" ng-click="prepareDelete()" >
+                حذف<i class="fa fa-remove"></i>
+            </button>
+        </div>
+    </div>    
+    <div class="col-lg-5 col-md-3 col-sm-5 col-xs-4">
+        <form class="pull-left ng-pristine ng-valid" role="search" style="margin-left: 10px" dir="rtl">
+            <div class="form-group">
+                <input type="text" class="form-control ng-pristine ng-valid" placeholder="جستجو ..." ng-model="searchText" ng-change="search()">
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-5 ng-binding">
+        نمایش لیست کاربران
+    </div>
+</h3>
+<div class="box">
+    <div class="box-header">
+    </div><!-- /.box-header -->
+    <div class="box-body table-responsive">
+        <table id="example1" class="table table-strip table-bordered" dir="rtl">
+            <thead style="background: rgba(90,156,144,0.5)">
+                <tr>
+                    <th> 
+                        <input class="selectall" type='checkbox' name="selectall" value="" /> </th>
+                    <th>ردیف</th>
+                    <th>نام</th>
+                    <th>فامیلی</th>
+                    <th>ایمیل</th>
+                    <th>موبایل</th>
+                    <th>نوع کاربر</th>
+                    <th>فعال/غ فعال</th>
+                    <th>تاریخ ثبت</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class='item' id="{{entity.id}}" ng-click="SelectedItems(entity)" ng-dblclick="Show(entity)"  ng-class="{SelectedItem:entity.id == Selected.id}" ng-repeat="entity in data">
+                    <td> <input  checklist-model="IDSENDSMS.id" checklist-value="entity.id" class="selecteditem " type='checkbox' /> </td>
+                    <td>{{$index + 1}}</td>
+                    <td>{{ entity.name}}</td>
+                    <td>{{ entity.family}}</td>
+                    <td>{{ entity.email}}</td>
+                    <td>{{ entity.mobile}}</td>
+                    <td>
+                        <span ng-show="entity.roles == 'a:0:{}'">
+                            <span >  عادی</span>&nbsp;
+                            <span class="fa fa-user"></span>
+                        </span>
+                        <span ng-show="entity.roles == 'ROLE_DOCTOR'">
+                            <span class="">پزشک</span>&nbsp;
+                            <span class="fa fa-heartbeat"></span>
+                        </span>
+                        <span ng-show='entity.roles == "ROLE_SUPER_ADMIN"'>
+                            <span >مدیریت</span>&nbsp;
+                            <span class="fa fa-key"></span>
+                        </span>
+                    </td>
+                    <td>
+                        <span style="color:green" ng-show="entity.enabled == 1">فعال</span>
+                        <span style="color:red" ng-show="entity.enabled == 0">غیر فعال</span>
+                    </td>
+                    <td>{{ entity.createAt}}</td>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th> <input class="selectall" type='checkbox' name="selectall" value="" /> </th>
+                    <th>ردیف</th>
+                    <th>نام</th>
+                    <th>فامیلی</th>
+                    <th>ایمیل</th>
+                    <th>موبایل</th>
+                    <th>نوع کاربر</th>
+                    <th>فعال/غ فعال</th>
+                    <th>تاریخ ثبت</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<p class="pull-left">تعداد کاربران : &nbsp;<span>{{count}}</span></p>
+<!--Create Pagination For Table-->
+<!--pagination for this table-->
+<nav style="text-align: center;">
+    <ul class="pagination pagination-sm">
+        <li>
+            <a style="cursor: pointer;" id="paginatePreview" aria-label="Previous" ng-click="pagePreview()" ng-show="checkVisiblePrev()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="paginate active" id="active"><a style="cursor: pointer;" ng-click="paginate(1)">1</a></li>
+        <li ng-repeat="result in Allpaginate" class="paginate" ng-switch on="result" >
+            <span ng-switch-when="0">...</span> 
+            <a ng-switch-default="result" ng-if="checkZero(result)" style="cursor: pointer;" ng-click="paginate(result + 1)">{{result + 1}}</a> 
+        </li>
+
+
+        <li>
+            <a style="cursor: pointer;" id="paginateNext" aria-label="Next" ng-click="pageNext()" ng-show="checkVisibleNext()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!--<nav style="text-align: center;direction: rtl" class="btnTooltip" data-placement="auto" title="صفحه بندی" >
+    <ul class="pagination pagination-sm">
+        <li>
+            <a style="cursor: pointer;" id="paginatePreview" aria-label="Previous" ng-click="pagePreview()" ng-show="checkVisiblePrev()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="paginate active" id="active"><a style="cursor: pointer;" ng-click="paginate(1)">1</a></li>
+        <li ng-repeat="result in Allpaginate" class="paginate" ng-switch on="result" >
+            <span ng-switch-when="0">...</span> 
+            <a ng-switch-default="result" ng-if="checkZero(result)" style="cursor: pointer;" ng-click="paginate(result)" ng-show="$index">{{result}}</a> 
+        </li>
+        <li>
+            <a style="cursor: pointer;" id="paginateNext" aria-label="Next" ng-click="pageNext()" ng-show="checkVisibleNext()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>-->
+<div class="col-lg-12" dir="rtl">
+    <button class="btn btn-success" ng-click="prepareSendOneMsg()" ng-disabled="!Selected">ارسال پیام برای کاربر</button>
+    <button class="btn btn-success" ng-click="prepareSendManyMsg()">ارسال پیام برای انتخاب شده ها</button>
+</div>
+
+<modal-msg></modal-msg>
+<script>
+    $(document).ready(function(){
+                $(document).on('click', '.paginate', function () {
+            $('.paginate').removeClass('active');
+            $('.paginate').removeAttr('id');
+            $(this).addClass('active');
+            $(this).attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginateNext', function () {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).next().addClass('active').attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginatePreview', function () {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).prev().addClass('active').attr('id', 'active');
+        });
+    })
+    
+</script>

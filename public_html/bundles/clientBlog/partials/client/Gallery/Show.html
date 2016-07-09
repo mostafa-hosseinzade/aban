@@ -1,0 +1,87 @@
+<div class="ViewGallery"  infinite-scroll="loadMore('{{category}}')" infinite-scroll-distance='1' infinite-scroll-disabled="{{busyScroll}}">
+    <h2 class="title"  style="text-align: right"><a href="#/Gallery">گالری ها</a>  /  تصاویر</h2>
+    <div id="work" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 20px;margin-bottom: 10px">
+        <div  id="work-div" class="clearfix">
+            <div  class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ParentGallery item"  ng-repeat="entity in entities"  ng-show="entity.img">
+                <div style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 5px;margin:5px">
+                    <div class="gallery">
+                        <a onclick="showImage(this);" id="{{idImage[entity.id]}}" next="{{idImage[entity.id] + 1}}" pre="{{idImage[entity.id] - 1}}">
+                            <img  data-ng-src="{{entity.img}}" alt="{{entity.alt}}">
+                            <div><p class="label"> {{entity.alt}}</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="msg" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);margin-top: 10px;color:#fff;padding: 10px;font-size: medium">
+        {{showMessage}}
+    </div>
+    <br class="clearfix"/>
+
+    <div class="my-modal">
+        <div class="my_panel">
+            <div style="position: relative">
+                <span class="close" onclick="closeModal();">&times;</span>
+            </div>
+            <div style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 15px">
+                <table style="width: 100%;text-align: center;vertical-align: middle;">
+                    <tr>
+                        <td onclick="next();"   class="arrow-image">&nbsp;<span  class="glyphicon glyphicon-menu-right next" area-hidden="true"></span></td>
+                        <td id="show" ></td>
+                        <td onclick="pre();"  class="arrow-image">&nbsp;<span  class="glyphicon glyphicon-menu-left prev" area-hidden="true"></span></td>
+                    </tr>
+                </table>
+                <div>
+                </div>
+            </div>
+            <script>
+                        var current;
+                                function showImage(el) {
+                                    $('.next , .prev').show();
+                                    current = el;
+                                    replaceImg(el);
+                                    $('.my-modal').addClass('open-modal');
+                                };
+                        function closeModal() {
+                            $('.my-modal').removeClass('open-modal');
+                        };
+                        $(document).on('click', '.my-modal', function (e) {
+                            if (!$(e.target).is('.my_panel *')) {
+                                $('.my-modal').removeClass('open-modal');
+                            }
+                        });
+                        function next() {
+                            var cu = document.getElementById($(current).attr('next'));
+                            if ($(cu).is('a')) {
+                                $('.prev').show();
+                                replaceImg(cu);
+                                current = cu;
+                            } else {
+                                $('.next').hide();
+                            }
+                        };
+                        function pre() {
+                            var cu = document.getElementById($(current).attr('pre'));
+                            if ($(cu).is('a')) {
+                                $('.next').show();
+                                replaceImg(cu);
+                                current = cu;
+                            } else {
+                                $('.prev').hide();
+                            }
+                        };
+                        function replaceImg(el) {
+                            var image = $(el).find('img').clone();
+                            var w = $($(el).find('img')).css('width');
+                            var h = $($(el).find('img')).css('height');
+                            if ((parseFloat(w) * 0.7) <= parseFloat(h)) {
+                                $(image).addClass('image3');
+                            } else {
+                                $(image).addClass('image16');
+                            }
+                            $('#show').html(image);
+                        };
+            </script>
+        </div>

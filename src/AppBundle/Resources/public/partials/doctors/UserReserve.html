@@ -1,0 +1,129 @@
+<div class="col-lg-12">
+    <div class="col-lg-12" style="box-shadow: 0 0 2px;background-color: white">
+        <div class="col-lg-6">
+            <span><h3>وقت های رزرو شده</h3></span>
+        </div>
+        <div class="col-lg-6" style="margin-top: 12px">
+            <!--<span class=""><button type="submit" id="btnSend" class="btn btn-info "  ng-click="changed()">ذخیره تغییرات</button></span>-->
+        </div>
+    </div>   
+
+    <table class="table table-hover table-bordered" style="background-color: white">
+        <thead>
+        <th>ردیف</th>
+        <th>نام صاحب</th>
+        <th>موبایل</th>
+        <th>نام حیوان</th>
+        <th>شماره تیکت</th>
+        <th>روز</th>
+        <th>فعال/غیر فعال</th>
+        <th>نمایش توضیحات کامل</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="entity in reserve" class="tr" id="{{entity.ticketid}}">
+                <td>{{$index + 1}}</td>
+                <td>{{entity.username}}</td>
+                <td>{{entity.mobile}}</td>
+                <td>{{entity.animalename}}</td>
+                <td>{{entity.ticketnumber}}</td>
+                <td>{{entity.date}}</td>
+                <td ng-click="active = !active" >
+                    <span ng-show='!active'>
+                        <span style='color: green' ng-show='entity.active'>فعال</span>
+                        <span style='color: red' ng-hide='entity.active'>غیر فعال</span>
+                    </span>
+
+                    <select class="form-control" name="active" id="{{entity.ticketid}}active" ng-show="active"  >
+                        <option value="true" ng-selected="entity.active" ng-click='active = !active' style="color:green">فعال</option>
+                        <option value="false" ng-selected="entity.active == 0" ng-click='active = !active' style="color:red">غیر فعال</option> 
+                    </select>
+                </td>
+                <td><button class="btn btn-info btn-xs" ng-click="Show(entity)">توضیحات کامل</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+        <th>ردیف</th>
+        <th>نام صاحب</th>
+        <th>موبایل</th>
+        <th>نام حیوان</th>
+        <th>شماره تیکت</th>
+        <th>روز</th>
+        <th>فعال/غیر فعال</th>
+        <th>نمایش توضیحات کامل</th>      
+        </tfoot>
+    </table>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">نمایش اطلاعات وقت های رزرو شده</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-6 ModalReserve">
+                        <span class="glyphicon pull-left   glyphicon-user"></span>&nbsp;<span>نام</span> : {{username}}
+                    </div>
+                    <div class="col-lg-6 ModalReserve">
+                        <span class="glyphicon pull-left  glyphicon-earphone"></span>&nbsp; <span>شماره تلفن</span> : {{phone}}
+                    </div>
+                    <div class="col-lg-6 ModalReserve">
+                        <span class="glyphicon pull-left   glyphicon-phone"></span> &nbsp;<span>تلفن همراه </span> : {{mobile}}
+                    </div>
+                    <div class="col-lg-6 ModalReserve">
+                        <span class="glyphicon pull-left   glyphicon-tags"></span>&nbsp;<span> نام حیوان</span> : {{animalename}}
+                    </div>
+                    <div class="col-lg-6 ModalReserve">
+                       <span class="glyphicon pull-left   glyphicon-eye-open"></span> &nbsp;<span>سن حیوان</span> : {{animaleage}}
+                    </div>
+                    <div class="col-lg-6 ModalReserve">
+                       <span class="glyphicon pull-left   glyphicon-tint"></span> &nbsp;<span>جنسیت حیوان</span> : {{animalesex}}
+                    </div>
+                    <div class="col-lg-6 ModalReserve">
+                       <span class="glyphicon pull-left   glyphicon-qrcode"></span> &nbsp;<span> کد میکروچیپ</span> : {{animalecode}}
+                    </div>
+                    <div class="col-lg-6 ModalReserve">
+                        <span class="glyphicon pull-left   glyphicon-compressed"></span>  &nbsp;<span>شماره رزرو </span> : {{ticketnumber}}
+                    </div>
+                    <div class="col-lg-6 ModalReserve">
+                        <span class="glyphicon pull-left   glyphicon-list-alt"></span> &nbsp;<span>تاریخ </span> : {{date}}
+                    </div>
+                    <div class="col-lg-6 ModalReserve">
+                        <span class="glyphicon pull-left   glyphicon-time"></span> &nbsp;<span> روز و ساعت</span> :   <strong>{{field}}</strong> (<strong>{{time}}</strong>)   
+                    </div>
+                    <div class="col-lg-12 ModalReserve">
+                        <span class="glyphicon pull-left   glyphicon-list"></span>&nbsp; <label>توضیحات</label>
+                        <textarea class="form-control" disabled="true">{{desc}}</textarea>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none">
+        <form ng-submit="SubmitEnable()">
+            <input type="text" id="InputId" ng-model="EditId">
+            <input type="text" id="InputEnable" ng-model="EditEnable">
+            <button type="submit" id="btnSend" >Send</button>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    //If Change value Textarea active this function
+    $(document).on('change', '.tr', function(event) {
+        event.preventDefault();
+        var id, enable, IdTr;
+        IdTr = $(this).attr('id');
+        id = $('#InputId');
+        id.val(IdTr);
+        id.trigger("input");
+        enable = $('#InputEnable');
+        enable.val($('#' + IdTr + 'active').val());
+        enable.trigger("input");
+        $('#btnSend').click();
+    });
+
+</script>

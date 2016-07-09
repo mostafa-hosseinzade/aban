@@ -1,0 +1,37 @@
+<form ng-submit="AddHistory()" ng-show="AddHistoryShow" name="AddHistoryForm" >
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-12">
+            <div class="col-lg-12">
+                <label >بخش  افزودن مدارک پزشکی :</label><br>
+                <small>در صورت انتخاب نکردن اسکن اطلاعات مربوط به سوابق درج نخواهد شد</small>
+                <hr style="height: 2px;"/>
+            </div>
+            <div class="test col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label>اسکن مدارک پزشکی<small>(PDF,PNG,JPG)</small></label>
+                <inputfileparvande></inputfileparvande>
+                <div class="AddFileParvande"></div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 test">
+                <label>تاریخ ایجاد پرونده :</label>
+                <input type="text" ng-model="AddItem.dateHistory" required="true" name="datehistory" ng-class="{ErrorInput:AddHistoryForm.datehistory.$invalid}" class="form-control datehistory">
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 test">
+                <label>توضیحات مدارک پزشکی </label>
+                <textarea ng-model="AddItem.Describ" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success pull-left" ng-disabled="AddHistoryForm.name.$invalid || AddHistoryForm.Nezhad.$invalid || AddHistoryForm.Goneh.$invalid || AddHistoryForm.Code.$invalid || AddHistoryForm.Category.$invalid" type="submit">ارسال</button>
+        <button class="btn btn-danger pull-left Close" ng-click="hide()" aria-label="Close">انصراف</button>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function() {
+        $(".datehistory").datepicker();
+    });
+</script>

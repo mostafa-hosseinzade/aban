@@ -1,0 +1,104 @@
+<form ng-submit="EditUser()" name="EditUserForm" ng-show="EditUserInfo">
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-12">
+            <div class="col-lg-6 test pull-left col-md-6 col-sm-12 col-xs-12">
+                <!--<img ng-src="{{Selected.photo}}" class="pull-left img img-rounded">-->
+                <inputfile></inputfile>
+                <div></div>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>نام : </label>
+                <input type="text" ng-model="Selected.name" name="name" ng-class="{ErrorInput:EditUserForm.name.$invalid}"  class="form-control">
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>  نام خانوادگی</label>
+                <input type="text" ng-model="Selected.family" name="family" ng-class="{ErrorInput:EditUserForm.family.$invalid}"  class="form-control">
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> نام کاربری</label>
+                <input type="text" ng-model="Selected.username"   class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> آدرس</label>
+                <input type="text" ng-model="Selected.address"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>آدرس ایمیل </label>
+                <input type="email" ng-model="Selected.email" name="email" ng-class="{ErrorInput:EditUserForm.email.$invalid}"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>تلفن </label>
+                <input type="text" ng-model="Selected.phone"  class="form-control">
+
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>تلفن همراه </label>
+                <input type="text" name="mobile" ng-class="{ErrorInput:EditUserForm.mobile.$invalid}" ng-model="Selected.mobile"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> کد پستی</label>
+                <input type="text" ng-model="Selected.postcode"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>جنسیت </label>
+                <select ng-model="Selected.sex" class="form-control">
+                    <option value="true" ng-selected="Selected.sex == 1">مرد</option>
+                    <option value="false" ng-selected="Selected.sex == 0">زن </option>
+                </select>
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>نوع کاربر *</label>
+                <select name="roles" ng-class="{ErrorInput:AddUserForm.roles.$dirty}" ng-model="Selected.roles" class="form-control">
+                    <option value="ROLE_USER" selected>کاربر عادی</option>
+                    <option value="ROLE_DOCTOR" >پزشک </option>
+                    <option value="ROLE_SUPER_ADMIN" >مدیریت</option>
+                </select>
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> موجودی حساب</label>
+                <input type="text" ng-model="Selected.money"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>قفل کاربر </label>
+                <select ng-model="Selected.locked" class="form-control">
+                    <option value="true" ng-selected="Selected.locked == 1">فعال</option>
+                    <option value="false" ng-selected="Selected.locked == 0">غیر فعال</option>
+                </select>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>وضعیت</label>
+                <select ng-model="Selected.enabled" class="form-control">
+                    <option value="true" ng-selected="Selected.enabled == 1">فعال</option>
+                    <option value="false" ng-selected="Selected.enabled == 0">غیر فعال</option>
+                </select>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> پایان عضویت</label>
+                <select ng-model="Selected.expired" class="form-control">
+                    <option value="true" ng-selected="Selected.expired == 1">اتمام عضویت</option>
+                    <option value="false" ng-selected="Selected.expired == 0">اعتبار دارد</option>
+                </select>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>تاریخ پایان عضویت </label>
+                <input type="text" id="ExpiresAtEdit" ng-model="Selected.expires_at"  class="form-control expires_at_edit">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success pull-left" ng-disabled="EditUserForm.name.$invalid || EditUserForm.family.$invalid || EditUserForm.email.$invalid || EditUserForm.sex.$invalid || EditUserForm.mobile.$invalid" type="submit">ارسال</button>
+            <button class="btn btn-danger pull-left Close" data-dismiss="modal" aria-label="Close">انصراف</button>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</form>
+<script>
+    $(document).ready(function() {
+        $("#ExpiresAtEdit").datepicker();
+    });
+</script>

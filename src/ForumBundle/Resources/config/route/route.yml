@@ -1,0 +1,10 @@
+forum_clientallrest: 
+    type: rest
+    prefix: /
+    resource: ForumBundle\Controller\ClientallrestController
+    
+forum:
+    type:     annotation
+    prefix:   /
+    resource: "@ForumBundle/Controller/"
+

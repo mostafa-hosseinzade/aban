@@ -1,0 +1,323 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 23, 2015, 11:51:01 AM
+    Author     : administrator
+*/
+.ViewGallery{
+
+}
+.title{
+    text-align: center;
+    color: #fff;
+    z-index: 99;
+    position: relative
+}
+
+.news-header {
+    font-size: large;
+}
+.ParentGallery{
+    z-index: 15;
+    padding: 10px;
+    padding-bottom: 15px; 
+}
+#work-div{
+    clear: both
+}
+.gallery{
+    overflow: hidden;
+    height: 200px;
+    text-align: center;
+    background: #000;
+    position: relative;
+    cursor: pointer
+}
+.image16{
+    width:90%;
+    height: auto      
+}
+.image3{
+    width:auto;
+    height: 90vh 
+}
+.gallery img{
+    width: auto;
+    transition: 0.5s all ease-in-out;
+    height: 200px;
+}
+.arrow-image{
+    width: 50px;
+    font-size: 30px;
+    opacity: 0.7;
+    transition: 0.5s all ease-in-out;
+    color:#fff
+}
+.arrow-image:hover{
+    opacity: 1;
+    cursor: pointer
+}
+.gallery div{
+    opacity: 0;
+    position: absolute;
+    z-index: 666;
+    top: 0px;
+    left: 0;
+    transition: 0.5s all ease-in-out;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+.my-modal .my_panel{
+    background: #000;
+    z-index: 9999999;
+    color:#fff;
+
+}
+.my-modal{
+    position: fixed;
+    width:100%;
+    height: 100%;
+    left:0;
+    top:0;
+    background: rgba(255,255,255,0.5);
+    background-image: url(../img/bg_pattern.gif);
+    z-index: 9999999;
+    transition: 0.3s all ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+}
+p.label{
+    transition: 0.5s all ease-in-out;
+}
+.open-modal{
+    -webkit-animation-name: open;
+    animation-name: open;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    visibility: visible;
+    opacity: 1;
+}
+@-webkit-keyframes open {
+    from, to {
+        -webkit-transform: scale(1);
+    }
+
+    0%{
+        -webkit-transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes open {
+    from, to {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    0%{
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.close{
+    font-size: 20px;
+    opacity: 0.7;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 999999;
+    color:#fff
+}
+.close:hover{
+    opacity: 1;
+    cursor: pointer
+}
+#work{
+    margin-bottom: 10px
+}
+.msg{
+    display: none;
+    clear: both;
+    text-align: center;
+    margin: 20px auto
+}
+.msg span{
+    color:rgba(0,0,0, 0.7);
+    background: rgba(255,255,255,0.3);
+    border-radius: 3px;
+    font-size: large;
+    direction: rtl;
+    padding: 20px
+}
+
+.gallery:hover div{
+    padding-top: 90px;
+    opacity: 1;
+}
+
+.gallery:hover img{
+    transform: scale(1.2);
+}
+
+.gallery:hover p.label{
+
+    font-size: 30px
+}
+
+@media screen and (max-width:992px){
+    .my-modal .my_panel{
+        margin: 0;
+        background: #000;
+        z-index: 9999999;
+        color:#fff;
+    }
+    .image16{
+        width:100%;
+        height: auto      
+    }
+    .image3{
+        width:100%;
+        height: auto 
+    }
+    .arrow-image{
+        width: 20px;
+        font-size: 20px
+    }
+}
+
+@media screen and (max-width:768px){
+
+}
+
+.pattern{
+    z-index: 0;
+    background-attachment: fixed;
+    position: fixed;
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 9px 15px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #FFFFFF !important;
+    /* background-color: #fff; */
+    border: 1px solid #ddd;
+    margin-left: -1px;
+    border-radius: 0px !important;
+    transition: 0.5s all !important;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {
+    z-index: 3;
+    color: #23527c;
+    background-color: #5a9c90 !important;
+    border-color: #5a9c90 !important;
+}
+
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 9px 15px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #FFFFFF !important;
+    background-color: transparent !important;
+    border: 1px solid #ddd;
+    margin-left: -1px;
+    border-radius: 0px !important;
+    transition: 0.5s all !important;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    z-index: 2;
+    color: #fff;
+    background-color: #5a9c90 !important;
+    border-color: #5a9c90 !important;
+    cursor: default;
+}
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    z-index: 2;
+    color: #fff;
+    background-color: #5a9c90 !important;
+    border-color: #5a9c90 !important;
+    cursor: default;
+}
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    /*border: 1px solid #d0d0d0 !important;*/
+    transition: 0.5s all;
+}
+.nav>li>a:hover, .nav>li>a:focus {
+    text-decoration: none;
+    background-color: #5A9C90;
+    color: white;
+    border-color: #5A9C90 !important;
+}
+.nav-pills>li>a {
+    border-radius: 0px !important; 
+}
+
+.pageShow{
+    background-color: rgba(255,255,255,0.3);
+    padding: 10px 14px 10px 10px;
+    margin: 10px 1px;
+}
+
+@media (min-width:1100px){
+    .pageShow{
+    }
+}
+.contentPage{
+    padding:10px;
+    background-color: rgba(255,255,255,0.2);
+    border:1px solid rgba(0,0,0,0.01);
+    transition:1s all ease-in-out;
+    clear: both;
+    margin: 10px 1px
+}
+@media(max-width:992px){
+    .contentPage img{
+        max-width: 100%;
+        max-height: 300px;
+    }
+}
+
+.contentPage:hover{
+    background-color: rgba(255,255,255,0.5);
+}
+
+.meta{
+    background-color: rgba(255,255,255,0.2);
+    padding: 15px;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 0 2px rgba(0,0,0,0.6);
+}

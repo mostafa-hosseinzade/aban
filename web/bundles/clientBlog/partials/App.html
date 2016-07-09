@@ -1,0 +1,38 @@
+
+<div class="App" ng-controller="DownloadApp">
+    <div >
+        <h3 class="title" style="text-align: right;color:#fff">دانلود نرم افزار </h3>
+        <div class="pull-left col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <button ng-click="AppAnd()" class="input btnbox btnDownload leftborder"  data-toggle="tooltip" data-placement="top" title="نرم افزار اندروید"><img src="/bundles/public/img/cafebazar.PNG" class="img img-responsive"></button>
+        </div>
+        <div class="pull-right col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <button ng-click="AppIos()" class="input btnprimary btnDownload"  data-toggle="tooltip" data-placement="top" title="نرم افزار اپل" ><img src="/bundles/public/img/appStore.png" class="img img-responsive"></button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<style>
+    .App{
+        direction: rtl;
+        margin: 0 auto;
+        /*background-image: url('/bundles/public/img/App/8.jpg');*/
+        /* background-attachment: fixed; */
+        background-position: center;
+        background-size: 392px 300px;
+        background-repeat: no-repeat;
+        color: #fff;
+    }
+    .btnDownload{
+        color: #fff;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0) !important;
+        padding-left:  5px;
+    }
+    .leftborder{
+        border-top-left-radius: 14px;
+        border-bottom-left-radius: 14px;       
+    }
+
+
+</style>

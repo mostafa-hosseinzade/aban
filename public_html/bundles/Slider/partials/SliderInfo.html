@@ -1,0 +1,66 @@
+<h3 class="page row" >
+    <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+        <div class="pull-left hidden-sm-down">
+            <button style="margin: 0 2px" type="button" class="btn btn-info btn-md pull-left" id="modalAdd" ng-click="prepareCreate()" data-toggle="modal" data-target="#AddModal" data-original-title="" title="">
+                افزودن<i class="fa fa-plus"></i>
+            </button>
+            <button style="margin: 0 2px" ng-disabled="!Selected" type="button" class="btn btn-success btn-md pull-left" id="modaledit" ng-click="prepareEdit()" data-toggle="modal" data-target="#AddModal" data-original-title="" title="">
+                ویرایش<i class="fa fa-edit"></i>
+            </button>
+            <button style="margin: 0 2px" ng-disabled="!Selected" type="button" class="btn btn-danger btn-md pull-left" ng-click="prepareDelete()" >
+                حذف<i class="fa fa-remove"></i>
+            </button>
+        </div>
+    </div>    
+    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 ng-binding pull-right">
+        نمایش لیست تصاویر اسلایدر
+    </div>
+</h3>
+<div class="box">
+    <div class="box-header">
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table id="example1" class="table table-strip table-bordered" dir="rtl">
+            <thead style="background: rgba(90,156,144,0.5)">
+                <tr>
+<!--                    <th> 
+                        <input class="selectall" type='checkbox' name="selectall" value="" /> </th>-->
+                    <th>ردیف</th>
+                    <th>عنوان کوچک</th>
+                    <th>عنوان بزرگ</th>
+                    <th>تصویر</th>
+                    <th>فعال/غیر فعال</th>
+                    <th>تاریخ ثبت</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class='item' id="{{entity.id}}" ng-click="SelectedItems(entity)" ng-dblclick="Show(entity)"  ng-class="{SelectedItem:entity.id == Selected.id}" ng-repeat="entity in data">
+                    <!--<td> <input  checklist-model="IDSENDSMS.id" checklist-value="entity.id" class="selecteditem " type='checkbox' /> </td>-->
+                    <td>{{$index + 1}}</td>
+                    <td>{{ entity.title_h3}}</td>
+                    <td>{{ entity.title_h1}}</td>
+                    <td><img ng-src="../../bundles/public/img/slider/{{ entity.file}}" width="150px" height="100px"></td>
+                    <td>
+                        <span style="color:green" ng-show="entity.active == 1">فعال</span>
+                        <span style="color:red" ng-show="entity.active == 0">غیر فعال</span>
+                    </td>
+                    <td>{{ entity.createAt}}</td>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <!--<th> <input class="selectall" type='checkbox' name="selectall" value="" /> </th>-->
+                    <th>ردیف</th>
+                    <th>عنوان کوچک</th>
+                    <th>عنوان بزرگ</th>
+                    <th>تصویر</th>
+                    <th>فعال/غیر فعال</th>
+                    <th>تاریخ ثبت</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+
+
+<modal-msg></modal-msg>

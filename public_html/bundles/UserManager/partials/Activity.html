@@ -1,0 +1,101 @@
+<div>
+    <div ng-show="AllActivity">
+        <h3 class="page row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="pull-left hidden-sm-down">
+                    <button style="margin: 0 2px" type="button" class="btn btn-info btn-md pull-left" id="modalAdd" ng-click="prepareActivityCreate()" data-toggle="modal" data-target="#AddModal" data-original-title="" title="">
+                        افزودن<i class="fa fa-plus"></i>
+                    </button>
+                    <button style="margin: 0 2px" ng-disabled="!SelectedActivityAnimale" type="button" class="btn btn-success btn-md pull-left" id="modaledit" ng-click="prepareActivityEdit()" data-toggle="modal" data-target="#AddModal" data-original-title="" title="">
+                        ویرایش<i class="fa fa-edit"></i>
+                    </button>
+                    <button style="margin: 0 2px" ng-disabled="!SelectedActivityAnimale" type="button" class="btn btn-danger btn-md pull-left" ng-click="prepareActivityDelete()" title="">
+                        حذف<i class="fa fa-remove"></i>
+                    </button>
+                </div>
+            </div>    
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                <small>نمایش فعالیت های حیوان</small>
+            </div>
+        </h3>
+        <div class="table-responsive">
+            <table id="example1" class="table table-strip table-bordered" dir="rtl">
+                <thead style="background: rgba(90,156,144,0.5)">
+                    <tr>
+                        <!--                    <th> 
+                                                <input class="selectall" type='checkbox' name="selectall" value="" /> </th>-->
+                        <th>ردیف</th>
+                        <th>نوع</th>
+                        <th>توضیحات</th>
+                        <th>تاریخ مراجعه</th>
+                        <th>ارسال پیام</th>
+                        <th>تاریخ ثبت</th>
+                        <th>آخرین تغییرات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="Activity{{entity.id}}" class='item' ng-click="SelectedActivityItems(entity)" ng-dblclick="ShowActivity()"  ng-class="{
+                        SelectedItem:entity.id == SelectedActivity.id
+                    }" ng-repeat="entity in DataAnimaleActivity">
+                        <!--<td> <input class="selecteditem" name="selectitems[]" type='checkbox' value="{{ entity.id}}" /> </td>-->
+                        <td>{{$index + 1}}</td>
+                        <td>{{entity.activityName}}</td>
+                        <td>{{ entity.desc}}</td>
+                        <td>{{ entity.date}}</td>
+                        <td>
+                            <span ng-show="entity.sendsms == 1" style="color: green">ارسال شده</span>
+                            <span ng-show="entity.sendsms == 0" style="color:red">ارسال نشده</span>
+                        </td>
+                        <td>{{ entity.createAt}}</td>
+                        <td>{{ entity.updateAt}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <!--                    <th> 
+                                                <input class="selectall" type='checkbox' name="selectall" value="" /> </th>-->
+                        <th>ردیف</th>
+                        <th>نوع</th>
+                        <th>توضیحات</th>
+                        <th>تاریخ مراجعه</th>
+                        <th>تاریخ ثبت</th>
+                        <th>ارسال پیام</th>
+                        <th>آخرین تغییرات</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="modal fade" tabindex="-1" role="dialog"  id="DeleteActivityAnimale">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="modal-title pull-right">حذف اطلاعات  فعالیت های حیوان</span>
+                        <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <button class="btn btn-success pull-left" ng-click="DeleteActivity()" >حذف اطلاعات</button>
+                        <button type="button" class="btn btn-danger Close pull-left" data-dismiss="modal" aria-label="Close">انصراف</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" ng-show="!AllActivity">
+        <div class="page row">
+            <h4 class="modal-title pull-right">  فعالیت های حیوان</h4>
+            <button type="button" class="close pull-left" ng-click="prepareActivityHideModal()"  aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <activity-show></activity-show>
+            <activity-add></activity-add>
+            <activity-edit></activity-edit>
+            <div class="clearfix"></div>
+        </div>
+        <div class="modal-footer" ng-show="!EditActivityAnimale && !AddActivityAnimale">
+            <button class="btn btn-success pull-left" ng-click="prepareActivityEdit()">ویرایش</button>       
+        </div>
+    </div>
+</div>
+

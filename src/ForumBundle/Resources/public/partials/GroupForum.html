@@ -1,0 +1,446 @@
+<h2>مشاهده فروم ها</h2>
+
+<hr/>
+<table class="table">
+
+    <thead>
+    <th>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('id')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('id')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+        شماره
+    </th>    
+    <th>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('title')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('title')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+        تیتر فروم
+    </th>
+    <th>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('meta')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('meta')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+        متا
+    </th>    
+    <th>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('orderList')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('orderList')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+        ترتیب
+    </th>
+    <th>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('createAt')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('createAt')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+        تاریخ ثبت
+    </th>    
+    <th>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortDesc('enabled')" class="glyphicon glyphicon-arrow-up iconTH"></span>
+        <span style="cursor: pointer" ng-show="true" ng-click="sortAsc('enabled')" class="glyphicon glyphicon-arrow-down iconTH"></span>
+        فعال/غیرفعال
+    </th>
+    <th>حذف/ویرایش</th>
+</thead>
+<tbody>
+    <tr ng-repeat="tr in forumgroupdata">
+        <td>{{tr.id}}</td>
+        <td><a href="#/Posts/{{tr.id}}">{{tr.title| htmlToPlaintext | cut:true:20:' ...' }}</a></td>
+        <td>{{tr.meta}}</td>
+        <td>{{tr.order_list}}</td>
+        <td>{{tr.create_at}}</td>
+        <td>{{tr.enabled| active }}</td>  
+        <td><span class="badge alert-danger"><span href="#" data-struct="{{tr.id}}" class="glyphicon glyphicon-remove deleteRecord"></span></span>  <span class="badge alert-success"><span  class="glyphicon glyphicon-edit editRecord" data-struct="{{tr.id}}|{{ tr.title}}|{{ tr.meta}}|{{ tr.order_list}}|{{ tr.create_at}}|{{tr.enabled}}"></span></span></td>
+    </tr>
+</tbody>
+<tfoot>
+<th>شماره</th>    
+<th>تیتر فروم</th>
+<th>متا</th>    
+<th>ترتیب</th>
+<th>تاریخ ثبت</th>    
+<th>فعال/غیرفعال</th>
+<th>حذف/ویرایش</th>
+</tfoot>
+</table>
+
+
+<!--pagination for this table-->
+<nav style="text-align: center;">
+    <ul class="pagination pagination-sm">
+        <li>
+            <a style="cursor: pointer;" id="paginatePreview" aria-label="Previous" ng-click="pagePreview()" ng-show="checkVisiblePrev()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="paginate active" id="active"><a style="cursor: pointer;" ng-click="paginate(1)">1</a></li>
+        <li ng-repeat="result in Allpaginate" class="paginate" ng-switch on="result" >
+            <span ng-switch-when="0">...</span> 
+            <a ng-switch-default="result" ng-if="checkZero(result)" style="cursor: pointer;" ng-click="paginate(result + 1)">{{result + 1}}</a> 
+        </li>
+
+
+        <li>
+            <a style="cursor: pointer;" id="paginateNext" aria-label="Next" ng-click="pageNext()" ng-show="checkVisibleNext()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+
+<div class="container" style="text-align: left">
+    <button type="button" class="btn btn-info btn-lg" id="ForumGroupBtn">درج گروه جدید</button>  
+    <button type="button" class="btn btn-danger btn-lg" id="BtnDeleteGroup">حذف گروهی</button> 
+</div>
+
+
+
+<!-- Modal insert -->
+<div class="modal fade" id="ModalInsertForumGroup" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">درج فروم جدید</h4>
+            </div>
+            <div class="modal-body">
+                <!--//title,content,like,enabled-->
+                <p>لطفا اطلاعات رو وارد نمایید</p>
+                <form role="form" name="ForumGroup" ng-submit="InsertForumGroup()" novalidate>
+                    <div class="form-group">
+                        <label for="ForumGroupTitle">تیتر فروم</label>
+                        <input type="text" class="form-control" id="ForumGroupTitle" name="ForumGroupTitle" ng-model="ForumGroupTitle" required>
+                        <div style="margin-top: 20px" ng-show = "ForumGroup.ForumGroupTitle.$dirty">
+                            <span class="alert alert-danger" ng-show="ForumGroup.ForumGroupTitle.$error.required"> لطفا تیتر را وارد کنید </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ForumGroupMeta">برچسب فروم</label>
+
+                        <input type="text" class="form-control" id="ForumGroupMeta" rows="5" ng-model="ForumGroupMeta" name="ForumGroupMeta" required> 
+                        <span>لطفا برچسب ها رو با ,ازهم جدا کنید</span>
+                        <div style="margin-top: 20px" ng-show = "ForumGroup.ForumGroupMeta.$dirty">
+                            <span class="alert alert-error" ng-show="ForumGroup.ForumGroupMeta.$error.required">  </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="grpForum">لیست فروم</label>
+                        <a href="#" id="dragebleListBtn" class="btn btn-info">ترتیب لیست ها</a>    
+                    </div>
+
+                    <div class="form-group">
+                        <label><input id="checkActivate" type="checkbox" name="enabled" value="false" ng-model="ForumGroupenabled"/> فعال/غیر فعال </label>
+                    </div>
+
+                    <div style="text-align: left" class="form-group">
+                        <img CLASS="ajaxloader" style="display: none;" src="" width="24"/>  <input type="submit" name="submit" class="btn btn-success" value="درج فروم جدید"/>
+                    </div>    
+
+                </form>
+                <input type="text" ng-show="false" ng-model="ordernewitemshow" id="ordernewitemshow" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal edit -->
+<div class="modal fade" id="ModalEditForumGroup" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">ویرایش فروم</h4>
+            </div>
+            <div class="modal-body">
+                <!--//title,content,like,enabled-->
+                <p>لطفا اطلاعات رو ویرایش نمایید</p>
+                <form role="form" name="ForumGroupEdit" ng-submit="EditForumGroup()" novalidate>
+
+                    <div class="form-group">
+                        <input type="text" ng-show="false"  id="EdititemId" ng-model="EdititemId" name="EdititemId" testChange/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ForumGroupTitleEdit">تیتر فروم</label>
+                        <input type="text" class="form-control" id="ForumGroupTitleEdit" name="ForumGroupTitle" ng-model="ForumGroupTitleEdit" required>
+                        <div style="margin-top: 20px" ng-show = "ForumGroupEdit.ForumGroupTitleEdit.$dirty">
+                            <span class="alert alert-danger" ng-show="ForumGroupEdit.ForumGroupTitleEdit.$error.required"> لطفا تیتر را وارد کنید </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ForumGroupMetaEdit">برچسب فروم</label>
+
+                        <input type="text" class="form-control" id="ForumGroupMetaEdit" rows="5" ng-model="ForumGroupMetaEdit" name="ForumGroupMetaEdit" required> 
+                        <span>لطفا برچسب ها رو با ,ازهم جدا کنید</span>
+                        <div style="margin-top: 20px" ng-show = "ForumGroupEdit.ForumGroupMetaEdit.$dirty">
+                            <span class="alert alert-error" ng-show="ForumGroupEdit.ForumGroupMetaEdit.$error.required">  </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dragebleListBtn">لیست فروم</label>
+                        <a href="#" id="dragebleListBtnEdit" class="btn btn-info">ترتیب لیست ها</a>    
+                    </div>
+
+                    <div class="form-group">
+                        <label><input id="EditcheckActivate" type="checkbox" name="enabled" value="false" ng-model="ForumGroupenabledEdit"/> فعال/غیر فعال </label>
+                    </div>
+
+                    <div style="text-align: left" class="form-group">
+                        <input type="submit" name="submit" class="btn btn-success" value="ویرایش فروم "/>
+                    </div>    
+
+                </form>
+                <input type="text" ng-show="false" ng-model="ordernewitemshowEdit" id="ordernewitemshowEdit" /> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- modal Dragable list  -->
+<div class="modal fade" id="dragebleList" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">ترتیب فروم ها : <span id="postname"></span></h4>
+            </div>
+            <div class="modal-body">
+                <ul id="draggablePanelList" class="list-unstyled">
+                    <li class="panel panel-info" ng-repeat="x in forumgroupdata">
+                        <div class="panel-heading">{{ x.title}} ترتیب لیست  <span id="{{ x.id}}" class="badge-warning orderListIdLabel">{{ x.order_list}}</span> </div>
+                        <!--<div class="panel-body">{{ x.meta }}</div>-->
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="updateOrderList()">بروزرسانی</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal delete -->
+<div class="modal fade" id="ModalDelete" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">حذف <span id="postname"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p>آیا از حذف این رکورد اطمینان دارید؟</p>
+                <input type="text" ng-show="false" ng-model="itemfordelete" id="itemfordeleteName">
+                <button id="deletedAlertButton" type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteitem(itemfordelete)">حذف</button> 
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var countForumGroupflag = false;
+    //var indexNewGroupItem = 0 ;
+    $(document).ready(function ($) {
+        
+           function checkCKEditor() {
+
+            try {
+                if (CKEDITOR.instances.Editcontent)
+                    CKEDITOR.instances.Editcontent.destroy();
+
+                CKEDITOR.replace('Editcontent', {language: 'fa'});
+
+                if (CKEDITOR.instances.content)
+                    CKEDITOR.instances.content.destroy();
+
+                CKEDITOR.replace('content', {language: 'fa'});
+
+
+            } catch (err)
+            {
+
+            }
+
+        }
+        checkCKEditor();
+        
+        //control list group
+
+        //delete button in table show modal
+        $(document).on('click', '.deleteRecord', function () {
+            var input = $("#itemfordeleteName");
+            input.val($(this).attr('data-struct'));
+            input.trigger("input");
+            $('#ModalDelete').modal();
+        });
+
+        $(document).on('click', '.paginate', function () {
+            $('.paginate').removeClass('active');
+            $('.paginate').removeAttr('id');
+            $(this).addClass('active');
+            $(this).attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginateNext', function () {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).next().addClass('active').attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginatePreview', function () {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).prev().addClass('active').attr('id', 'active');
+        });
+
+
+        $('#checkActivate').click(function () {
+            $(this).is(':checked') ? $(this).val(1) : $(this).val(0);
+        });
+
+        $('#EditcheckActivate').click(function () {
+            $(this).is(':checked') ? $(this).val(1) : $(this).val(0);
+        });
+
+        // edit button to table click
+
+        $(document).on('click', '.editRecord', function (e) {
+
+            var items = $(this).attr('data-struct');
+            var arr = [];
+            arr = items.split("|");
+            ///{{tr.id}},{{ tr.title}},{{ tr.meta}} ,{{ tr.order_list}},{{ tr.create_at}},{{tr.enabled}}
+            //alert(arr[0]);
+            var input = $("#EdititemId");
+            input.val(arr[0]);
+            input.trigger("input");
+
+            var input2 = $("#ForumGroupTitleEdit");
+            input2.val(arr[1]);
+            input2.trigger("input");
+
+
+            var input3 = $("#EditcheckActivate");
+            input3.val(arr[5]);
+            input3.trigger("input");
+
+
+            var input3 = $("#ordernewitemshowEdit");
+            input3.val(arr[3]);
+            input3.trigger("input");
+
+
+            //alert(arr[3]);
+            if ($("#EditcheckActivate").val())
+            {
+                $("#EditcheckActivate").prop('checked', true);
+            } else
+            {
+                $("#EditcheckActivate").prop('checked', false);
+            }
+
+            var input3 = $("#ForumGroupMetaEdit");
+            input3.val(arr[2]);
+            input3.trigger("input");
+
+            $("#ModalEditForumGroup").modal();
+
+        });
+
+     
+
+        $(document).on('click', '.closeitem', function (e) {
+            $(e.target).parentsUntil('ul').remove();
+            countForumGroupflag = false;
+            $('#ForumGroupTitle').prop("disabled", false);
+        });
+
+        $('#ForumGroupTitle').focusout(function () {
+
+            if ($(this).val())
+            {
+                var countItem = $('#draggablePanelList').children().length;
+                var listItemCounter = "<li class='panel panel-info'><a href='#' class='closeitem' data-dismiss='alert' aria-label='close' title='close'>×</a><div class='panel-heading'>" + $(this).val() + " " + "ترتیب لیست" + " " + "<span title='" + countItem + "' class='badge orderListIdLabel'>" + countItem + "</span> </div></li>";
+
+                if (!countForumGroupflag)
+                {
+                    $('#draggablePanelList').append(listItemCounter);
+                    countForumGroupflag = true;
+                    $('#ForumGroupTitle').prop("disabled", true);
+
+                }
+            }
+        });
+
+        $("#dragebleListBtn").click(function (e) {
+            e.preventDefault();
+            $('#dragebleList').modal();
+        });
+        $("#dragebleListBtnEdit").click(function (e) {
+            e.preventDefault();
+            $('#dragebleList').modal();
+        });
+
+        $("#ForumGroupBtn").click(function () {
+             
+            $("#ModalInsertForumGroup").modal();
+            countForumGroupflag = false;
+            $('#ForumGroupTitle').prop("disabled", false);
+
+        });
+
+        var panelList = $('#draggablePanelList');
+
+
+        panelList.sortable({
+            // Only make the .panel-heading child elements support dragging.
+            // Omit this to make then entire <li>...</li> draggable.
+            handle: '.panel-heading',
+            update: function () {
+                $('.panel', panelList).each(function (index, elem) {
+                    var $listItem = $(elem),
+                            newIndex = $listItem.index();
+                    $(this).find('.orderListIdLabel').html(newIndex);
+
+                    if ($(this).find('.orderListIdLabel').attr('id') == $("#EdititemId").val())
+                    {
+                        var input2 = $('#ordernewitemshowEdit');
+                        input2.val(newIndex);
+                        input2.trigger('input');
+                        //background-color: rgb(255, 0, 0);
+                        $(this).find('.orderListIdLabel').addClass('badge');
+
+                    }
+
+
+                    if ($(this).has('a').length === 1)
+                    {
+                        //indexNewGroupItem = newIndex;
+                        var input = $('#ordernewitemshow');
+                        input.val(newIndex);
+                        input.trigger('input');
+
+
+                    }
+
+                });
+            }
+        });
+    });
+
+</script>

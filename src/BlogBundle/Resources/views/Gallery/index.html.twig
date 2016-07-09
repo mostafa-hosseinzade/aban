@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Gallery list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Meta</th>
+                <th>Createat</th>
+                <th>Updateat</th>
+                <th>Orderlist</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('gallery_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+                <td>{{ entity.meta }}</td>
+                <td>{% if entity.createAt %}{{ entity.createAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.updateAt %}{{ entity.updateAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.orderList }}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('gallery_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('gallery_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('gallery_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

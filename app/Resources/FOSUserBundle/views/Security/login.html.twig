@@ -1,0 +1,23 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+{% if error %}
+    <div style="background: rgba(255,255,255,0.4);color:red;padding: 10px;border-radius: 5px;border:solid thin rgba(255,255,255,0.1);font-size: medium;margin:20px;text-align: center;margin-bottom: 0">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post" style="padding: 20px;border-radius: 5px">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+    <input type="text" data-toggle="tooltip" data-placement="top" title="{{ 'security.login.username'|trans }}" class="input textbox" id="username" name="_username" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans }}" required="required" />
+
+    <input type="password" data-toggle="tooltip" data-placement="top" title="{{ 'security.login.password'|trans }}" class="input textbox" id="password" name="_password" placeholder="{{ 'security.login.password'|trans }}" required="required" />
+
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+    <input type="submit" class="input btnbox" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" /><br class="clear-fix"/>
+    <a class="input btnprimary" style="width:100%;display: inline-block;margin: 12px 0 -10px 0"  href="{{path('fos_user_registration_register')}}">ثبت نام</a>
+</form>
+{% endblock fos_user_content %}

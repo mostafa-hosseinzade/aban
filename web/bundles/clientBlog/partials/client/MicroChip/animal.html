@@ -1,0 +1,40 @@
+<div style="direction: rtl;width:80%;margin:0 auto" ng-show="AnimalShow">
+        <link rel="stylesheet" href="bundles/public/css/bootstrap-datepicker.min.css" />
+    <form name="AnimalInfoSendForm" >
+        <h2 class="title" style="color: #fff;text-align: right">ثبت اطلاعات حیوان</h2>
+        <div style="color:red;padding: 10px;border-radius: 5px;font-size: medium;margin:20px;text-align: center;margin-bottom: 0" ng-show="errorMsg && !success">{{ errorMsg}}</div>
+        <input type="file" class="input textbox file_send" data-toggle="tooltip" ng-model="animal.file" data-placement="top" title="انتخاب عکس">
+        <input type="text" required="true" name="name" ng-class="{invalid:AnimalInfoSendForm.name.$invalid}" ng-disabled="isLoading == 1" data-toggle="tooltip" ng-model="animal.name"  data-placement="top" title="نام" class="input textbox" id="name"  placeholder="نام"  />
+        <input type="text"  ng-disabled="isLoading == 1" data-toggle="tooltip" ng-model="animal.age"  data-placement="top" title="تاریخ تولد" class="input textbox age" id="age"   placeholder="تاریخ تولد"  />
+        <input type="text" ng-disabled="isLoading == 1" data-toggle="tooltip" ng-model="animal.weight"  data-placement="top" title="وزن" class="input textbox" id="weight"  placeholder="وزن"  />
+        <input ng-disabled="isloading" required="true" name="code" ng-class="{invalid:AnimalInfoSendForm.code.$invalid}" data-toggle="tooltip" data-placement="top" title="کد میکروچیپ" ng-model="animal.code" type="text" style="direction: ltr" class="input textbox ng-valid ng-dirty" placeholder="xxxxxxxxxxxxxxx" maxlengh="15" angular-mask="000-000-000-000-000">
+        <select ng-model="animal.sex" ng-disabled="isLoading == 1" class="input textbox">
+            <option ng-selected="!animal.sex" id="sex">جنسیت</option>
+            <option value="1">نر</option>
+            <option value="0">ماده</option>
+        </select> 
+        <select ng-model="animal.ctg" required="true" name="cteg" ng-class="{invalid:AnimalInfoSendForm.cteg.$invalid}" class="input textbox">
+            <option ng-selected="!animal.ctg" >دسته بندی</option>
+            <option value="{{val.id}}" ng-repeat="val in ctg">{{val.title}}</option>
+        </select>
+        <div class="col-lg-6">
+            <button  ng-click="AnimalInfoSend()" ng-disabled="
+                     AnimalInfoSendForm.name.$invalid ||
+                     AnimalInfoSendForm.file.$invalid ||
+                     AnimalInfoSendForm.code.$invalid ||
+                     AnimalInfoSendForm.cteg.$invalid" class="input btnbox" id="_submit"  name="_submit" ><span>مرحله بعدی</span> : <i class="fa fa-arrow-left"></i></button>                    
+                     
+        </div>
+        <div class="col-lg-6">
+            <button  ng-click="ShowUser()" ng-disabled="isLoading == 1" class="input btnbox" id="_submit"  name="_submit" ><span>مرحله قبلی</span> : <i class="fa fa-arrow-right"></i></button>                    
+        </div>
+    </form>
+    <div class="clearfix"></div>
+</div>
+    <script src="bundles/public/js/bootstrap-datepicker.min.js"></script>
+    <script src="bundles/public/js/bootstrap-datepicker.fa.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.age').datepicker();
+    });
+</script>

@@ -1,0 +1,27 @@
+<div ng-show="!EditHistoryShow && !AddHistoryShow && !ShowAllHistory">
+    <div class="modal-body"  dir="rtl">
+
+        <div class="col-lg-12">
+            <label>بخش مدارک پزشکی :</label>
+            <hr style="height: 2px">
+        </div>
+        <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+            <span>اسکن مدرک :</span> <img ng-src="{{Selected.file}}" class="img img-rounded" style="max-width: 400px;">
+        </div> 
+        <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+            <span>زمان ایجاد پرونده :</span> <span>{{Selected.dateHistory}} </span>
+        </div> 
+
+        <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+            <span>توضیحات:</span> <span>{{Selected.Describ}} </span>
+        </div> 
+
+        <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+            <button class="btn btn-success" ng-click="download()">دانلود تصویر</button>
+        </div>        
+        <div class="clearfix"></div>
+    </div>
+    <div class="modal-footer">
+        <p>&nbsp;</p>
+    </div>
+</div>

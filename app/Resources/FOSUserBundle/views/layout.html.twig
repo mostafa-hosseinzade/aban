@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %}کلینیک تخصصی آبان{% endblock %}
+{% block stylesheets %}
+    <style>
+        body{
+            background-image: url({{asset('bundles/public/img/forum-bg.jpg')}});min-height: 100vh;background-attachment: fixed;background-size: auto 100vh
+        }
+    </style>
+{% endblock %}
+{% block ngApp %}ng-app="myApp"{% endblock %}
+{% block body %}
+    <div >
+        <div style="min-height: 50vh" dir="rtl">               
+            <div ng-view></div>
+            <div loading class="loading">
+                <span>
+                    <img style="width: 100px; auto" src="" alt=""/><br/>
+                    <span>لطفا منتظر بمانید ...</span>
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/public/js/angular/angular.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/controller_cli.js') }}"></script>
+    <script>
+        var token = '{{ csrf_token('authenticate') }}';
+        var login_url = "{{ path("fos_user_security_check")}}";
+        var resset_password = "{{ path('fos_user_resetting_send_email') }}";
+    </script>
+{% endblock %}

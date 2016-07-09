@@ -1,0 +1,133 @@
+<div ng-controller="AnimalsHistory">
+    <div ng-show="ShowAllHistory">
+        <h3 class="page row">
+            <div class="col-lg-4 col-md-5 col-sm-3 col-xs-3">
+                <div class="pull-left hidden-sm-down">
+                    <button style="margin: 0 2px" type="button" class="btn btn-info btn-xs pull-left" id="modalAdd" ng-click="prepareCreate()" data-toggle="modal" data-target="#AddModal" data-original-title="" title="">
+                        افزودن<i class="fa fa-plus"></i>
+                    </button>
+                    <button style="margin: 0 2px" ng-disabled="!SelectedItemHistory" type="button" class="btn btn-success btn-xs pull-left" id="modaledit" ng-click="prepareEdit()" data-toggle="modal" data-target="#AddModal" data-original-title="" title="">
+                        ویرایش<i class="fa fa-edit"></i>
+                    </button>
+                    <button style="margin: 0 2px" ng-disabled="!SelectedItemHistory" type="button" class="btn btn-danger btn-xs pull-left" ng-click="prepareDelete()" title="">
+                        حذف<i class="fa fa-remove"></i>
+                    </button>
+                </div>
+            </div>    
+
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 pull-right">
+                <small>سوابق حیوان</small>
+            </div>
+        </h3>
+        <div class="table-responsive">
+            <table id="example1" class="table table-strip table-bordered" dir="rtl">
+                <thead style="background: rgba(90,156,144,0.5)">
+                    <tr>
+                        <th>ردیف</th>
+                        <th>توضیحات</th>
+                        <th>زمان ایجاد پرونده</th>
+                        <th>اسکن پرونده</th>
+                        <th>آخرین تغییرات</th>
+                        <th>تاریخ ثبت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="h{{entity.id}}" class='item' ng-click="SelectedItems(entity)" ng-dblclick="Show(entity)"  ng-class="{
+                            SelectedItem:entity.id == Selected.id
+                        }" ng-repeat="entity in DataHistory">
+                        <!--<td> <input class="selecteditem" name="selectitems[]" type='checkbox' value="{{ entity.id}}" /> </td>-->
+                        <td>{{ $index + 1}}</td>
+                        <td>{{ entity.Describ}}</td>
+                        <td>{{ entity.dateHistory}}</td>
+                        <td><img ng-src="{{ entity.file}}" style="max-width: 80px;max-height: 70px"></td>
+                        <td>{{ entity.updateAt}}</td>
+                        <td>{{ entity.createAt}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>ردیف</th>
+                        <th>توضیحات</th>
+                        <th>زمان ایجاد پرونده</th>
+                        <th>اسکن پرونده</th>
+                        <th>آخرین تغییرات</th>
+                        <th>تاریخ ثبت</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <p class="pull-left">تعداد سوابق موجود : &nbsp;<span>{{count}}</span></p>
+        <!--pagination for this table-->
+        <nav style="text-align: center;">
+            <ul class="pagination pagination-sm">
+                <li>
+                    <a style="cursor: pointer;" id="paginatePreview" aria-label="Previous" ng-click="pagePreview()" ng-show="checkVisiblePrev()">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="paginate active" id="active"><a style="cursor: pointer;" ng-click="paginate(1)">1</a></li>
+                <li ng-repeat="result in Allpaginate" class="paginate" ng-switch on="result" >
+                    <span ng-switch-when="0">...</span> 
+                    <a ng-switch-default="result" ng-if="checkZero(result)" style="cursor: pointer;" ng-click="paginate(result + 1)">{{result + 1}}</a> 
+                </li>
+
+                <li>
+                    <a style="cursor: pointer;" id="paginateNext" aria-label="Next" ng-click="pageNext()" ng-show="checkVisibleNext()">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="modal-content" ng-show="!ShowAllHistory">
+        <div class="modal-header">
+            <span class="modal-title pull-right"> سوابق حیوان </span>
+            <button type="button" class="close pull-left" ng-click="hide()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+            <historyshow></historyshow>
+            <historyadd></historyadd>
+            <historyedit></historyedit>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog"  id="DeleteModalHistoryID">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title pull-right">حذف اطلاعات  حیوان</span>
+                    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-success pull-left" ng-click="DeleteHistory()" >حذف اطلاعات</button>
+                    <button type="button" class="btn btn-danger Close pull-left" data-dismiss="modal" aria-label="Close">انصراف</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.paginate', function() {
+            $('.paginate').removeClass('active');
+            $('.paginate').removeAttr('id');
+            $(this).addClass('active');
+            $(this).attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginateNext', function() {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).next().addClass('active').attr('id', 'active');
+        });
+
+        $(document).on('click', '#paginatePreview', function() {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).prev().addClass('active').attr('id', 'active');
+        });
+    })
+
+</script>

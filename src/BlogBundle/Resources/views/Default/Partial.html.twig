@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}کلینیک تخصصی آبان{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/clientBlog/css/clientblog.css')}}">
+
+    <style>
+        body{
+            background-image: url({{asset('bundles/public/img/bg_1.jpg')}});min-height: 100vh;background-attachment: fixed;background-size: auto 100vh
+        }
+    </style>
+{% endblock %}
+{% block ngApp %}ng-app="myApp"{% endblock %}
+{% block body %}
+    <div class="main-content">
+        <div class="content" style="min-height: 50vh" dir="rtl">               
+            <div ng-view></div>
+            <div loading class="loading">
+                <span>
+                    <img style="width: 100px; auto" src="" alt=""/><br/>
+                    <span>لطفا منتظر بمانید ...</span>
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/public/js/jquery.maskedinput.js')}}"></script>
+    <script src="{{ asset('bundles/public/js/angular/ng-infinite-scroll.min.js') }}"></script>
+    <script src="{{ asset('bundles/clientBlog/js/app.js') }}"></script>
+    <script src="{{ asset('bundles/clientBlog/js/controllers.js') }}"></script>
+    <script src="{{ asset('bundles/clientBlog/js/directives.js') }}"></script>
+    <script>
+        var token = '{{ csrf_token('authenticate') }}';
+    </script>
+{% endblock %}
+

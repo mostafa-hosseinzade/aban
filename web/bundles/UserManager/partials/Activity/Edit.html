@@ -1,0 +1,40 @@
+<form ng-submit="EditActivity()" ng-show="EditActivityAnimale" name="EditActivityAnimaleForm">
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-12">
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> دسته بندی</label>
+                <select ng-model="SelectedActivity.activityName_id"  name="Type" ng-class="{ErrorInput:EditActivityAnimaleForm.Type.$invalid}" required class="form-control">
+                    <option value="{{category.id}}" ng-selected="category.id == SelectedActivity.activityName_id" ng-repeat="category in AllActivityType"  >{{category.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+
+                <label>  توضیحات</label>
+                <textarea type="text" ng-model="SelectedActivity.desc"  class="form-control"></textarea>
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>تاریخ حضور</label>
+                <input type="text" id="DateEdit" ng-model="SelectedActivity.date" required name="date" ng-class="{ErrorInput:EditActivityAnimaleForm.date.$invalid}"  class="form-control DateEdit">
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>ارسال به نرم افزار</label>
+                <input type="checkbox"  ng-model="SelectedActivity.send_with_message"  name="send_with_message"  class="">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success pull-left" ng-disabled="EditActivityAnimaleForm.type.$invalid || EditActivityAnimaleForm.date.$invalid" type="submit">ارسال</button>
+            <button class="btn btn-danger pull-left Close" type="button" data-dismiss="modal" aria-label="Close">انصراف</button>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+</form>
+<script>
+    $(document).ready(function () {
+        $(".DateEdit").datepicker();
+    });
+</script>

@@ -1,0 +1,25 @@
+<h2 class="headerWraper">
+    لیست فروم ها
+</h2>
+
+<div class="forumItemWraper" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 5px;margin: 10px">
+    <h4 style="margin-right: 10px;"> برای مشاهده فروم ها روی نمایش کلیک نمایید</h4><br/> 
+    <div  ng-repeat="item in ClientGroupData" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);padding: 5px;margin: 10px">
+        <div class="ItemForum row" style="width: 100%;margin: 0">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <i class="glyphicon glyphicon-check"></i> <span> {{ item.title}}</span>
+        </div> 
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <span class="badge">تعداد پست {{ item.Count}} </span> <span> تاریخ ایجاد فروم {{ item.create_at | ConvertedToDateShamsi }}</span>
+        </div> 
+        <div style="text-align: left;" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <a href="#/showpost/{{ item.id}}" class="btn btn-default btn-sm" ><i class="glyphicon glyphicon-eye-open"></i> نمایش </a>
+        </div>
+        </div>
+    </div>
+</div>
+<style>
+    .forumItemWraper .col-xs-12 , .forumItemWraper .col-sm-4 , .forumItemWraper .col-md-4 ,.forumItemWraper .col-lg-4{
+        float: right!important
+    }
+</style>

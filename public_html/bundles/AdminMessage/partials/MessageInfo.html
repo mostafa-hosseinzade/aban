@@ -1,0 +1,163 @@
+<h3 class="page row" >
+    <div class="col-lg-4 col-md-5 col-sm-3 col-xs-3">
+        <div class="pull-left hidden-sm-down">
+            <button style="margin: 0 2px" type="button" class="btn btn-info btn-md pull-left" id="modalAdd" ng-click="prepareCreate()" data-toggle="modal" data-target="#AddModal" data-original-title="" title="">
+                افزودن<i class="fa fa-plus"></i>
+            </button>
+            <button style="margin: 0 2px" ng-disabled="!Selected" type="button" class="btn btn-danger btn-md pull-left" ng-click="prepareDelete()" >
+                حذف<i class="fa fa-remove"></i>
+            </button>
+        </div>
+    </div>    
+    <div class="col-lg-3 col-md-3">
+        <small style="font-size: 14px">ارسال شده توسط مدیریت</small>
+        <button class="btn btn-info" style="
+                width: 50px;background-color: #D9F5F4; border-color: aliceblue;color: #359C89;"><i class="fa fa-send"></i></button>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 pull-right">
+        نمایش پیام های کاربران
+    </div>
+</h3>
+<div class="box">
+    <div class="box-header">
+    </div><!-- /.box-header -->
+    <div class="box-body table-responsive">
+        <table id="example1" class="table table-strip table-bordered" dir="rtl">
+            <thead style="background: rgba(90,156,144,0.5)">
+                <tr>
+                    <th>ردیف</th>
+                    <th>نوع پیام</th>
+                    <th>نام</th>
+                    <th>نام خانوادگی</th>
+                    <th>فرستنده</th>
+                    <th>وضعیت</th>
+                    <th>ادمین</th>
+                    <th>تاریخ ثبت</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class='item active{{entity.message_type}}' id="{{entity.id}}" ng-click="SelectedItems(entity)" ng-dblclick="Show(entity)"  ng-class="{SelectedItem:entity.id == Selected.id}" ng-repeat="entity in data">
+                    <td>{{$index + 1}}</td>
+                    <th><span ng-show="entity.message_type == 3">همگانی</span>
+                        <span ng-show="entity.message_type == 0">برای مدیریت</span>
+                        <span ng-show="entity.message_type == 1">برای کاربر</span>
+                    </th>
+                    <td><a href="/admin/UserManager/#/user/{{entity.user_id}}">{{ entity.name}}</a></td>
+                    <td>{{ entity.family}}</td>
+                    <td>
+                        <span ng-show="entity.message_type == 0">کاربر</span>
+                        <span ng-show="entity.message_type == 1">مدیر</span>
+                    </td>
+                    <td>
+                        <span ng-show="entity.is_read == 1" style="color: green">خوانده شده</span>
+                        <span ng-show="entity.is_read == 0" style="color: red">خوانده نشده</span>
+                    </td>
+                    <td>
+                        <!--<a href="#/{{entity.message_owner}}">-->
+                            {{entity.username_message_owner}}
+                        <!--</a>-->
+                    </td>
+                    <td>{{ entity.createAt}}</td>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نوع پیام</th>
+                    <th>نام</th>
+                    <th>نام خانوادگی</th>
+                    <th>فرستنده</th>
+                    <th>وضعیت</th>
+                    <th>ادمین</th>
+                    <th>تاریخ ثبت</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<p class="pull-left">تعداد کاربران : &nbsp;<span>{{count}}</span></p>
+<!--Create Pagination For Table-->
+<!--pagination for this table-->
+<nav style="text-align: center;">
+    <ul class="pagination pagination-sm">
+        <li>
+            <a style="cursor: pointer;" id="paginatePreview" aria-label="Previous" ng-click="pagePreview()" ng-show="checkVisiblePrev()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="paginate active" id="active"><a style="cursor: pointer;" ng-click="paginate(1)">1</a></li>
+        <li ng-repeat="result in Allpaginate" class="paginate" ng-switch on="result" >
+            <span ng-switch-when="0">...</span> 
+            <a ng-switch-default="result" ng-if="checkZero(result)" style="cursor: pointer;" ng-click="paginate(result + 1)">{{result + 1}}</a> 
+        </li>
+
+        <li>
+            <a style="cursor: pointer;" id="paginateNext" aria-label="Next" ng-click="pageNext()" ng-show="checkVisibleNext()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<div class="modal fade" id="AddMessage">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title pull-right">نمایش اطلاعات پیام</span>
+                <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <addmessage></addmessage>
+            <showmessage></showmessage>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteMessage">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-left" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h3 class="pull-right">حذف پیام</h3>
+            </div>
+            <div class="modal-body" dir="rtl">
+                <h4>آیا از حذف اطلاعات مطمئن هستید  ؟</h4>
+            </div>
+            <div class="modal-footer">
+                <button class="pull-left btn btn-success" ng-click="SendDeleteMessage()">حذف اطلاعات </button>
+                <button class="pull-left btn btn-danger" data-dismiss="modal">انصراف</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.paginate', function() {
+            $('.paginate').removeClass('active');
+            $('.paginate').removeAttr('id');
+            $(this).addClass('active');
+            $(this).attr('id', 'active');
+        });
+        $(document).on('click', '#paginateNext', function() {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).next().addClass('active').attr('id', 'active');
+        });
+        $(document).on('click', '#paginatePreview', function() {
+            $('.paginate').removeClass('active');
+            var element = $('ul').find('#active').removeClass('active').removeAttr('id');
+            $(element).prev().addClass('active').attr('id', 'active');
+        });
+
+    })
+    $(document).ready(function() {
+        $(".js-example-basic-single").select2();
+    });
+</script>
+<style>
+    .active1{
+        background-color: #d9f5f4;
+    }
+
+</style>

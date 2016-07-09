@@ -1,0 +1,417 @@
+<html >
+    <head>
+        {% set KeyValue = app.session.get('KeyValue')%}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" 
+              content="از تیرماه 1392 در محیطی زیبا و خاطره انگیز به میزبانی شما مفتخریم. کلینیک دامپزشکی آبان با نگاهی متفاوت به مقوله تشخیص و درمان ، همگام با استانداردهای روز جهان، تشخیص محور تجهیز شده است ؛ بهترین و پیشرفته ترین دستگاهها و تکنیکهای تشخیصی در خدمت دانش و تجربه متخصصین آبان قرار گرفته اند تا نخستین و مهمترین گام ( تشخیص ) ، با کمترین خطا و بیشترین اطمینان برداشته شود...">
+        <meta name="author" content="Gomaneh|گمانه">
+        <meta charset="UTF-8">
+        {#<link rel="copyright" href="copyright.html">#}
+        <meta name="keywords" content="دامپزشکی درمان حیوانات واکسناسیو کلینیک آبان pet Aban pet clinic">
+        <meta property="og:title" content="کلینیک تخصصی آبان">
+        <meta property=”og:type” content=”www.gomaneh.org”/>
+        {#<meta property=”fb:admins” content=”USER_ID”/>#}
+        <meta property="og:image" content="{{asset('favicon.ico')}}">
+        <meta property="og:description" content="از تیرماه 1392 در محیطی زیبا و خاطره انگیز به میزبانی شما مفتخریم. کلینیک دامپزشکی آبان با نگاهی متفاوت به مقوله تشخیص و درمان ، همگام با استانداردهای روز جهان، تشخیص محور تجهیز شده است ؛ بهترین و پیشرفته ترین دستگاهها و تکنیکهای تشخیصی در خدمت دانش و تجربه متخصصین آبان قرار گرفته اند تا نخستین و مهمترین گام ( تشخیص ) ، با کمترین خطا و بیشترین اطمینان برداشته شود...">
+        <link rel="stylesheet" href="{{asset('bundles/public/css/bootstrap.css')}}">
+        <link rel="stylesheet" href="{{asset('bundles/public/css/web-style.css')}}">
+        <link rel="stylesheet" href="{{asset('bundles/public/css/font-awesome.min.css')}}">
+        <title>{% block title %}کلینیک تخصصی آبان{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body style="background-color:rgba(90, 156, 144, 0.9) ">
+
+    <div class="wrapper" id='wrapper' {% block ngApp %}{% endblock %}>
+        <div class="section {% block classBody %}{% endblock %}">
+        {% block slider %}{% endblock %}
+        <div class="nav-bar">
+
+            <div style="display: table-row">
+                <div class="login-item">
+                    {% if app.user is not empty %}
+                        <span hidden-area='true' class="glyphicon glyphicon-user"></span>
+                    {% else %}
+                        <span hidden-area='true' class="glyphicon glyphicon-lock"></span>
+                    {% endif %}
+                    <div class="loginpanel" id='loginpanel'>
+                        {% if app.user is not empty %}
+                            <table>
+                                <tr style="vertical-align: top">
+                                    <td >
+                                        {% if app.user.photo is not empty %}
+                                            <img style="width: 80px" src='{{app.user.photo}}' aly='{{app.user.username}}' />
+                                        {% else %}
+                                            <span class="glyphicon glyphicon-user" style="font-size: 60px;margin-top:0;color:rgba(0,0,0,0.5)" hidden-area="true"></span>
+                                        {% endif %}
+                                    </td>
+                                    <td style="color:#fff;padding: 0 10px">
+                                        <p style="line-height: 12px">{{app.user.username}}</p>
+                                        <p style="line-height: 12px">{{app.user.name}} {{app.user.family}}</p>
+                                        <p style="line-height: 12px">{{app.user.email}}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <a   class="input btnbox" style="display: inline-block;margin-top: 12px;text-align: center" href="{{path('panel')}}">پنل کاربری</button> 
+                                <a  class="input btnprimary"  style="display: inline-block;margin-top: 12px" href="{{path('fos_user_security_logout')}}">خروج</a>
+                            {% else %}
+                                <h3>ورود</h3>
+                                <h4 id='message'></h4>
+                                <form id='login' action='{{ path("fos_user_security_check")}}' method='post' >
+                                    <input id='_csrf_token' type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                                    <input type="text"  data-toggle="tooltip"   data-placement="top" title="نام کاربری" class="input textbox" id="username" name="_username"  placeholder="نام کاربری"  />
+                                    <input type="password"  data-toggle="tooltip"  data-placement="top" title="کلمه عبور"  class="input textbox" id="password" name="_password" placeholder="کلمه عبور"  />
+                                    <input type="checkbox"  id="remember_me" name="_remember_me"  value="on" />
+                                    <label for="remember_me">مرا به یاد بسپار</label>
+                                    <button type="submit"  class="input btnbox" id="_submit"  name="_submit" >ورود</button>
+                                </form>
+                                {#                                <input type="submit" id="reg2" class="input btnprimary " value="ثبت نام" name="submit"/>#}
+                                <a href="{{path('fos_user_security_login')}}#/reset" class="def-link">بازیابی کلمه عبور</a>
+                            {% endif %}
+                    </div>
+                </div>
+                <div class="search-item">
+                    <span hidden-area='true' class="glyphicon glyphicon-search"></span>
+                    <div class="searchpanel" id='searchpanel'>
+                        <h3>جست و جو</h3>
+                        <form id="searchform">
+                            <input type="text"  class="input textbox" placeholder="ورود عبارت ..." name="search_words"/>
+                            <input type="submit" class="input btnbox" value="جست و جو" name="submit"/>
+                        </form>
+                    </div>
+                </div>
+                <div class="nav-item" style="display: table">
+                    <div style="display: table-row">
+                        <button class="rd-mobilepanel_toggle">
+                            <span class="line-btn"></span>
+                            <span class="line-btn"></span>
+                            <span class="line-btn"></span>
+                        </button>
+                        <ul class="nav-list">
+                            <li><div class="mask odd"></div><a class="DowAndIosMenu DowAndIos"  ng-click="gotoDow()" style="cursor: pointer">دانلود نرم افزار</a></li> 
+                                    {% if KeyValue.Sections.ForumBundle == true%}
+                                <li><div class="mask odd"></div><a  href="{{path('ShowForumClient')}}">فروم</a></li>  
+                                    {% endif %}
+                                    {% if data.menu is not empty %}
+                                <li><div class="mask edd"></div><a  href="#services" class="dropdown-btn"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> صفحه ها</a></li>
+                                    {% endif %}
+                                    {% if data.ContentCategory is not empty %}
+                                <li><div class="mask edd"></div><a href="#news" class="dropdown-btn"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> محتوی</a></li>
+                                    {% endif %}
+                            <li><div class="mask odd"></div><a href="{{ path('partial') }}#/Gallery">گالری</a></li>
+                            <li><div class="mask edd"></div><a href="#aboutabanmenu" class="dropdown-btn"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> درباره آبان</a></li>
+                            <li><div class="mask edd"></div><a href="#MicroChipAban" class="dropdown-btn"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> میکروچیپ</a></li>
+                            <li><div class="mask odd"></div><a href="{{path('_def')}}">صفحه اصلی</a></li>
+                        </ul>
+                        <div class="logo">
+                            <img src="{{asset('bundles/public/img/logo_title.png')}}" alt=""/>
+                            <img src="{{asset('bundles/public/img/logo.png')}}" alt=""/>
+                        </div>
+                    </div>
+                </div> 
+                <div id="aboutabanmenu" class="dropdown" style="direction: rtl;text-align: right">
+                    <ul class="col-lg-3 menuCategory" style="float: right">
+                        <h4>درباره آبان</h4>
+                        <li><a href="{{path('partial')}}#/Page/1">درباره آبان</a></li>
+                        <li><a class="scroll" href="#contact">ارتباط با ما</a></li> 
+                        <li><a href="{{ path('partial') }}#/Doctors">دامپزشکان</a></li>
+                    </ul>       
+                </div>
+                <div id="MicroChipAban" class="dropdown" style="direction: rtl;text-align: right">
+                    <ul class="col-lg-3 menuCategory" style="float: right">
+                        <h4>میکروچیپ</h4>
+                        <li class="microchip" style="cursor: pointer"><a  >جستجو میکروچیپ</a></li>
+                        <li><a href="{{ path('partial') }}#/MicroChip">ثبت میکروچیپ</a></li>
+                    </ul>       
+                </div>                    
+                {% if data.menu is not empty %}
+                    <div id="services" class="dropdown" style="direction: rtl;text-align: right">
+                        {% set s = 0 %}
+                        {% for menu in data.menu %}
+
+                            {% if menu.child.0 != 0 %}
+                                <ul class="col-lg-3 menuCategory" style="float: right">
+                                    <h4>{{menu.title}}</h4>
+                                    {% for child in menu.child %}
+                                        <li><a href="{{path('partial')}}#/Page/{{child.id}}">{{child.title}}</a></li>
+                                        {% endfor %}
+                                </ul>
+                            {% endif %}    
+                        {% endfor %}
+                        {% for menu in data.menu %}
+                            {% if menu.child.0 == 0 %}
+                                {% if s < 1 %}
+                                    <ul class="col-lg-3 menuCategory" style="float: right">
+                                        <h4>بدون دسته بندی</h4>
+                                    {% endif %}
+                                    {% if s == 6 %}
+                                        <ul class="col-lg-3 menuCategory" style="float: right">
+                                            <h4>&nbsp;</h4>
+                                        {% endif %}  
+                                        {% set s=s+1 %}
+                                        <li><a href="{{path('partial')}}#/Page/{{menu.page.id}}">{{menu.title}}</a></li>
+                                            {% if s == 6  %}
+                                        </ul>
+                                    {% endif %}  
+                                    {% if s < 1 %}
+                                    </ul>   
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if data.ContentCategory is not empty %}
+                    <div id="news" class="dropdown" style="direction: rtl;text-align: right">
+                        {% set m = 0 %}
+                        {% for category in data.ContentCategory %}
+                            {% if m < 1 %}
+                                <ul class="col-lg-3 menuCategory" style="float: right">
+                                    <h4>  دسته بندی محتوا</h4>
+                                {% endif %}
+                                {% if m == 6 %}
+                                    <ul class="col-lg-3 menuCategory" style="float: right">
+                                        <h4>&nbsp;</h4>
+                                    {% endif %}  
+                                    {% set m=m+1 %}
+                                    <li><a href="{{path('partial')}}#/Content/{{category.id}}">{{category.title}}</a></li>
+                                        {% if m == 6  %}
+                                    </ul>
+                                {% endif %}  
+                                {% if m < 1 %}
+                                </ul>   
+                            {% endif %}
+                        {% endfor %} 
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% block body %}{% endblock %}
+
+<div id="contact" class="section contact-page">
+    <div>
+        <div class="row contact-row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div>
+                    <div id="map" style="width: 100%;height: 314px"></div>
+                    <script>
+                        var map;
+                        function initMap() {
+                            var mapOptions = {
+                                center: new google.maps.LatLng(35.758873, 51.313967),
+                                zoom: 16,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            };
+                            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                            var myLatlng = new google.maps.LatLng(35.758873, 51.313967);
+                            var contentString = "<div style='color:#000;text-align:right;direction:rtl'><img src='bundles/public/img/aban.JPG' /><br/>تلفن: <a style='color:#000;' hrerf='tel:021 4462 3063'>021 4462 3063</a></div>";
+                            var infowindow = new google.maps.InfoWindow({
+                                content: contentString //$('#test321').html()
+                            });
+                            var marker = new google.maps.Marker({
+                                position: myLatlng,
+                                map: map,
+                                icon: 'bundles/public/img/marker.png',
+                                animation: google.maps.Animation.BOUNCE
+                            });
+                            marker.setTitle('کلینیک دامپزشکی آبان');
+                            google.maps.event.addListener(marker, 'click', function () {
+                                infowindow.open(map, marker);
+                            });
+
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <form id="contact-form" action="{{path('send_contact')}}">
+                    <input type="hidden" id="token" value="{{ csrf_token('authenticate') }}" name="token" />
+                    <input name="name" id="name" data-toggle="tooltip" data-placement="top" title="نام" type="text" class="input textbox input-rtl" placeholder="نام"/>
+                    <input name="email" id="email" data-toggle="tooltip" data-placement="top" title="ایمیل" type="text"  class="input textbox" placeholder="ایمیل"/>
+                    <input name="phone" id="phone" data-toggle="tooltip" data-placement="top" title="شماره تلفن" type="text" class="input textbox" placeholder="شماره تلفن" />
+                    <input name="subject" data-toggle="tooltip" data-placement="top" title="موضوع" type="text"  class="input textbox input-rtl" placeholder="موضوع"/>
+                    <textarea name="msg" id="msg" data-toggle="tooltip" data-placement="top" title="متن پیام" class="input textbox input-rtl" placeholder="متن پیام"></textarea>
+                    <button id="submit" style="direction: rtl" class="input btnbox">ارسال</button>
+                </form>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="display: table;border-collapse: separate;border-spacing: 20px;vertical-align: middle">
+                <div class="row-table phone">
+                    <div class="cell-table cell1">
+                        {#                                                                                    {% for item in KeyValue.phone %}#}
+                        <p>+98 (21) {{KeyValue.phone.0}}</p>
+                        <p>+98 (21) {{KeyValue.phone.1}}</p>
+                        <p><i class="fa fa-fax"></i> &nbsp;{{KeyValue.phone.2}}</p>
+                        {#                                                                                    {% endfor %}    #}
+                        {#<p> +98 (21)8849 1228</p>
+                        <p> +98 (21)8849 1229</p>#}
+                    </div>
+                    <div class="cell-table cell2 "><span class="glyphicon glyphicon-phone" hidden-area="true"></span></div>
+                </div>
+                <div class="row-table send">
+                    <div class="cell-table cell1">
+                        {{KeyValue.MinAddress.0}}
+                        <p class="more-content">
+                            <a href="#" id="FullAddress">... آدرس کامل</a>
+                        </p>
+                        <div id="FullAddressContent" style="display: none">
+                            <div style="    background-color: rgba(255,255,255,0.2);
+                                 padding: 15px;
+                                 direction: rtl;
+                                 color: white;
+                                 font-weight: bold;">
+                                <p class="PAddress"><span>دسترسی اول </span> : {{KeyValue.FullAddress.0}}</p>
+                                <p class="PAddress"> <span>دسترسی دوم</span> : {{KeyValue.FullAddress.1}}</p>
+                                <p class="PAddress"> <span>دسترسی سوم</span> : {{KeyValue.FullAddress.2}}</p>
+                                <p class="PAddress"><span>کد پستی</span> : {{KeyValue.FullAddress.3}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cell-table cell2 "><span class="glyphicon glyphicon-send" hidden-area="true"></span></div>
+                </div>
+                <div class="row-table email">
+                    <div class="cell-table cell1">
+                        <p>{{KeyValue.Email.0}}</p>
+                        {#                                                                                    <p>info@gomaneh.org</p>#}
+                    </div>
+                    <div class="cell-table cell2 "><span class="glyphicon glyphicon-envelope" hidden-area="true"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="row footer" >
+            <div class="social">
+                <ul class="nav menu social">
+                    {% if KeyValue.Socials.Facebook != '' %}
+                        <li class="item-148 firstItem"><a class="fa fa-facebook hasTooltip" href="http://{{KeyValue.Socials.Facebook}}" title="" data-original-title="Facebook"></a>
+                        </li>
+                    {% endif %}
+                    {% if KeyValue.Socials.Twitter != '' %}
+                        <li class="item-150"><a class="fa fa-twitter hasTooltip" href="http://{{KeyValue.Socials.Twitter}}" title="" data-original-title="Twitter"></a>
+                        </li>
+                    {% endif %}
+                    {% if KeyValue.Socials.Instagram != '' %}
+                        <li class="item-152"><a class="fa fa-instagram hasTooltip" href="http://{{KeyValue.Socials.Instagram}}" title="" data-original-title="Instagram"></a>
+                        </li> 
+                    {% endif %}
+                    {% if KeyValue.Socials.Pinterest != '' %}
+                        <li class="item-151"><a class="fa fa-pinterest hasTooltip" href="http://{{KeyValue.Socials.Pinterest}}" title="" data-original-title="Pinterest"></a>
+                        </li>
+                    {% endif %}
+                    {% if KeyValue.Socials.Google != '' %}
+                        <li class="item-149 lastItem"><a class="fa fa-google-plus hasTooltip" href="http://{{KeyValue.Socials.Google}}" title="" data-original-title="Google+"></a>
+                        </li> 
+                    {% endif %}
+                </ul>
+
+            </div>
+            <div class="copyright">
+
+                <div>
+                    <h5>Copyright © 2015 | <a>Gomaneh.org</a></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="gomaneh">
+    <a href="http://www.gomaneh.org">
+        <img class="logo_gomaneh"  src="{{asset('bundles/public/img/En Logo.png')}}"/>
+    </a>
+</div>
+<div></div>
+<div id='appLeft' class="leftpanel" ng-app="appLeft" >
+    <div style="position: relative">
+        <div class="accessmenu">
+            <div style="position: relative;top:-50%">
+                {%  if KeyValue.Sections.ShopBundle == true  %}
+                    <a href="{{ path('_def_shop') }}"  class="accessicon" data-toggle="tooltip" data-placement="right" title="فروشگاه"><span class="glyphicon glyphicon-shopping-cart" style="margin:10px;color:#fff;font-size:30px" aria-hidden="true"></span></a>
+                    {% endif %}
+                <div id='microchip' class="accessicon microchip" data-toggle="tooltip" data-placement="right" title="سامانه میکروچیپ "><span class="glyphicon glyphicon-qrcode" style="margin:10px;color:#fff;font-size:30px" aria-hidden="true"></span></div>
+                    {#                <div ng-click="gotoReg()" id='reg' class="accessicon" data-toggle="tooltip" data-placement="right" title="ثبت نام">
+                                        <img style="width:30px;margin:10px" src="{{asset('bundles/public/img/add_user.png')}}" alt=""/>
+                                    </div>#}
+                <div ng-click="gotoDow()" id='DowAndIosButton' class="accessicon DowAndIos" data-toggle="tooltip" data-placement="right" title="دانلود نرم افزار">
+                    <i class="fa fa-android fa-3x" style="margin:10px;color:#fff;font-size:30px" aria-hidden="true"></i>
+                </div>
+                <div ng-click="searchpanel()" id="search" class="accessicon" data-toggle="tooltip" data-placement="right" title="جست و جو"><span class="glyphicon glyphicon-search" style="margin:10px;color:#fff;font-size:30px" aria-hidden="true"></span></div>
+                    {#                <div class="accessicon" data-toggle="tooltip" data-placement="right" title=""><span class="glyphicon glyphicon-qrcode" style="margin:10px;color:#fff;font-size:30px" aria-hidden="true"></span></div>#}
+                <div id='login' ></div>
+            </div>
+        </div>
+        <table class="Table_Left" style="width:100%;height:100vh;"><tr><td style="vertical-align:middle"><div leftpage></div></td></tr></table>
+
+    </div>
+</div>
+
+<script src="{{ asset('bundles/public/js/jquery.min.js')}}"></script>
+<script src="{{ asset('bundles/public/js/jquery.highlight.js')}}"></script>
+<script src="{{ asset('bundles/public/js/bootstrap.js')}}"></script>
+<script src="{{ asset('bundles/public/js/main.js')}}"></script>
+<script src="{{ asset('bundles/public/js/qrcode.min.js')}}"></script>
+<script src="{{ asset('bundles/public/js/angular/angular.min.js') }}"></script>
+<script src="{{ asset('bundles/blog/js/controller-mainpage.js') }}"></script>
+                                                       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6BRl6KQbNAOr2rERIIUZf2sMMmYoshhw&callback=initMap" type="text/javascript"></script>
+<script>
+                        var BaseUrl = '{{ app.request.getBaseURL() }}';
+                        var token = '{{ csrf_token('authenticate') }}';
+                        var login_url = "{{ path("fos_user_security_check")}}";
+                        var resset_password = "{{ path('fos_user_resetting_send_email') }}";
+                        var isLogin
+                        = {{ (app.user is not empty)|default('0') }};
+                                var registration = "{{path('reg')}}";
+                        $('body').tooltip({selector: '[data-toggle=tooltip]'});
+                        function microchip() {
+                            $('.wrapper').addClass('openmicrochip');
+                            $('.leftpanel').addClass('showleftpanel');
+                        }
+
+
+                        $(document).ready(function () {
+                            // $("h3").highlight("آبان");
+    {#    $('#test234').click(function() {
+            $('.wrapper').addClass('openmicrochip');
+            $('.leftpanel').addClass('showleftpanel');
+        })#}
+
+                $('.wrapper').click(function (e) {
+                    if (!$(e.target).is('.accessmenu * , #login , #reg2 , #FullAddress , #searchform * , .microchip , .microchip a , .DowAndIos')) {
+                        $('.wrapper').removeClass('openmicrochip');
+                        $('.leftpanel').removeClass('showleftpanel');
+                    }
+                });
+                $('.microchip , #reg , .DowAndIos').click(function (e) {
+                    $('.wrapper').addClass('openmicrochip');
+                    $('.leftpanel').addClass('showleftpanel');
+                });
+                $('#reg2').click(function (e) {
+                    var el = $(document).find('.loginpanel');
+                    console.log(el);
+                    $(el).removeClass('showpanel');
+                    $('.wrapper').addClass('openmicrochip');
+                    $('.leftpanel').addClass('showleftpanel');
+                });
+                $(document).click(function (e) {
+                    if (!$(e.target).is('.btnprimary  , #searchform * , .microchip , .DowAndIos')) {
+                        $('.gomaneh').css('display', 'none');
+                        $('.logo_gomaneh').removeClass('gomaneh_rotate');
+                    }
+                });
+            });
+            $(document).ready(function () {
+                var options = {
+                    exact: "partial",
+                    keys: "ABAN"
+                }
+                console.log($(document).SearchHighlight(options));
+
+            });
+            $('.DowAndIosMenu').on('click', function () {
+                $('#DowAndIosButton').click();
+            })
+</script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,72 @@
+<div>
+    <h2 class="title" style="color:#fff">فاکتور</h2>
+    <div class="page">
+        <div class="row" style="background: rgba(255,255,255,.2);color:#fff;text-align: right;padding: 15px 0 5px 0;margin-bottom:10px;border: 1px solid rgba(255,255,255,0.4);margin:20px 0px 10px 0">
+            <div class="coli-lg-2 col-md-2 col-sm-4 col-xs-12" >
+                <a class="btn btn-default form-control" style="margin-bottom: 10px" href="/panel#/userInfo"><span class="glyphicon glyphicon-edit" hidden-area="true"></span> ویرایش اطلاعات</a>
+                <a class="btn btn-default form-control" style="margin-bottom: 10px" href="/panel"><span class="glyphicon glyphicon-plus-sign" hidden-area="true"></span> افزایش اعتبار</a>
+                <a class="btn btn-default form-control" style="margin-bottom: 10px" href="#/basket"><span class="glyphicon glyphicon-arrow-left" hidden-area="true"></span> بازگشت</a>
+            </div>
+            <div class="coli-lg-10 col-md-10 col-sm-8 col-xs-12">
+                <ul style="color:#fff;padding-right: 0">
+                    <li>نام و نام خانوادگی : {{user.name}} {{user.lname}}</li>
+                    <li>تلفن همراه : {{user.mobile}}</li>
+                    <li>ایمیل : {{user.email}}</li>
+                    <li>کد پستی : {{user.post_code}}</li>
+                    <li>نشانی : {{user.address}}</li>
+                    <li>اعتبار ریالی : {{user.money|number}} ریال</li>
+                </ul>
+            </div>
+
+        </div>
+        <div ng-show="payment_success" class="row" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);margin: 0">
+            <h4 ng-show="payment_error" style="color:red;line-height: 40px" ><table><tr><td style="text-align: left;width:35%"><span style="font-size: 40px;color:red" class="glyphicon glyphicon-remove" aria-hidden="true"></span></td><td>خرید ناموفق: {{message}}</h4></td></tr></table>
+                <h4 ng-show="ref" style="color:green;line-height: 40px" ><table><tr><td style="text-align: left;width:35%"><span style="font-size: 40px;color:green" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td><td> {{message}}<br/>کد پیگیری : {{ref}}</h4></td></tr></table>    
+                    </div>
+                    <div class="row" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);margin: 10px 0">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>نام محصول</th>
+                                    <th>شناسه محصول</th>
+                                    <th>قیمت (ریال)</th>
+                                    <th>تعداد</th>
+                                    <th>قیمت کل(ریال)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in items">
+                                    <td>{{item.n}}</td>
+                                    <td>{{item.pn}}</td>
+                                    <td>{{item.p|number}} </td>  
+                                    <td>{{item.nu}}</td>
+                                    <td>{{item.nu * item.p|number}} </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr style="direction: rtl;text-align: right;">
+                                    <td colspan="4" style="text-align: left;">مالیات ارزش افزوده : </td>
+                                    <td colspan="2" > {{taxation * total() | number}} </td>
+                                </tr>
+                                <tr style="direction: rtl;text-align: right">
+                                    <td colspan="4" style="text-align: left">هزینه ارسال : </td>
+                                    <td colspan="2">{{other|number}} </td>
+                                </tr>
+                                <tr style="direction: rtl;text-align: right">
+                                    <td colspan="4" style="text-align: left">تخفیف: </td>
+                                    <td colspan="2">{{discount * total() | number}} </td>
+                                </tr>
+                                <tr style="direction: rtl;text-align: right">
+                                    <td colspan="4" style="text-align: left;">مبلغ کل : </td>
+                                    <td colspan="2">{{totalFinal() | number}} </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="row" style="background: rgba(255,255,255,.2);border: 1px solid rgba(255,255,255,0.4);margin: 10px 0 20px 0" >
+                        <h4 ng-show="totalFinal() > user.money || !user.money" style="color:red">اعتبار ریالی شما برای خرید کافی نیست، برای ادامه خرید اعتبار خود را افزایش دهید.</h4>
+                        <button ng-show="!payment_success" style="margin: 10px 0" ng-disabled="totalFinal() > user.money || isLoading || !user.money" type="button" ng-click="payment()" class="btn btn-primary"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>پرداخت </button>
+                    </div>
+                    </div>
+
+                    </div>

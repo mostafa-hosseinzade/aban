@@ -1,0 +1,35 @@
+<form ng-submit="EditSlider()" name="EditSliderForm" ng-show="EditSliderInfo" enctype="multipart/form-data" novalidate>
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-12">
+            <div class="col-lg-6 test pull-left">
+                <label >تصویر </label>
+                <!--<input type="file" class="form-control" required file-model="myFile"/>-->
+                <inputfile ></inputfile>
+                <div ></div>
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>متن کوچک   *</label>
+                <input type="text" name="title_h3" ng-class="{ErrorInput:EditSliderForm.title_h3.$invalid}" required ng-model="Selected.title_h3"  class="form-control">
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>متن بزرگ  *</label>
+                <input type="text" name="title_h1" required ng-class="{ErrorInput:EditSliderForm.title_h1.$invalid}"  ng-model="Selected.title_h1"  class="form-control">
+            </div>
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>وضعیت</label>
+                <select ng-model="Selected.active" class="form-control">
+                    <option value="1" ng-selected="Selected.active == 1">فعال</option>
+                    <option value="0" ng-selected="Selected.active == 0" >غیر فعال</option>
+                </select>
+            </div>            
+        </div>
+<div class="clearfix"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success pull-left" ng-disabled="EditSliderForm.title_h1.$invalid || EditSliderForm.title_h3.$invalid || EditSliderForm.file.$invalid" type="submit">ارسال</button>
+        <button class="btn btn-danger pull-left Close" data-dismiss="modal" aria-label="Close">انصراف</button>
+    </div>
+
+    <div class="clearfix"></div>
+</form>

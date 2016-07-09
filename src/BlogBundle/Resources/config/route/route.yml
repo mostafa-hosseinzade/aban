@@ -1,0 +1,19 @@
+blog_image:
+    type: rest
+    prefix:   /admin/api
+    resource: BlogBundle\Controller\ImagesController
+
+webpage:
+    type:     annotation
+    prefix:   /
+    resource: BlogBundle\Controller\DefaultController
+
+section:
+    type:     annotation
+    prefix:   /
+    resource: BlogBundle\Controller\SectionsExpertiseController   
+    
+admin:
+    type:     annotation
+    prefix:   /
+    resource: BlogBundle\Controller\AdminController

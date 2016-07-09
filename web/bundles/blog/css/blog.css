@@ -1,0 +1,247 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 23, 2015, 11:51:01 AM
+    Author     : administrator
+*/
+*{
+    font-family: 'BYekan'
+}
+.navbar {
+     border-radius: 0; 
+}
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width:500px;
+    height:350px;
+}
+table , form,ul,nav,h1,h2,h3,h4,h5,h6,.modal,.modal-content{
+    direction: rtl
+}
+
+@media (min-width: 768px){
+    .navbar-nav>li{
+        float:right
+    }
+    .navbar-header {
+        float: right;
+    }
+    .navbar-nav {
+        float: right;
+    }
+    .nav-link{
+        
+    }
+}
+@media (max-width: 768px){
+    .nav-link{
+        display: inline-block!important;
+        width: 100%!important;
+        text-align: center;
+        float:none!important
+    }
+    .nav-link:hover{
+        background: rgba(90,156,144,0.9);
+        border-bottom: 1px solid rgba(90,156,144,1);
+    }
+}
+.table th{
+    color:rgba(255,255,255,0.9)
+}
+.fa-chevron-up , .fa-chevron-down{
+    color:rgba(255,255,255,0.9);
+    font-size: 10px
+}
+table td{
+    vertical-align: middle
+}
+.disabled {
+  cursor: not-allowed;
+}
+.dropdown-menu{
+    right:0px!important;
+}
+.dropdown-item{
+    width:90%;
+    direction: rtl;
+    text-align: right
+}
+.navbar , .navbar-default{
+    direction: rtl
+}
+.close{
+    float:left
+}
+.pagination>li{
+    float:right
+}
+.selection{
+    position: absolute;
+    top:5px;
+    right:10px;
+    font-size: larger;
+    color:#fff;
+    direction:rtl;
+    text-align: right
+}
+.panelcrop{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height: 35px;
+    color:#fff;
+    z-index: 99999999;
+}
+.panelcrop > button{
+    margin: 5px 2.5px;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.8);
+    color:#fff;
+    border:none;
+}
+.cropOk{
+    position: absolute;
+    top:5px;
+    left:40px;
+    background-color: rgba(0,0,0,0.8);
+    color:#fff;
+    
+    z-index: 99999999;
+}
+.cropplus{
+    position: absolute;
+    top:5px;
+    left:70px;
+    background-color: rgba(0,0,0,0.8);
+    color:#fff;
+    border:none;
+    z-index: 99999999;
+}
+.cropdash{
+    position: absolute;
+    top:5px;
+    left:100px;
+    background-color: rgba(0,0,0,0.8);
+    color:#fff;
+    border:none;
+    z-index: 99999999;
+}
+.growl{
+    position: fixed;
+    top:10px;
+    left:10px;
+    z-index: 99999999;
+}
+
+.td{
+    position: relative;
+}
+.container{
+    position: relative;
+    margin-top: 70px
+}
+.toolbar{
+    background: #0E423B;
+    height: 40px
+}
+.rowitem{
+    transition: all .2s;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+}
+.table td, .table th{
+    border:none!important
+}
+.table tr{
+   border-bottom: 1px solid rgba(90,156,144,0.1);
+}
+.selectedItem{
+    background: rgba(90,156,144,0.45)!important;
+    cursor: default;
+}
+.rowitem:hover{
+    cursor: pointer;
+    background: rgba(90,156,144,0.35);
+    border-bottom: 1px solid rgba(90,156,144,0.8);
+}
+a , a:hover , a:active{
+    text-decoration: none;
+}
+
+.ImageInfo {
+    background-color: #ededed;
+    /* border-radius: 5px; */
+    /* margin-top: 5px; */
+    /* margin-left: 45px; */
+    /* margin: 20px; */
+    /* margin-left: 63px; */
+    /* background-image: url('../images/portfolio/seminar/sample.png'); */
+    background-position-x: 0px;
+    background-position-y: 44px;
+    background-color: #0E423B;
+    background-size: 284px 165px;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 1px #F9F3F3;
+    height: 317px;
+}
+
+.header{
+    padding: 10px;
+    background-color:  #0E423B;
+    lef: 0;
+    left: 0;
+    margin-left: -3%;
+    margin-right: -3%;
+    /* min-height: 15%; */
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+    height: 40px;
+}
+
+.center{
+    height: 165px;
+}
+
+.footer{
+    background-color: #0E423B;
+    padding: 10px;
+    height: 89px;
+    margin-left: -3%;
+    margin-right: -3%;
+    margin-top: 9px;
+    padding-left: 8%;
+    /* padding-top: 4%; */
+    bottom: 0 !important;
+    color: #fff;
+}
+
+.page{
+    text-align: right;
+    /* background-color: #4F8A82; */
+    padding: 5px;
+    line-height: 39px;
+    color: #687190;
+    padding-right: 13px;
+    box-shadow: 0px 1px 1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

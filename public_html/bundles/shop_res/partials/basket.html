@@ -1,0 +1,59 @@
+<div>    
+    <h2 class="title" style="color:#fff">سبد خرید</h2>
+
+    <div class="page" >
+
+        <div  style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);margin: 20px 0;padding: 10px;color:#fff">
+            <table class="table" >
+                <thead>
+                    <tr >
+                        <th>نام محصول</th>
+                        <th>شناسه محصول</th>
+                        <th>قیمت(ریال)</th>
+                        <th>تعداد</th>
+                        <th>قیمت کل(ریال)</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in items">
+                        <td>{{item.n}}</td>
+                        <td>{{item.pn}}</td>
+                        <td>{{item.p|number}}</td>  
+                        <td> <input type="number" ng-model="item.nu"  style="color: #000;width: 40px" ng-change="update($index)"  required></td>
+                        <td>{{item.nu * item.p|number}}</td>
+                        <td><a data-toggle="tooltip" data-placement="top" title="حذف از سبد خرید"  ng-click="removeItem($index)"> <span style="color:red;"  class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="direction: rtl;text-align: right">
+                        <th colspan="4" style="text-align: left">مبلغ کل : </th>
+                        <th colspan="2">{{total() | number}} </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);margin: 20px 0;padding: 10px">
+            <button class="btn btn-primary" ng-disabled="disableFactor()"  ng-click="checkLogIn()">تایید خرید</button> 
+            <a class="btn btn-success" style="margin-right: 10px" href="#/">بازگشت</a>
+        </div>
+        <div class="clear-fix"></div>
+        <div id="loginmodal" style="text-align: right;background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.4);padding: 10px">
+            <div style="background: rgba(255,255,255,0.6);border: 1px solid rgba(255,255,255,0.8);padding: 5px">
+                <div style="position:relative"><span onclick="closeLogin();" class="close">&times;</span></div>
+                <div style="background:#fff;color:red;border-radius:5px;padding:5px;margin-bottom:10px;text-align: center" ng-show="errorMsg">{{errorMsg}}</div>
+                <input ng-disabled="isLoading" id="username" ng-model="username" class="input textbox" data-toggle="tooltip" data-placement="top" title="نام کاربری" placeholder="نام کاربری"/>
+
+                <input ng-disabled="isLoading" id="password" type="password" ng-model="password" class="input textbox" data-toggle="tooltip" data-placement="top" title="کلمه عبور" placeholder="کلمه عبور"/>
+                <input ng-disabled="isLoading" id="remember" type="checkbox" on-model="remember_me"  name="search_words"/><label class="label-rem" for="remember">مرا بخاطر بسپار</label>
+                <input ng-disabled="isLoading" ng-click="onCheckLogin()" type="submit" class="input btn-success" value="ورود" />
+                <button ng-disabled="isLoading" class="input btnprimary" style="margin-top:12px"  >ثیت نام</button>
+            </div>
+        </div>
+        <script>
+            function closeLogin() {
+                $('#loginmodal').fadeOut();
+            }
+        </script>
+    </div>
+</div>

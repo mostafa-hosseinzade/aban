@@ -1,0 +1,29 @@
+<div>
+    <div style="postion:relative;line-height:40px">
+        <h2 class="title" style="z-index:8;position: relative;color:#fff">فروشگاه 
+            <span style="left:10px;display:inline-block;color:#3b5998;z-index:9;float:left;position: relative;top:-20px;width:60px;height:60px">
+                <a  id="basket" href="#/basket" data-toggle="tooltip" data-placement="bottom" title="تعداد محصول موجود در سبد خرید شما"  >
+                    <span class="glyphicon glyphicon-shopping-cart" style="font-size: 60px!important;position:relative;z-index:99999" aria-hidden="true"><span style="margin:-39px -50px 0 0;position:relative;z-index:99999;font-size:16px" class="badge">{{countBasket}}</span></span>
+                </a>
+            </span>
+        </h2>
+    </div>
+    <div class="page">
+        <div style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);margin: 20px 0;padding: 0 10px">
+            <h4 style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);padding: 10px;color:#fff;">دسته بندی محصولات</h4>
+            <div ng-show="path" style=";color:#fff;background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);padding: 5px 15px;margin-bottom:10px;text-align: right">
+                <span style="font-size:16px">مسیر شما</span> : <a href="#/">دسته بندی اصلی </a> <span> / </span> <span ng-repeat="p in path"> <a href="#/category/{{p.id}}" style="font-size:16px;padding:0 5px" ng-show="p.id">{{p.name}}</a><span ng-show="!p.id">{{p.name}}</span>  <span ng-show="p.id"> / </span> </span>
+            </div>
+            <div  style="text-align: right">
+                <h3 ng-show="isNull == 0" style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);padding: 10px;direction: rtl">محصولی موجود نیست</h3>
+                <div  class="bx" ng-repeat="item in ctg" ng-click="checkSub(item.id, item.isHasSubCtg, item.name)" style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);padding: 5px;cursor: pointer">
+                        <img src="/bundles/shop_res/img/product-default.jpg" style="width:206px;height: 160px;" alt="" ng-show="!item.photo"/>
+                        <img data-ng-src="{{item.photo}}"  alt="" style="width:206px;height: 160px" ng-show="item.photo"/>
+                        <div style="background: rgba(255,255,255,0.2);border: 1px solid rgba(255,255,255,0.3);margin-top: 6px;color:#fff" >
+                            <h4 style='text-align:center'>{{item.name}}</h4>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/public/css/unslider.css')}}">
+    <!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->
+{% endblock %}
+{% block classBody %} first-page {% endblock %}
+
+{% block slider %}
+
+    <div class="main-slider">
+        <div class="my-slider">
+            <ul class="unslider-wrap">
+                {% for item in data.slider %}
+                    <li class="image-slider" style="background-image: url({{ asset('bundles/public/img/slider/'~item.file)}})"><div><h3>{{item.title_h3}}</h3><h1>{{item.title_h1}}</h1></div></li>
+                {% endfor %}
+              {#  <li class="image-slider" style="background-image: url({{ asset('bundles/public/img/panorama1.jpg')}})"><div><h3>نگاهی متفاوت در تشخیص و درمان</h3><h1>کلینیک دامپزشکی آبان</h1></div></li>
+                <li class="image-slider" style="background-image: url({{ asset('bundles/public/img/Slide2.jpg')}})"><div><h3>همگام با استانداردهای روز دنیا</h3><h1>تشخیص محور</h1></div></li>
+                <li class="image-slider" style="background-image: url({{ asset('bundles/public/img/Cute-Chameleon-Couple-Timeline-Cover-850x315.jpg')}})"><div><h3>بهترین و پیشرفته ترین دستگاهها و تکنیکهای تشخیصی </h3><h1>کمترین خطا و بیشترین اطمینان</h1></div></li>#}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="section wellcom-page" >
+        <div class="pattern" style="z-index: 0; padding: 7% 10%;text-align: center">
+            <div >
+                <h3>{{KeyValue.AboutAban.h3}}</h3>
+                <h1>{{KeyValue.AboutAban.h1}}</h1>
+                <div class="row" >
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-10">
+                        <p>{{KeyValue.AboutAban.p}}</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs">
+                        <div class="logo-about">
+                            <div></div>
+                            <img src="{{asset('bundles/public/img/logo.png')}}" alt=""/>
+                        </div>
+                    </div>
+                </div>
+                <span class="more">
+                    &nbsp;
+                    {#                            <button class="input btnbox">اطلاعات بیشتر</button>#}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="section video-page">
+        <video    id="bgvid" style="z-index: -1;background: url({{asset('polina.jpg')}}) no-repeat;">
+            <img src="{{asset('polina.jpg')}}" alt="No video playback capabilities" />
+            <source  src="{{asset('video.webm')}}" type="video/webm">
+            <source  src="{{asset('video.mp4')}}" type="video/mp4">
+        </video>
+        <div class="pattern" style="position: absolute;top: 0;left:0;height: 100%;width: 100%">
+            <div  style="text-align: center;position: absolute;top: 45%;z-index: 100;width: 100%;">
+                <div class="play"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></div>
+            </div>
+        </div>
+    </div>
+    {% if data.news is not empty or data.isi is not empty %}
+        <div class="section news-page">
+            {% if data.news is not empty %}
+                <div class="col-md-12">
+                    <h2 class="title">آخرین اخبار کلینیک آبان</h2>
+                    <div class="carousel slide" data-ride="carousel" data-type="multi" data-interval="5000" id="myCarousel">
+                        <div class="carousel-inner">
+                            {%for news in data.news %}
+                                <div class="item {% if loop.index == 1 %} active {% endif %}">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="news-header">
+                                            <time datetime="2015-08-13 11:09" class="item_published">
+                                                <strong>{{news.createdAt | date_format('n/j F')}}</strong>
+                                            </time>
+                                        </div>
+                                        <div class="news-body">
+                                            {% autoescape false %}{{news.content}}{% endautoescape %}
+                                        </div>
+                                        <p class="more-content">
+                                            <a href="{{path('partial')}}#/Content/Show/{{news.id}}">اطلاعات بیشتر</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}    
+                        </div>
+                        <div>
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if data.isi is not empty %}
+                <div class="col-md-12">
+                    <h2 class="title">آخرین مقالات</h2>
+                    <div class="carousel slide" data-ride="carousel" data-type="multi" data-interval="5000" id="myCarousel2">
+                        <div class="carousel-inner">
+                            {%for news in data.isi %}
+                                <div class="item {% if loop.index == 1 %} active {% endif %}">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="news-header">
+                                            <time datetime="2015-08-13 11:09" class="item_published">
+                                                <strong>{{news.createdAt | date_format('n/j F')}}</strong>
+                                            </time>
+                                        </div>
+                                        <div class="news-body">
+                                            {% autoescape false %}{{news.content}}{% endautoescape %}
+                                        </div>
+                                        <p class="more-content">
+                                            <a href="{{path('partial')}}#/Content/Show/{{news.id}}">اطلاعات بیشتر</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}   
+                        </div>
+                        <div>
+                            <a class="left carousel-control" href="#myCarousel2" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                            <a class="right carousel-control" href="#myCarousel2" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}       
+        </div>
+    {% endif %} 
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/public/js/unslider-min.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.my-slider').unslider({
+                animation: 'fade', autoplay: true, arrows: false, delay: 6000
+            });
+        });
+        var vid = document.getElementById("bgvid");
+        var pauseButton = document.querySelector(".play");
+        vid.volume = 0;
+        vidFade();
+        function vidFade() {
+            vid.classList.add("stopfade");
+        }
+
+        vid.addEventListener('ended', function ()
+        {
+            vid.play();
+            vidFade();
+        });
+        pauseButton.addEventListener("click", function () {
+            vid.classList.toggle("stopfade");
+            if (vid.paused) {
+                vid.play();
+                pauseButton.innerHTML = '<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>';
+            } else {
+                vid.pause();
+                pauseButton.innerHTML = '<span class="glyphicon glyphicon-play" aria-hidden="true"></span>';
+            }
+        });
+    </script>
+    <script>
+        var token = '{{ csrf_token('authenticate') }}';
+    </script>
+{% endblock %}
+

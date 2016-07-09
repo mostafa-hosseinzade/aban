@@ -1,0 +1,308 @@
+ 
+<h3 class="rtl">
+    حیوانات من
+</h3>
+<h6 class="rtl"> لیست حیوانات را در زیر مشاهده می کنید:</h6>
+<div class="animalsWraper rtl">
+    <div class="divAnimals" ng-repeat="animal in animalsUser.defaultPhoto" >
+        <div class="img-thumbnail">
+            <!--<img class="img-thumbnail" data-ng-src="{{ animalsUser.defaultPhoto[$index].photo}}" width="128"/>-->
+            <!--            <div class="InfoAnimal">کد میکروتیک : <strong ng-bind="animalsUser.defaultPhoto[$index].animals.micro_chip"></strong></div>
+                        <div class="InfoAnimal">نام حیوان : <strong ng-bind="animal.name"></strong></div>  
+                        <div class="InfoAnimal"> سن حیوان: <strong ng-bind="animalsUser.defaultPhoto[$index].animals.age"></strong></div>
+                        <div class="InfoAnimal"> قد حیوان: <strong ng-bind="animalsUser.defaultPhoto[$index].animals.stature"></strong></div>
+                        <div class="InfoAnimal"> وزن حیوان: <strong ng-bind="animalsUser.defaultPhoto[$index].animals.weight"></strong></div>-->
+
+            <table class="table table-condensed rtl">
+                <thead>
+                    <tr><td colspan="12"><a class="btn btn-block btn-default" ng-click="ShowActivity(animal)">مشاهده فعالیت</a></td><tr>
+                    <tr><td class="text-right">نام حیوان :</td><td ng-bind="animal.name"></td></tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="12" style="text-align: center;"><img width="200px" class="img-thumbnail" data-ng-src="{{ animal.photo}}" width="128"/></td></tr>
+                    <tr><td class="text-right" style=""><strong>کد میکروچیپ : </strong></td></tr>
+                    <tr><td colspan="12" style="color: #8BB9B1;text-align: center;" ng-bind="animal.microChip"></td></tr>
+                    <tr><td class="text-right">تاریخ تولد حیوان:</td><td ng-bind="animal.age"></td></tr>
+                    <tr><td class="text-right">قد حیوان:</td><td ng-bind="animal.stature"></td></tr>
+                    <tr><td class="text-right">وزن حیوان:</td><td ng-bind="animal.weight"></td></tr>
+
+                </tbody>
+            </table>
+            <div class="form-group-sm text-center rtl itemActionBox">
+                <table >
+                    <tr style="line-height: 30px;color: #60827C;">
+                        <td><i class="fa fa-list"></i></td> 
+                        <td><a ng-click="galleryShow(animal.id)"><span style="color: #60827C;">مشاهده تصویر</span></a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>    
+    </div>
+</div>
+
+<div class="modal fade" id="ActivityModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <br/>
+                <h4 class="modal-title">مشاهده فعالیت ها </h4>
+                <div><span>نمایش 10 فعالیت آخر برای حیوان</span></div>
+                <div><span>حیوان:{{ CurrentAnimalSelected }}</span></div>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row alert alert-info" ng-repeat="entity in Activiteis">
+                        <p><strong>تاریخ فعالیت:</strong>{{ entity.date | ConvertedToDateShamsi  }} </p>
+                        <p><strong>نام فعالیت:</strong>{{ entity.activity_name.name}}</p>
+                        <p><strong>توضیحات فعالیت:</strong>{{ entity.desc}} </p>
+                    </div> 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ActivityError" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <br/>
+                <h4 class="modal-title">مشاهده فعالیت ها </h4>
+                <span>حیوان:{{ CurrentAnimalSelected }}</span>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row alert alert-danger"> برای این حیوان چیزی ثبت نشده است</div> 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="galleryFull" style="overflow-x:hidden;overflow-y: scroll;z-index: 1040;display: none;background-color: black; position: fixed;top:0;left: 0;height: 100vh;width: 100%;">
+    <div>
+        <!--<span class="btn btn-info btn-sm fa fa-plus" ng-click="addPhoto(animalsSelectedForGallaryPhoto)" style="z-index: 99;float: left;color:white;font-size: 2em;margin-top:20px;margin-left:20px;cursor: pointer"></span>-->                
+
+        <span style="z-index: 99;float: right;color:white;font-size: 2em;margin-top:20px;margin-right:20px;cursor: pointer" onclick="closegallery()"><i class="fa fa-remove"></i></span></div>
+    <div class="row">
+        <div style="color:white;margin-bottom: 30px" class="col-md-12 text-center">نمایش عکس های حیوانات من</div>
+    </div> 
+    <div>
+        <!-- gallery Show -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%;margin: 0px auto;">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox" >
+                <div style="text-align: center;position: relative" ng-class="{
+                            active:!$index
+                        }" class="item" ng-repeat="img in listImageGallery">
+                    <span ng-show="img.photo_default == false" class="btn btn-danger btn-sm fa fa-remove"  ng-click="removePhoto(img.id)" style="position: absolute;z-index: 999999;cursor: pointer;left: 15%;top: 10px;"></span> 
+                    <img class="img-responsive" style="margin: 0 auto;" data-ng-src="{{img.photo}}" alt="{{ img.animals.name}}" selecetd-item="{{ img.id}}">
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="z-index: 0;">
+                <span class="fa fa-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">قبلی</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" style="z-index: 0;">
+                <span class="fa fa-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">بعدی</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ShowHistory">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-left" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title pull-right">سوابق حیوانات</h4>
+            </div>
+            <history></history>
+        </div> 
+    </div>
+</div>
+<div class="modal fade" id="ModalEditAnimals" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">فرم ویرایش اطلاعات حیوان</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" name="FormAnimalsEdit" ng-submit="editAnimals()" novalidate>
+                    <!--image animals-->
+                    <input ng-model="photoEdit" id="AnimalsIdEdit" ng-show="false" />
+                    <div class="form-group" style="">
+                        <div id="galleryEditImage" style="display: block;background-color:#ECECEC;position: relative;    padding: 10px;">
+                            <img style="margin-left: 10px" width="96px" style="display: inline-block;"  ng-class="{selectedThumtional:item.photo_default == true}" class="img-thumbnail" ng-click="setDefualtImage($event, item.id, item.photo)" data-ng-src="{{ item.photo}}" ng-repeat="item in galleryImgEdit" />
+                        </div> 
+                    </div>
+
+
+                    <div class="form-group">
+                        <input ng-model="animalID" id="AnimalsIdEdit" ng-show="false" />
+                        <label for="selectCategory">حیوان در کدام دسته بندی می باشد</label>
+                        <select id="selectCategoryAnimalsEdit" name="selectCategoryAnimalsEdit" class="form-control"   name="selectCategoryAnimalsEdit" ng-model="selectCategoryAnimalsEdit">
+                            <option ng-selected="x.id == SelectedAnimalsTypeCategory"  ng-repeat="x in SelectCategory" value="{{x.id}}"> {{ x.animalstype}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="animalName">نام حیوان</label>
+                        <input type="text" class="form-control" id="AnimalNameEdit" name="AnimalNameEdit" ng-model="AnimalNameEdit" required>
+                        <div style="margin-top: 20px" ng-show = "FormAnimalsEdit.AnimalNameEdit.$dirty">
+                            <span class="alert alert-danger" ng-show="FormAnimalsEdit.AnimalNameEdit.$error.required">نام حیوان را وارد کنید</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="animalAge">تاریخ تولد حیوان</label>
+                        <input type="text" class="form-control AnimalAgeEdit" id="AnimalAgeEdit" name="AnimalAgeEdit" ng-model="AnimalAgeEdit" required />
+                        <div style="margin-top: 20px" ng-show = "FormAnimalsEdit.AnimalAgeEdit.$dirty">
+                            <span class="alert alert-danger" ng-show="FormAnimalsEdit.AnimalAgeEdit.$error.required">سن حیوان را وارد کنید</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="animalweight">وزن حیوان</label>
+                        <input type="text" class="form-control" id="AnimalweightEdit" name="AnimalweightEdit" ng-model="AnimalweightEdit" required/>
+                        <div style="margin-top: 20px" ng-show = "FormAnimalsEdit.AnimalweightEdit.$dirty">
+                            <span class="alert alert-danger" ng-show="FormAnimalsEdit.AnimalweightEdit.$error.required">سن حیوان را وارد کنید</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="animalstature">قد حیوان</label>
+                        <input type="text" class="form-control" id="AnimalStatureEdit" name="AnimalStatureEdit" ng-model="AnimalStatureEdit" required />
+                        <div style="margin-top: 20px" ng-show = "FormAnimalsEdit.AnimalStatureEdit.$dirty">
+                            <span class="alert alert-danger" ng-show="FormAnimalsEdit.AnimalStatureEdit.$error.required">قد حیوان را وارد کنید</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="AnimalSex">جنسیت حیوان</label>
+                        <!--<input type="text" class="form-control" id="AnimalSex" name="AnimalSex" ng-model="AnimalSex" required />-->
+                        <select class="form-control" id="AnimalSex" name="AnimalSex" ng-model="AnimalSex">
+                            <option  value="1" ng-selected="AnimalSex == 1">نر</option>
+                            <option value="0" ng-selected="AnimalSex == 0">ماده</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-12" style="text-align: left">
+                        <input type="submit" value="ویرایش" class="btn btn-success"  />
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Add picture to galley--> 
+<div class="modal fade" id="AddPhotoAnimals" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">عکس را به کادر زیر بکشید</h4>
+            </div>
+            <div class="modal-body rtl">
+
+                <div class="form-group" style="">
+                    <div id="galleryEditImage" style="display: block;background-color:#ECECEC;position: relative;padding: 10px;">
+                        <img style="margin-left: 10px" width="96px" style="display: inline-block;"  ng-class="{selectedThumtional:item.photo_default == true}" class="img-thumbnail" data-ng-src="{{ item.photo}}" ng-repeat="item in listImageGallery" />
+                    </div> 
+                </div>
+
+                <form role="form" name="AddAnimalsPhoto" ng-submit="AddNewImageToGallery()" novalidate>
+                    <!--image animals-->
+                    <label>انتخاب عکس :</label>
+                    <inputfileanimale></inputfileanimale>
+                    <div></div>
+                    <!--                    <input ng-model="photoEdit" id="AnimalsIdEdit" ng-show="false" />
+                                        <div class="form-group wrapThumtionalProfile" style="width: 40%;margin: 0 auto"  ondrop="drop(event)"   ondragover="allowDrop(event)">
+                                            <img id="ShowImageProfile" style="width: 96px;" data-ng-src="{{ photo}}" />
+                                        </div>-->
+
+                    <div class="form-group col-lg-12" style="text-align: left;padding: 10px">
+                        <input type="submit" value="ثبت تغییرات" class="btn btn-success pull-left" ng-disabled="photo == undefined"  />
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.AnimalAgeEdit').datepicker();
+    });
+    function closegallery() {
+        $("#galleryFull").fadeOut(100);
+    }
+    function doIteOpacityWrapThumtionalProfile() {
+        $('.wrapThumtionalProfile').animate({opacity: '0.5'}, 100);
+        $('.wrapThumtionalProfile').animate({opacity: '1'}, 100);
+        $('.wrapThumtionalProfile').animate({opacity: '0.5'}, 100);
+        $('.wrapThumtionalProfile').animate({opacity: '1'}, 100);
+        $('.wrapThumtionalProfile').animate({opacity: '0.5'}, 100);
+        $('.wrapThumtionalProfile').animate({opacity: '1'}, 100);
+        $('.wrapThumtionalProfile').animate({opacity: '0.5'}, 100);
+        $('.wrapThumtionalProfile').animate({opacity: '1'}, 100);
+        $('.wrapThumtionalProfile').animate({opacity: '0.5'}, 100);
+        $('.wrapThumtionalProfile').animate({opacity: '1'}, 100);
+    }
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        jQuery.each(ev.dataTransfer.files, function (index, file) {
+            var fileReader = new FileReader();
+            fileReader.onload = (function (file) {
+                return function (e) {
+                    doIteOpacityWrapThumtionalProfile();
+                    console.log(e.target.result);
+                    $('#ShowImageProfile').attr('src', e.target.result);
+                    var holderImg = $("#AnimalsIdEdit");
+                    holderImg.val(e.target.result);
+                    holderImg.trigger('input');
+
+                };
+            })(file);
+            fileReader.readAsDataURL(file);
+        });
+
+    }
+    function allowDrop(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+    }
+    $(document).ready(function () {
+        $("#myCarousel").carousel("pause").removeData();
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#datehistory").datepicker();
+    });
+</script>

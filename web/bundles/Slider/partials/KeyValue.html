@@ -1,0 +1,61 @@
+<div>
+    <h3 class="page row">
+        <div class="col-lg-4 col-md-5 col-sm-6 col-xs-6">
+            <div class="pull-left hidden-sm-down">
+                <button style="margin: 0 2px" ng-disabled="!Selected" type="button" class="btn btn-success btn-md pull-left" id="modaledit" ng-click="prepareEdit()" data-original-title="" title="">
+                    ویرایش <i class="fa fa-edit"></i>
+                </button>
+            </div>
+        </div>    
+        <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 pull-right">
+            <small>جدول مقدار های ثابت در سایت</small>
+        </div>
+    </h3>
+    <table id="table3" class="table table-strip table-bordered"  dir="rtl">
+        <thead style="background: rgba(90,156,144,0.5)">
+            <tr>
+                <th>ردیف</th>
+                <th>نام</th>
+                <th>مقدار</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="Activity" ng-class="{SelectedItem:key == Selected.key}" class='item' ng-click="SelectedItems(key, value)"  ng-dblclick="Show()"   ng-repeat="(key,value) in data">
+                <td>{{$index + 1}}</td>
+                <td style="min-width: 151px;">
+                    {{value.label}}
+                </td>
+                <td>
+                    <p dir="ltr" ng-repeat="(key2 , value2) in value">
+                        <span ng-hide="key == 'ForumBundleimg' || key == 'ShopBundleimg' || key2 == 'label'"> {{key2}} : {{value2}} </span>
+                    <span ng-show="key == 'ForumBundleimg' || key == 'ShopBundleimg'">
+                        <imagedata  value="../../{{value2}}" key="{{key}}" key2="{{key2}}" >
+                        </imagedata>
+                        <span></span>
+                    </span>
+
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ردیف</th>
+                <th>نام</th>
+                <th>مقدار</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="modal fade" id="KeyValue">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title pull-right">مقدار های ثابت</span>
+                <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <editkeyvalue></editkeyvalue>
+            <showkeyvalue></showkeyvalue>
+        </div>
+    </div>
+</div>

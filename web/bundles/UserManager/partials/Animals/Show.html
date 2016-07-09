@@ -1,0 +1,72 @@
+<div class="col-lg-12" ng-show="!EditAnimaleShow && !AddAnimaleShow" dir="rtl">
+    <div class="col-lg-6 test pull-left col-md-6 col-sm-12 col-xs-12" >
+        <img ng-src="{{ShowItem.photo}}" style="max-width: 500px;" class="pull-left img img-rounded">
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        نام : <span class="">{{ShowItem.name}} </span>   
+    </div>
+
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span> تاریخ تولد</span> : <span>
+            <span ng-show="ShowItem.age == 'null'">ثبت نشده</span>
+            <span ng-show="ShowItem.age != 'null'">{{ShowItem.age}}</span>   
+        </span>
+
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>وزن</span> : <span>
+            <span ng-show="ShowItem.weight == 'null'">ثبت نشده</span>
+            <span ng-show="ShowItem.weight !='null'">{{ShowItem.weight}}</span>
+        </span>
+
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>قد</span> : <span>
+        <span ng-show="ShowItem.stature == 'null'">ثبت نشده</span>
+        <span ng-show="ShowItem.stature != 'null'">{{ShowItem.stature}}</span>
+        </span>
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>کد میکروچیپ</span> : <span>{{ShowItem.microChip}}</span>
+
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>رنگ</span> : <span>
+        <span ng-show="ShowItem.color == 'null'">ثبت نشده</span>
+        <span ng-show="ShowItem.color != 'null'">{{ShowItem.color}}</span>
+        </span>
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>کد پرونده</span> : <span>{{ShowItem.codeParvande}}</span>
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>جنسیت</span> : 
+        <span ng-show="ShowItem.sex == 1">نر</span>
+        <span ng-show="ShowItem.sex == 0">ماده</span>
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span> گونه</span> : <span>{{ShowItem.goneh}}</span>
+
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>نژاد </span> : <span>{{ShowItem.nezhad}}</span>
+
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>زمان ایجاد پرونده </span> : <span> {{ShowItem.dateCreateParvande}}</span>
+
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>دسته بندی  </span> : <span>{{ShowItem.animalsType}}</span>
+
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>تاریخ ایجاد</span> : <span>{{ShowItem.cteateAt}}</span>
+
+    </div>
+    <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+        <span>آخرین تغییرات</span> : <span>{{ShowItem.updateAt}}</span>
+    </div>
+    
+    <div class="clearfix"></div>
+</div>

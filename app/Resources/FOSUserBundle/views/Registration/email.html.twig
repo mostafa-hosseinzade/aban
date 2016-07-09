@@ -1,0 +1,9 @@
+{% autoescape false %}
+    <div dir='rtl'>
+        <h3>کلینیک تخصصی آبان</h3>
+        <p style="text-align: right">{{user.name}} سلام!</p>
+        <p>به مجموعه آبان خوش آمدید.</p>
+        <p>برای فعال سازی حساب کاربری خود - لطفا <a href='{{ absolute_url(path('reg_activate',{'token':confirmationUrl})) }}'>{{ absolute_url(path('reg_activate',{'token':confirmationUrl})) }}</a> را مشاهده کنید</p><p>با احترام،</p><p>تیم پشتیبانی کلینیک تخصصی آبان.</p>
+        <img src="{{ absolute_url(asset('bundles/public/img/logo.png')) }}">
+    </div>
+{% endautoescape %}

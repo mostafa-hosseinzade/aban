@@ -1,0 +1,41 @@
+<form ng-submit="AddActivity()" ng-show="AddActivityAnimale" name="AddActivityAnimaleForm">
+    <div class="modal-body" dir="rtl">
+        <div class="col-lg-12">
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label> دسته بندی</label>
+                <select ng-model="SelectedActivity.activityName_id"  name="Type" ng-class="{ErrorInput:AddActivityAnimaleForm.Type.$invalid}" required class="form-control">
+                    <option value="{{category.id}}" ng-repeat="category in AllActivityType"  >{{category.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+
+                <label>  توضیحات</label>
+                <textarea ng-model="SelectedActivity.desc"  class="form-control"></textarea>
+            </div>
+
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <label>تاریخ حضور</label>
+                <input type="text" id="date" ng-model="SelectedActivity.date"  name="date" ng-class="{ErrorInput:AddActivityAnimaleForm.date.$invalid}"  class="form-control date">
+            </div>
+            
+            <div class="col-lg-6 test col-md-6 col-sm-12 col-xs-12">
+                <span>ارسال به نرم افزار</span>
+                <span><input type="checkbox"  ng-model="SelectedActivity.send_with_message"  name="send_with_message"  class=""></span>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success pull-left" ng-disabled="AddActivityAnimaleForm.Type.$invalid " type="submit">ارسال</button>
+            <button class="btn btn-danger pull-left Close" data-dismiss="modal" aria-label="Close">انصراف</button>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+</form>
+<script>
+    $(document).ready(function() {
+        $(".date").datepicker();
+    });
+</script>

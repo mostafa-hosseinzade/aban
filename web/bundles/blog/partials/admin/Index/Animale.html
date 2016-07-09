@@ -1,0 +1,101 @@
+<div>
+    <h3 class="page row"> 
+        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 pull-right">
+            <small>آخرین حیوانات ثبت شده</small>
+        </div>
+    </h3>
+    <div class="table-responsive">
+        <table id="example1" class="table table-strip table-bordered" dir="rtl">
+            <thead style="background: rgba(90,156,144,0.5)">
+                <tr>
+                    <!--<th>--> 
+                    <!--<input class="selectall" type='checkbox' name="selectall" value="" /> </th>-->
+                    <th>ردیف</th>
+                    <th>نام</th>
+                    <th>جنسیت</th>
+                    <th>کد میکرو چیپ</th>
+                    <th>کد پرونده</th>
+                    <th>فعال/غ فعال</th>
+                    <th>تاریخ ثبت</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="{{entity.id}}" class='item' ng-click="SelectedItems(entity)" ng-dblclick="Show(entity)"  ng-class="{SelectedItem:entity.id == Selected.id}" ng-repeat="entity in DataUserAnimale">
+                    <!--<td> <input class="selecteditem" name="selectitems[]" type='checkbox' value="{{ entity.id}}" /> </td>-->
+                    <td>{{ $index + 1}}</td>
+                    <td><a href="/admin/UserManager/#/user/{{entity.user_id}}">{{ entity.name}}</a></td>
+                    <td>
+                    <span ng-show="entity.sex == 'true'">نر</span>
+                    <span ng-show="entity.sex == 'false'">ماده</span>
+                    </td>
+                    <td>{{ entity.microChip}}</td>
+                    <td>{{ entity.codeParvande}}</td>
+                    <td>
+                        <span style="color:green" ng-show="entity.active">فعال</span>
+                        <span style="color:red" ng-show="entity.active == 0">غیر فعال</span>
+                    </td>
+                    <td>{{ entity.cteateAt}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="AnimaleShowInfo">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title pull-right">نمایش اطلاعات حیوان</span>
+                    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <animaleshow></animaleshow>
+                    <animaleadd></animaleadd>
+                    <animaleedit></animaleedit>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer" ng-show="!EditAnimaleShow && !AddAnimaleShow">
+                    <button class="btn btn-success pull-left" ng-click="prepareEdit()">ویرایش</button>       
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ShowActivity">
+        <div class="modal-dialog modal-lg modal-special">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title pull-right">نمایش فعالیت های حیوان</span>
+                    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+                </div>
+                <div class="modal-body">
+                    <activity></activity>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog"  id="DeleteModalAnimaleID">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title pull-right">حذف اطلاعات  حیوان</span>
+                    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-success pull-left" ng-click="DeleteAnimale()" >حذف اطلاعات</button>
+                    <button type="button" class="btn btn-danger Close pull-left" data-dismiss="modal" aria-label="Close">انصراف</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    table th{
+        text-align: right;
+    }
+    table tr:hover{
+        background-color: #ADCEC8;
+    }
+</style>

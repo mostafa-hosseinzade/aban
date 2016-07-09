@@ -1,0 +1,15 @@
+<h3>اطلاعات کاربری</h3>
+{% autoescape false %}
+<form>
+    <input ng-disable="update" ng-model="{{'user.name'}}" class="form-control" value="{{app.user.name}}" placeholder="نام" />
+    <input ng-disable="update" ng-model="{{'user.family'}}" class="form-control" value="{{app.user.family}}" placeholder="نام خانوادگی" />
+    <input ng-disable="update" ng-model="{{'user.email'}}" class="form-control" value="{{app.user.email}}" placeholder="ایمیل" />
+    <input ng-disable="update" ng-model="{{'user.mobile'}}" class="form-control" value="{{app.user.mobile}}" placeholder="شماره همراه" />
+    <button ng-disable="update" ng-click="onUpdate()">{{'{{updateLabel}}'}}</button>
+</form>
+<form>
+    <input ng-model="{{'password'}}" class="form-control" placeholder="کلمه عبور" />
+    <input ng-model="{{'repassword'}}" class="form-control" placeholder="تکرار کلمه عبور" />
+     <button ng-disable="repassword!=password && password" ng-click="onUpdatePassword()">تغییر کلمه عبور</button>
+</form>
+{% endautoescape %}

@@ -1,0 +1,49 @@
+{% extends 'ShopBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>category list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Descr</th>
+                <th>Photo</th>
+                <th>Creatat</th>
+                <th>Id</th>
+                <th>Ishassubctg</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('category_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                <td>{{ entity.descr }}</td>
+                <td>{{ entity.photo }}</td>
+                <td>{% if entity.creatAt %}{{ entity.creatAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.isHasSubCtg }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('category_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('category_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('category_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

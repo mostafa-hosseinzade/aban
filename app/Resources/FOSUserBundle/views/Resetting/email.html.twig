@@ -1,0 +1,8 @@
+{% autoescape false %}
+    <div dir='rtl'>
+        <h3>کلینیک تخصصی آبان</h3>
+        <p style="text-align: right">{{user.username}} سلام!</p>
+        <p>برای بازنشانی کلمه عبور خود - لطفا <a href='{{ absolute_url(path('fos_user_security_login')) }}#/reset/{{confirmationUrl}}'>{{ absolute_url(path('fos_user_security_login')) }}#/reset/{{confirmationUrl}}</a> را مشاهده کنید</p><p>با احترام،</p><p>تیم پشتیبانی کلینیک تخصصی آبان.</p>
+        <img src="{{ absolute_url(asset('bundles/public/img/logo.png')) }}">
+    </div>
+{% endautoescape %}
