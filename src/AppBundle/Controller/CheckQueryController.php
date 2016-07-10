@@ -405,7 +405,7 @@ class CheckQueryController extends Controller {
             $OutPutAll = array();
             // All Function Create Query
             $OutPutAll["fos_user"] = $this->CheckCreateAll("fos_user", array(
-                "id", "username", "email", "email_canonical", "enabled", "locked",
+                "id", "username", "email", "email_canonical","salt","password" ,"enabled", "locked",
                 "username_canonical", "expires_at", "roles", "name", "family",
                 "phone", "mobile", "sex", "post_code", "money", "address", "photo"
                 , "created_at", "updated_at"
